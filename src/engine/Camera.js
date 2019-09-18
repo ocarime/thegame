@@ -1,5 +1,5 @@
-import GameObject from '../GameObject.js'
-import Vector from './Vector.js'
+import GameObject from './GameObject.js'
+import Vector from './util/Vector.js'
 
 
 // Class that defines the camera
@@ -8,7 +8,10 @@ export default class Camera extends GameObject
   // Constructor
   constructor(game)
   {
-    super(game);
+    super();
+
+    // The game instance
+    this.game = game;
 
     // Transformations of the camera
     this.position = Vector.origin;
@@ -21,14 +24,14 @@ export default class Camera extends GameObject
     return vector
       .translate(this.position.invert())
       .scale(1.0 / this.scale)
-      .translate(new Vector(this.game.canvas.width / 2, this.game.canvas.height / 2).invert());
+      .translate(new Vector(this.game.width / 2, this.game.height / 2).invert());
   }
 
   // Convert screen to camera coordinates
   camToScreen(vector)
   {
     return vector
-      .translate(new Vector(this.game.canvas.width / 2, this.game.canvas.height / 2))
+      .translate(new Vector(this.game.width / 2, this.game.height / 2))
       .scale(this.scale)
       .translate(this.position);
   }
@@ -53,7 +56,7 @@ export default class Camera extends GameObject
     ctx.save();
 
     // Translate to the center of the screen
-    ctx.translate(this.game.canvas.width / 2, this.game.canvas.height / 2);
+    ctx.translate(this.game.width / 2, this.game.height / 2);
 
     // Apply transformations
     ctx.scale(this.scale, this.scale);

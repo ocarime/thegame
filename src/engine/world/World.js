@@ -7,7 +7,10 @@ export default class World extends GameObject
   // Constructor
   constructor(game)
   {
-    super(game);
+    super();
+
+    // The game instance
+    this.game = game;
 
     // Entities are visible objects in the world and can thus be drawn
     this.entities = [];
