@@ -33,6 +33,13 @@ export default class GameObject
     return this.gameObjects.splice(this.gameObjects.indexOf(gameObject), 1);
   }
 
+  // Replace a game object and return it
+  replaceGameObject(gameObject, newGameObject)
+  {
+    this.gameObjects.splice(this.gameObjects.indexOf(gameObject), 1, newGameObject);
+    return newGameObject;
+  }
+
   // Get all direct child game objects
   *getGameObjects(type = undefined)
   {
