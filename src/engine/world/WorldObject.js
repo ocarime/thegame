@@ -7,9 +7,12 @@ export default class WorldObject extends GameObject
   // Constructor
   constructor(world, name)
   {
-    super(world.game);
+    super();
 
+    // The world instance
     this.world = world;
+
+    // The name of this entity
     this.name = name;
   }
 }

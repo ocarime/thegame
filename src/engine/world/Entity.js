@@ -27,8 +27,6 @@ export default class Entity extends WorldObject
   draw(ctx)
   {
     // Implementation left to subclasses
-    ctx.fillStyle = 'white';
-    ctx.fillRect(this.position.x - 5, this.position.y - 5, 10, 10);
   }
 
   // Update the entity logic

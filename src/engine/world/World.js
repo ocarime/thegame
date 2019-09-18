@@ -12,11 +12,8 @@ export default class World extends GameObject
     // The game instance
     this.game = game;
 
-    // Entities are visible objects in the world and can thus be drawn
+    // Entities are visible objects in the world
     this.entities = [];
-
-    // Effects are invisible objects in the world
-    this.effects = [];
   }
 
   // Get an entity
@@ -31,12 +28,6 @@ export default class World extends GameObject
     return this.entities.find(entity => position.distanceTo(entity.position) < 10.0);
   }
 
-  // Get an effect
-  getEffect(name)
-  {
-    return this.effects.find(effect => effect.name === name);
-  }
-
   // Draw all entities
   draw(ctx)
   {
@@ -48,10 +39,6 @@ export default class World extends GameObject
   // Update all entities and effects
   update(deltaTime)
   {
-    // Iterate over the effects and update them
-    for (let effect of this.effects)
-      effect.update(deltaTime);
-
     // Iterate over the entities and update them
     for (let entity of this.entities)
       entity.update(deltaTime);
