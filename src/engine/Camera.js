@@ -1,0 +1,83 @@
+import GameObject from './GameObject.js'
+import Vector from './Vector.js'
+
+
+// Class that defines the camera
+export default class Camera extends GameObject
+{
+  // Constructor
+  constructor(game)
+  {
+    super(game);
+
+    // Transformations of the camera
+    this.position = Vector.origin;
+    this.scale = 1.0;
+  }
+
+  // Convert camera to screen coordinates
+  screenToCam(vector)
+  {
+    return vector
+      .translate(this.position.invert())
+      .scale(1.0 / this.scale)
+      .translate(new Vector(this.game.canvas.width / 2, this.game.canvas.height / 2).invert());
+  }
+
+  // Convert screen to camera coordinates
+  camToScreen(vector)
+  {
+    return vector
+      .translate(new Vector(this.game.canvas.width / 2, this.game.canvas.height / 2))
+      .scale(this.scale)
+      .translate(this.position);
+  }
+
+  // Move the camera target to a position
+  moveTo(x, y)
+  {
+    this.position.x = x;
+    this.position.y = y;
+  }
+
+  // Scale the camera to a factor
+  scaleTo(scale)
+  {
+    this.scale = scale;
+  }
+
+  // Begin the camera context
+  beginContext(ctx)
+  {
+    // Save the current canvas state
+    ctx.save();
+
+    // Translate to the center of the screen
+    ctx.translate(this.game.canvas.width / 2, this.game.canvas.height / 2);
+
+    // Apply transformations
+    ctx.scale(this.scale, this.scale);
+    ctx.translate(this.position.x, this.position.y);
+  }
+
+  // End the camera context
+  endContext(ctx)
+  {
+    // Restore the previous canvas state
+    ctx.restore();
+  }
+
+  // Draw the camera
+  draw(ctx)
+  {
+    // Draw the origin
+    ctx.fillStyle = 'lime';
+    ctx.fillRect(-5, -5, 10, 10);
+  }
+
+  // Update the camera logic
+  update(deltaTime)
+  {
+    // TODO: Implement things
+  }
+}
