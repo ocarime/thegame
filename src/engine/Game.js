@@ -1,17 +1,16 @@
-import InputEventHandler from './InputEventHandler.js';
 import Camera from './util/Camera.js';
+import Vector from './util/Vector.js';
 import World from './world/World.js';
 import Entity from './world/Entity.js';
+import PointerEvent from './event/PointerEvent.js';
 
 
 // Class that handles high-level game logic
-export default class Game extends InputEventHandler
+export default class Game
 {
   // Constructor
   constructor(canvas)
   {
-    super();
-
     // Initialize the canvas
     this.canvas = document.querySelector(canvas);
     this.ctx = this.canvas.getContext('2d');
@@ -20,17 +19,38 @@ export default class Game extends InputEventHandler
     this.camera = new Camera(this);
     this.world = new World(this);
 
-    this.pointer = undefined;
-
     // Timing variables
     this._lastRender = Date.now()
 
+    // Add event handlers for window
+    window.addEventListener('load', function() {
+      // Set the canvas dimensions
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+
+      // Start the game loop
+      window.requestAnimationFrame(this._loop.bind(this));
+    }.bind(this));
+
+    window.addEventListener('resize', function() {
+      // Set the canvas dimensions
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+    }.bind(this));
+
+    // Add event handlers for document
+    document.addEventListener('pointerdown', function(e) {
+      // Handle the ponter pressed event
+      this.onPointerPressed(new PointerEvent('press', new Vector(e.x, e.y)));
+    }.bind(this));
+
+    document.addEventListener('pointerup', function(e) {
+      // Handle the pointer released event
+      this.onPointerReleased(new PointerEvent('release', new Vector(e.x, e.y)));
+    }.bind(this));
+
     // Preload resources
     this.preload();
-
-    // Add event handlers
-    window.addEventListener('load', this._onWindowLoad.bind(this));
-    window.addEventListener('resize', this._onWindowResize.bind(this));
   }
 
   // Draw the game
@@ -86,29 +106,23 @@ export default class Game extends InputEventHandler
     window.requestAnimationFrame(this._loop.bind(this));
   }
 
-  // Resize event handler
-  _onWindowResize(e)
-  {
-    // Set the canvas dimensions
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-  }
-
   // Preload method
   preload()
   {
     // Implementation left for the user
   }
 
-  // Pointer down event
-  onPointerDown(position)
+  // Event handler when the pointer is pressed
+  onPointerPressed(e)
   {
-    // Implementation left for the user
+    // Handle events in game objects
+    this.world.onPointerPressed(e);
   }
 
-  // Pointer up event
-  onPointerUp(position)
+  // Event handler when the pointer is released
+  onPointerReleased(e)
   {
-    // Implementation left for the user
+    // Handle events in game objects
+    this.world.onPointerReleased(e);
   }
 }

@@ -25,6 +25,12 @@ export default class Vector
   {
     return new Vector(this.x * scale, this.y * scale);
   }
+
+  // Calculate the distance to another vector
+  distanceTo(vector)
+  {
+    return Math.sqrt(Math.pow(vector.x - this.x, 2) + Math.pow(vector.y - this.y, 2));
+  }
 }
 
 // Constants
