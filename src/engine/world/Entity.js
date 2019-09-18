@@ -26,13 +26,7 @@ export default class Entity extends WorldObject
   // Draw the entity
   draw(ctx)
   {
-    // Draw the name of the entity
-    ctx.fillStyle = 'white';
-    ctx.fillRect(this.position.x-5, this.position.y-5, 10, 10);
-
-    ctx.font = '12px monospace';
-    ctx.textAlign = "center";
-    ctx.fillText(`Entity: ${this.name}`, this.position.x, this.position.y - 10);
+    // Implementation left to subclasses
   }
 
   // Update the entity logic

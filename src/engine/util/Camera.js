@@ -70,9 +70,18 @@ export default class Camera extends GameObject
   // Draw the camera
   draw(ctx)
   {
-    // Draw the origin
-    ctx.fillStyle = 'lime';
-    ctx.fillRect(-5, -5, 10, 10);
+    // Draw the gizmo
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(10, 0);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'blue';
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 10);
+    ctx.stroke();
   }
 
   // Update the camera logic
