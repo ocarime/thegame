@@ -26,6 +26,39 @@ export default class GameObject
     return this.gameObjects.splice(this.gameObjects.indexOf(gameObject), 1);
   }
 
+  // Get all direct child game objects
+  *getGameObjects(type = undefined)
+  {
+    // Iterate over the game objects
+    for (let gameObject of this.gameObjects)
+    {
+      // Check the type
+      if (type === undefined || gameObject instanceof type)
+      {
+        // Yield the game object
+        yield gameObject;
+      }
+    }
+  }
+
+  // Get all direct child game objects
+  *getGameObjectsRecursive(type = undefined)
+  {
+    // Iterate over the game objects
+    for (let gameObject of this.gameObjects)
+    {
+      // Check the type
+      if (type === undefined || gameObject instanceof type)
+      {
+        // Yield the game object
+        yield gameObject;
+
+        // yield its children
+        yield* gameObject.getGameObjectsRecursive(type);
+      }
+    }
+  }
+
   // Execute a function on the game object and all its children
   _each(fn, parents = [])
   {
@@ -63,6 +96,6 @@ export default class GameObject
   // Convert to string
   toString()
   {
-    return `${this.constructor.name} [${this.gameObjects.length} children]`;
+    return `${this.constructor.name}`;
   }
 }

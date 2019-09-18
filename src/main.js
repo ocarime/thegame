@@ -9,5 +9,5 @@ let game = new Game('#canvas');
 let debug = game.addGameObject(new Debugger(game));
 
 // Add characters
-let greg = new Character(game.world, 'greg', new Vector(10, 10));
-let bastiaan = new Character(game.world, 'bastiaan', new Vector(-10, 20));
+let greg = game.world.addGameObject(new Character(game.world, 'greg', new Vector(10, 10)));
+let bastiaan = game.world.addGameObject(new Character(game.world, 'bastiaan', new Vector(-10, 20)));

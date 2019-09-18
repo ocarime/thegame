@@ -12,21 +12,18 @@ export default class Entity extends GameObject
     // The world instance
     this.world = world;
 
-    // The name of this entity
+    // Name of the entity
     this.name = name;
 
     // Position of the entity
     this.position = position;
-
-    // Add the entity to the world
-    this.world.entities.push(this);
   }
 
   // Release the entity
   release()
   {
     // Remove the entity from the world
-    this.world.entities.splice(this.world.entities.indexOf(this), 1);
+    this.world.removeGameObject(this);
   }
 
   // Draw the entity
@@ -39,5 +36,11 @@ export default class Entity extends GameObject
   update(deltaTime)
   {
     // Implementation left to subclasses
+  }
+
+  // Convert to string
+  toString()
+  {
+    return `${super.toString()} ${this.name}: position: ${this.position}`;
   }
 }

@@ -1,4 +1,5 @@
 import GameObject from '../GameObject.js'
+import Entity from './Entity.js';
 
 
 // Class that defines the world
@@ -11,37 +12,24 @@ export default class World extends GameObject
 
     // The game instance
     this.game = game;
+  }
 
-    // Entities are visible objects in the world
-    this.entities = [];
+  // Get all entities
+  getEntities()
+  {
+    return Array.from(this.getGameObjects(Entity));
   }
 
   // Get an entity
   getEntity(name)
   {
-    return this.entities.find(entity => entity.name === name);
+    return this.getEntities().find(entity => entity.name === name);
   }
 
   // Get an entity at a position
   getEntityAtPosition(position)
   {
-    return this.entities.find(entity => position.distanceTo(entity.position) < 10.0);
-  }
-
-  // Draw all entities
-  draw(ctx)
-  {
-    // Iterate over the entities and draw them
-    for (let entity of this.entities)
-      entity.draw(ctx);
-  }
-
-  // Update all entities and effects
-  update(deltaTime)
-  {
-    // Iterate over the entities and update them
-    for (let entity of this.entities)
-      entity.update(deltaTime);
+    return this.getEntities().find(entity => position.distanceTo(entity.position) < 5.0);
   }
 
   // Event handler when the pointer is pressed
@@ -69,6 +57,6 @@ export default class World extends GameObject
   // Convert to string
   toString()
   {
-    return super.toString() + ` [${this.entities.length} entities]`;
+    return `${super.toString()}: ${this.getEntities().length} entities`;
   }
 }
