@@ -65,4 +65,10 @@ export default class World extends GameObject
     if (entity !== undefined && entity.can('onPointerReleased'))
       entity.onPointerReleased(e);
   }
+
+  // Convert to string
+  toString()
+  {
+    return super.toString() + ` [${this.entities.length} entities]`;
+  }
 }

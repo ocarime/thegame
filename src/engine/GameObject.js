@@ -27,32 +27,42 @@ export default class GameObject
   }
 
   // Execute a function on the game object and all its children
-  _each(fn)
+  _each(fn, parents = [])
   {
     // Execute the function on this game object
-    fn(this);
+    fn(this, parents);
 
     // Execute the function on its children
+    parents.push(this);
     for (let gameObject of this.gameObjects)
-      gameObject._each(fn);
+      gameObject._each(fn, parents);
+    parents.pop();
   }
 
   // Execute a function with canvas context
-  _eachContext(ctx, fn)
+  _eachContext(ctx, fn, parents = [])
   {
     // Check if this game object can begin a context
     if (this.can('beginContext'))
       this.beginContext(ctx);
 
-      // Execute the function on this game object
-      fn(this);
+    // Execute the function on this game object
+    fn(this, parents);
 
-      // Execute the contextual function on its children
-      for (let gameObject of this.gameObjects)
-        gameObject._eachContext(ctx, fn);
+    // Execute the contextual function on its children
+    parents.push(this);
+    for (let gameObject of this.gameObjects)
+      gameObject._eachContext(ctx, fn);
+    parents.pop();
 
     // Check if this game object can end a context
     if (this.can('endContext'))
       this.endContext(ctx);
+  }
+
+  // Convert to string
+  toString()
+  {
+    return `${this.constructor.name} [${this.gameObjects.length} children]`;
   }
 }

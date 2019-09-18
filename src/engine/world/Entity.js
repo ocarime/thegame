@@ -1,13 +1,19 @@
-import WorldObject from './WorldObject.js';
+import GameObject from '../GameObject.js';
 
 
 // Base class for defining entities
-export default class Entity extends WorldObject
+export default class Entity extends GameObject
 {
   // Constructor
   constructor(world, name, position)
   {
-    super(world, name);
+    super();
+
+    // The world instance
+    this.world = world;
+
+    // The name of this entity
+    this.name = name;
 
     // Position of the entity
     this.position = position;

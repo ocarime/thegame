@@ -10,6 +10,13 @@ export default class Character extends Entity
     super(world, name, position);
   }
 
+  // Draw the character
+  draw(ctx)
+  {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(this.position.x - 5, this.position.y - 5, 10, 10);
+  }
+
   // Event handler when the pointer is pressed
   onPointerPressed(e)
   {

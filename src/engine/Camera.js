@@ -92,4 +92,10 @@ export default class Camera extends GameObject
   {
     // TODO: Implement things
   }
+
+  // Convert to string
+  toString()
+  {
+    return super.toString() + `: position: ${this.position}, scale: ${this.scale}`;
+  }
 }
