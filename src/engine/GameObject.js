@@ -20,6 +20,13 @@ export default class GameObject
     return gameObject;
   }
 
+  // Add a game object before every other object and return it
+  prependGameObject(gameObject)
+  {
+    this.gameObject.unshift(gameObject);
+    return gameObject;
+  }
+
   // Remove a game object and return it
   removeGameObject(gameObject)
   {

@@ -96,6 +96,6 @@ export default class Camera extends GameObject
   // Convert to string
   toString()
   {
-    return super.toString() + `: position: ${this.position}, scale: ${this.scale}`;
+    return `${super.toString()}: position = ${this.position}, scale = ${this.scale}`;
   }
 }

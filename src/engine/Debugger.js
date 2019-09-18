@@ -25,7 +25,7 @@ export default class Debugger extends GameObject
 
     this.game._each(function(gameObject, parents) {
       let tx = 16 + 12 * parents.length;
-      let ty = 16 + 16 * line;
+      let ty = 16 + 14 * line;
       ctx.fillText(`${gameObject}`, tx, ty);
       line ++;
     });

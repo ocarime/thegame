@@ -41,6 +41,6 @@ export default class Entity extends GameObject
   // Convert to string
   toString()
   {
-    return `${super.toString()} ${this.name}: position: ${this.position}`;
+    return `${super.toString()} ${this.name} at ${this.position}`;
   }
 }

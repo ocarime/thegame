@@ -51,26 +51,26 @@ export default class Game extends GameObject
     // Add event handlers for pointer pressed
     document.addEventListener('pointerdown', function(e) {
       // Create the pointer event
-      let pe = new PointerEvent('press', new Vector(e.x, e.y));
+      let event = new PointerEvent('press', new Vector(e.x, e.y));
 
-      // Handle the ponter pressed event
+      // Handle the pointer pressed event
       this._each(function(gameObject) {
         // Check if this game object can handle pointer pressed events
         if (gameObject.can('onPointerPressed'))
-          gameObject.onPointerPressed(pe);
+          gameObject.onPointerPressed(event);
       }.bind(this));
     }.bind(this));
 
     // Add event handler for pointer released
     document.addEventListener('pointerup', function(e) {
       // Create the pointer event
-      let pe = new PointerEvent('release', new Vector(e.x, e.y));
+      let event = new PointerEvent('release', new Vector(e.x, e.y));
 
-      // Handle the ponter released event
+      // Handle the pointer released event
       this._each(function(gameObject) {
         // Check if this game object can handle pointer released events
         if (gameObject.can('onPointerReleased'))
-          gameObject.onPointerReleased(pe);
+          gameObject.onPointerReleased(event);
       }.bind(this));
     }.bind(this));
 
@@ -116,5 +116,11 @@ export default class Game extends GameObject
     // Update timestamp and request new frame
     this._lastRender = Date.now();
     window.requestAnimationFrame(this._loop.bind(this));
+  }
+
+  // Convert to string
+  toString()
+  {
+    return `${super.toString()}: width = ${this.width}, height = ${this.height}`;
   }
 }
