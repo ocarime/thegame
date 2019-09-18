@@ -1,4 +1,4 @@
-import Vector from './Vector.js';
+import Vector from './util/Vector.js';
 
 
 // Class that can handle input events

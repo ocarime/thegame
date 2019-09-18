@@ -1,6 +1,6 @@
-import Vector from './engine/Vector.js';
 import Game from './engine/Game.js';
-import Entity from './engine/Entity.js';
+import Vector from './engine/util/Vector.js';
+import Entity from './engine/world/Entity.js';
 
 
 // Create the game

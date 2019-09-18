@@ -1,7 +1,7 @@
 import InputEventHandler from './InputEventHandler.js';
-import Camera from './Camera.js';
-import World from './World.js';
-import Entity from './Entity.js';
+import Camera from './util/Camera.js';
+import World from './world/World.js';
+import Entity from './world/Entity.js';
 
 
 // Class that handles high-level game logic
@@ -94,21 +94,21 @@ export default class Game extends InputEventHandler
     this.canvas.height = window.innerHeight;
   }
 
-  // Preload method: implementation left for the user
+  // Preload method
   preload()
   {
+    // Implementation left for the user
   }
 
-  // Pointer down event: implementation left for the user
+  // Pointer down event
   onPointerDown(position)
   {
-    this.pointer = new Entity(this.world, 'pointer', this.camera.screenToCam(position));
+    // Implementation left for the user
   }
 
-  // Pointer up event: implementation left for the user
+  // Pointer up event
   onPointerUp(position)
   {
-    this.pointer.release();
-    this.pointer = undefined;
+    // Implementation left for the user
   }
 }
