@@ -26,18 +26,6 @@ export default class Entity extends GameObject
     this.world.removeGameObject(this);
   }
 
-  // Draw the entity
-  draw(ctx)
-  {
-    // Implementation left to subclasses
-  }
-
-  // Update the entity logic
-  update(deltaTime)
-  {
-    // Implementation left to subclasses
-  }
-
   // Convert to string
   toString()
   {
