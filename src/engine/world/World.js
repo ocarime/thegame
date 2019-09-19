@@ -1,6 +1,7 @@
 import GameObject from '../GameObject.js'
 import Entity from './Entity.js';
 import Tileset from '../tileset/Tileset.js';
+import Region from '../util/Region.js';
 import Vector from '../util/Vector.js';
 
 
@@ -18,6 +19,7 @@ export default class World extends GameObject
     // Dimensions of the world
     this._width = width;
     this._height = height;
+    this.region = new Region(0, 0, this.width, this.height);
 
     // The tileset reference
     this.tileset = tileset || new Tileset();
@@ -103,6 +105,10 @@ export default class World extends GameObject
     let position = this.game.camera.inverseTransformVector(e.position);
     let tilePosition = this.tileset.inverseTransformVector(position).round();
 
+    // Check if the tile is in the world
+    if (!this.region.contains(tilePosition))
+      return;
+
     // Get the entity at the position
     let entity = this.getEntityAtPosition(tilePosition);
     if (entity !== undefined && entity.can('onInspect'))
@@ -115,10 +121,22 @@ export default class World extends GameObject
     let position = this.game.camera.inverseTransformVector(e.position);
     let tilePosition = this.tileset.inverseTransformVector(position).round();
 
+    // Check if the tile is in the world
+    if (!this.region.contains(tilePosition))
+      return;
+
     // Get the entity at the position
     let entity = this.getEntityAtPosition(tilePosition);
     if (entity !== undefined && entity.can('onInteract'))
+    {
+      // Interact with the entity
       entity.onInteract(e);
+    }
+    else
+    {
+      // Move the player
+      this.game.player.position = tilePosition;
+    }
   }
 
   // Convert to string
