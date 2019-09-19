@@ -2,7 +2,7 @@ import Debugger from './engine/Debugger.js';
 import Game from './engine/Game.js';
 import Vector from './engine/util/Vector.js';
 import TilesetLoader from './engine/tileset/TilesetLoader.js';
-import WorldLoader from './engine/world/worldLoader.js';
+import WorldLoader from './engine/world/WorldLoader.js';
 
 import Character from './game/Character.js';
 import Door from './game/world/Door.js';
