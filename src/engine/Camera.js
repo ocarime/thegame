@@ -13,40 +13,51 @@ export default class Camera extends GameObject
     // The game instance
     this.game = game;
 
-    // Transformations of the camera
-    this.position = Vector.origin;
-    this.scale = 1.0;
+    // Transformations
+    this.position = new Vector(0, 0);
+    this.scale = new Vector(1, 1)
   }
 
-  // Convert camera to screen coordinates
-  screenToCam(vector)
+  // Get the position offset to center the screen at the position
+  get positionOffset()
   {
-    return vector
-      .translate(this.position.invert())
-      .scale(1.0 / this.scale)
-      .translate(new Vector(this.game.width / 2, this.game.height / 2).invert());
+    return new Vector(this.game.width / 2, this.game.height / 2);
   }
 
-  // Convert screen to camera coordinates
-  camToScreen(vector)
+  // Transform a vector from world space to camera space
+  transformVector(vector)
   {
     return vector
-      .translate(new Vector(this.game.width / 2, this.game.height / 2))
-      .scale(this.scale)
+      .translate(this.positionOffset.scaleUniform(-1))
+      .scale(this.scale.reciprocal())
       .translate(this.position);
   }
 
-  // Move the camera target to a position
-  moveTo(x, y)
+  // Transform a region from world space to camera space
+  transformRegion(region)
   {
-    this.position.x = x;
-    this.position.y = y;
+    return region
+      .translate(this.positionOffset.scaleUniform(-1))
+      .scale(this.scale.reciprocal())
+      .translate(this.position);
   }
 
-  // Scale the camera to a factor
-  scaleTo(scale)
+  // Transform a vector from camera space to world space
+  inverseTransformVector(vector)
   {
-    this.scale = scale;
+    return vector
+      .translate(this.position.scaleUniform(-1))
+      .scale(this.scale)
+      .translate(this.positionOffset);
+  }
+
+  // Transform a region from camera space to world space
+  inverseTransformRegion(region)
+  {
+    return region
+      .translate(this.position.scaleUniform(-1))
+      .scale(this.scale)
+      .translate(this.positionOffset);
   }
 
   // Begin the camera context
@@ -59,8 +70,8 @@ export default class Camera extends GameObject
     ctx.translate(this.game.width / 2, this.game.height / 2);
 
     // Apply transformations
-    ctx.scale(this.scale, this.scale);
-    ctx.translate(this.position.x, this.position.y);
+    ctx.scale(this.scale.x, this.scale.y);
+    ctx.translate(this.position.scaleUniform(-1).x, this.position.scaleUniform(-1).y);
   }
 
   // End the camera context
@@ -68,23 +79,6 @@ export default class Camera extends GameObject
   {
     // Restore the previous canvas state
     ctx.restore();
-  }
-
-  // Draw the camera
-  draw(ctx)
-  {
-    // Draw the gizmo
-    ctx.strokeStyle = 'red';
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(10, 0);
-    ctx.stroke();
-
-    ctx.strokeStyle = 'blue';
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, 10);
-    ctx.stroke();
   }
 
   // Update the camera logic

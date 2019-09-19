@@ -59,7 +59,7 @@ export default class Game extends GameObject
     }.bind(this));
 
     // Add event handlers for pointer hovered
-    document.addEventListener('pointermove', function(e) {
+    this.canvas.addEventListener('pointermove', function(e) {
       // Create the pointer event
       let event = new PointerEvent('hover', new Vector(e.x, e.y));
 
@@ -72,7 +72,7 @@ export default class Game extends GameObject
     }.bind(this));
 
     // Add event handlers for pointer pressed
-    document.addEventListener('pointerdown', function(e) {
+    this.canvas.addEventListener('pointerdown', function(e) {
       // Create the pointer event
       let event = new PointerEvent('press', new Vector(e.x, e.y));
 
@@ -85,7 +85,7 @@ export default class Game extends GameObject
     }.bind(this));
 
     // Add event handler for pointer released
-    document.addEventListener('pointerup', function(e) {
+    this.canvas.addEventListener('pointerup', function(e) {
       // Create the pointer event
       let event = new PointerEvent('release', new Vector(e.x, e.y));
 

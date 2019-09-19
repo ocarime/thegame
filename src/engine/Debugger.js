@@ -43,7 +43,7 @@ export default class Debugger extends GameObject
       ctx.font = '10px monospace';
       ctx.textAlign = 'left';
       ctx.fillStyle = 'lime';
-      ctx.fillText(`${this.pointerPosition}`, this.pointerPosition.x - 5, this.pointerPosition.y - 10);
+      ctx.fillText(`Game ${this.pointerPosition}, Camera ${this.game.camera.transformVector(this.pointerPosition)}`, this.pointerPosition.x - 5, this.pointerPosition.y - 10);
     }
   }
 

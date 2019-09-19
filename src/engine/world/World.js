@@ -53,7 +53,7 @@ export default class World extends GameObject
   // Event handler when the pointer is pressed
   onPointerPressed(e)
   {
-    let position = this.game.camera.screenToCam(e.position);
+    let position = this.game.camera.transformVector(e.position);
 
     // Get the entity at the position
     let entity = this.getEntityAtPosition(position);
@@ -64,7 +64,7 @@ export default class World extends GameObject
   // Event handler when the pointer is released
   onPointerReleased(e)
   {
-    let position = this.game.camera.screenToCam(e.position);
+    let position = this.game.camera.transformVector(e.position);
 
     // Get the entity at the position
     let entity = this.getEntityAtPosition(position);

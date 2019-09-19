@@ -30,7 +30,8 @@ export default class GameObject
   // Remove a game object and return it
   removeGameObject(gameObject)
   {
-    return this.gameObjects.splice(this.gameObjects.indexOf(gameObject), 1);
+    this.gameObjects.splice(this.gameObjects.indexOf(gameObject), 1);
+    return undefined;
   }
 
   // Replace a game object and return it
