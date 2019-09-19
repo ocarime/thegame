@@ -25,18 +25,28 @@ export default class Game extends GameObject
     this.ctx = this.canvas.getContext('2d');
 
     // Initialize the game objects
-    this.camera = this.addGameObject(new Camera(this));
-    this.world = this.camera.addGameObject(new World(this));
+    this.camera = new Camera(this);
+    this.world = new World(this);
 
     // Timing variables
     this._lastRender = Date.now()
 
-    // Add event handlers for window loaded
+    // Add event handler for window loaded
     window.addEventListener('load', function() {
       // Set the canvas dimensions
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
 
+      // Preload the assets
+      if (this.can('preload'))
+        this.preload.bind(this)();
+
+      // Send preload finish event
+      window.dispatchEvent(new Event('game.preload'));
+    }.bind(this));
+
+    // Add event handler for preload finished
+    window.addEventListener('game.preload', function() {
       // Start the game loop
       window.requestAnimationFrame(this._loop.bind(this));
     }.bind(this));
@@ -73,10 +83,6 @@ export default class Game extends GameObject
           gameObject.onPointerReleased(event);
       }.bind(this));
     }.bind(this));
-
-    // Preload resources
-    if (this.can('preload'))
-      this.preload();
   }
 
   // Return the dimensions of the canvas
@@ -87,6 +93,32 @@ export default class Game extends GameObject
   get height()
   {
     return this.canvas.height;
+  }
+
+  // Get and set the camera
+  get camera()
+  {
+    return this._camera;
+  }
+  set camera(value)
+  {
+    if (typeof this._camera === 'undefined')
+      this._camera = this.addGameObject(value);
+    else
+      this._camera = this.replaceGameObject(this._camera, value);
+  }
+
+  // Get and set the world
+  get world()
+  {
+    return this._world;
+  }
+  set world(value)
+  {
+    if (typeof this._world === 'undefined')
+      this._world = this.camera.addGameObject(value);
+    else
+      this._world = this.camera.replaceGameObject(this._world, value);
   }
 
   // Game loop

@@ -1,21 +1,39 @@
 import GameObject from '../GameObject.js'
 import Entity from './Entity.js';
+import WorldMap from './WorldMap.js';
+import Tileset from '../tileset/Tileset.js';
 
 
 // Class that defines the world
 export default class World extends GameObject
 {
   // Constructor
-  constructor(game)
+  constructor(game, tileset = undefined)
   {
     super();
 
     // The game instance
     this.game = game;
+
+    // The map for this world
+    this.map = new WorldMap(16, 16);
+  }
+
+  // Get and set the map
+  get map()
+  {
+    return this._map;
+  }
+  set map(value)
+  {
+    if (typeof this._map === 'undefined')
+      this._map = this.addGameObject(value);
+    else
+      this._map = this.replaceGameObject(this._map, value);
   }
 
   // Get all entities
-  getEntities()
+  get entities()
   {
     return Array.from(this.getGameObjects(Entity));
   }
@@ -23,13 +41,13 @@ export default class World extends GameObject
   // Get an entity
   getEntity(name)
   {
-    return this.getEntities().find(entity => entity.name === name);
+    return this.entities.find(entity => entity.name === name);
   }
 
   // Get an entity at a position
   getEntityAtPosition(position)
   {
-    return this.getEntities().find(entity => position.distanceTo(entity.position) < 5.0);
+    return this.entities.find(entity => position.distanceTo(entity.position) < 5.0);
   }
 
   // Event handler when the pointer is pressed
@@ -57,6 +75,6 @@ export default class World extends GameObject
   // Convert to string
   toString()
   {
-    return `${super.toString()}: ${this.getEntities().length} entities`;
+    return `${super.toString()} [${this.entities.length} entities]`;
   }
 }
