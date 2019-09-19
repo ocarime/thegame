@@ -24,26 +24,8 @@ export default class Camera extends GameObject
     return new Vector(this.game.width / 2, this.game.height / 2);
   }
 
-  // Transform a vector from world space to camera space
-  transformVector(vector)
-  {
-    return vector
-      .translate(this.positionOffset.scaleUniform(-1))
-      .scale(this.scale.reciprocal())
-      .translate(this.position);
-  }
-
-  // Transform a region from world space to camera space
-  transformRegion(region)
-  {
-    return region
-      .translate(this.positionOffset.scaleUniform(-1))
-      .scale(this.scale.reciprocal())
-      .translate(this.position);
-  }
-
   // Transform a vector from camera space to world space
-  inverseTransformVector(vector)
+  transformVector(vector)
   {
     return vector
       .translate(this.position.scaleUniform(-1))
@@ -52,12 +34,30 @@ export default class Camera extends GameObject
   }
 
   // Transform a region from camera space to world space
-  inverseTransformRegion(region)
+  transformRegion(region)
   {
     return region
       .translate(this.position.scaleUniform(-1))
       .scale(this.scale)
       .translate(this.positionOffset);
+  }
+
+  // Transform a vector from world space to camera space
+  inverseTransformVector(vector)
+  {
+    return vector
+      .translate(this.positionOffset.scaleUniform(-1))
+      .scale(this.scale.reciprocal())
+      .translate(this.position);
+  }
+
+  // Transform a region from world space to camera space
+  inverseTransformRegion(region)
+  {
+    return region
+      .translate(this.positionOffset.scaleUniform(-1))
+      .scale(this.scale.reciprocal())
+      .translate(this.position);
   }
 
   // Begin the camera context

@@ -16,9 +16,6 @@ export default class WorldLoader
   // Load a world from a definition string
   load(game, string)
   {
-    // Create a new world
-    let world = new World(game);
-
     let lines = string.split(/\r?\n/);
     let line = null;
 
@@ -32,11 +29,14 @@ export default class WorldLoader
       cols.push(tiles);
     } while (typeof line !== 'undefined' && line !== "")
 
+    // Create a new world
+    let world = new World(game, cols[0].length, cols.length);
+
     // Add the tiles to the map
     for (let y = 0; y < cols.length; y ++)
     {
       for (let x = 0; x < cols[y].length; x ++)
-        world.map.setTile(new Vector(x, y), cols[y][x]);
+        world.setTile(new Vector(x, y), cols[y][x]);
     }
 
     // Create a new command parser
@@ -55,6 +55,11 @@ export default class WorldLoader
       else
         console.warn(`Found unknown entity '${type}'`);
     }.bind(this));
+
+    // Register command for player spawnpoint
+    parser.registerCommand('playerspawn', function(x, y) {
+      world.playerSpawn = new Vector(parseInt(x), parseInt(y));
+    });
 
     // Iterate over the lines
     for (let line of lines)

@@ -1,3 +1,6 @@
+import Region from './Region.js';
+
+
 // Class that represents a 2D vector
 export default class Vector
 {
@@ -38,10 +41,28 @@ export default class Vector
     return new Vector(1 / this.x, 1 / this.y);
   }
 
+  // Round the vector to nearest integer values
+  round()
+  {
+    return new Vector(Math.round(this.x), Math.round(this.y));
+  }
+
+  // Truncate the vector to integer values
+  trunc()
+  {
+    return new Vector(Math.trunc(this.x), Math.trunc(this.y));
+  }
+
   // Calculate the distance to another vector
   distanceTo(vector)
   {
     return Math.sqrt(Math.pow(vector.x - this.x, 2) + Math.pow(vector.y - this.y, 2));
+  }
+
+  // Convert to region
+  toRegion()
+  {
+    return new Region(this.x, this.y ,this.x, this.y);
   }
 
   // Convert to string

@@ -1,35 +1,64 @@
 import GameObject from '../GameObject.js'
 import Entity from './Entity.js';
-import WorldMap from './WorldMap.js';
 import Tileset from '../tileset/Tileset.js';
+import Vector from '../util/Vector.js';
 
 
 // Class that defines the world
 export default class World extends GameObject
 {
   // Constructor
-  constructor(game, tileset = undefined)
+  constructor(game, width = 16, height = 16, tileset = undefined)
   {
     super();
 
     // The game instance
     this.game = game;
 
-    // The map for this world
-    this.map = new WorldMap(16, 16);
+    // Dimensions of the world
+    this._width = width;
+    this._height = height;
+
+    // The tileset reference
+    this.tileset = tileset || new Tileset();
+
+    // Tile array
+    this.tiles = Array.fill(undefined, this.width * this.height);
   }
 
-  // Get and set the map
-  get map()
+  // Get the dimensions of the map
+  get width()
   {
-    return this._map;
+    return this._width;
   }
-  set map(value)
+  get height()
   {
-    if (typeof this._map === 'undefined')
-      this._map = this.addGameObject(value);
+    return this._height;
+  }
+
+  // Get and set the tileset
+  get tileset()
+  {
+    return this._tileset;
+  }
+  set tileset(value)
+  {
+    if (typeof this._tileset === 'undefined')
+      this._tileset = this.addGameObject(value);
     else
-      this._map = this.replaceGameObject(this._map, value);
+      this._tileset = this.replaceGameObject(this._tileset, value);
+  }
+
+  // Get a tile at a position
+  getTile(position)
+  {
+    return this.tiles[position.y * this.width + position.x];
+  }
+
+  // Set a tile at a position
+  setTile(position, tile)
+  {
+    this.tiles[position.y * this.width + position.x] = tile;
   }
 
   // Get all entities
@@ -47,34 +76,54 @@ export default class World extends GameObject
   // Get an entity at a position
   getEntityAtPosition(position)
   {
-    return this.entities.find(entity => position.distanceTo(entity.position) < 5.0);
+    return this.entities.find(entity => position.x == entity.position.x && position.y == entity.position.y);
+  }
+
+  // Draw the world
+  draw(ctx)
+  {
+    // Draw the tiles
+    for (let y = this.height - 1; y >= 0; y --)
+    {
+      for (let x = 0; x < this.width; x ++)
+      {
+        let position = new Vector(x, y);
+        let tile = this.getTile(position);
+        if (typeof tile !== 'undefined')
+        {
+          this.tileset.drawTile(tile, position, ctx);
+        }
+      }
+    }
+  }
+
+  // Event handler when the pointer is hovered
+  onPointerHovered(e)
+  {
+    let position = this.game.camera.inverseTransformVector(e.position);
+    let tilePosition = this.tileset.inverseTransformVector(position).round();
+
+    // Get the entity at the position
+    let entity = this.getEntityAtPosition(tilePosition);
+    if (entity !== undefined && entity.can('onInspect'))
+      entity.onInspect(e);
   }
 
   // Event handler when the pointer is pressed
   onPointerPressed(e)
   {
-    let position = this.game.camera.transformVector(e.position);
+    let position = this.game.camera.inverseTransformVector(e.position);
+    let tilePosition = this.tileset.inverseTransformVector(position).round();
 
     // Get the entity at the position
-    let entity = this.getEntityAtPosition(position);
-    if (entity !== undefined && entity.can('onPointerPressed'))
-      entity.onPointerPressed(e);
-  }
-
-  // Event handler when the pointer is released
-  onPointerReleased(e)
-  {
-    let position = this.game.camera.transformVector(e.position);
-
-    // Get the entity at the position
-    let entity = this.getEntityAtPosition(position);
-    if (entity !== undefined && entity.can('onPointerReleased'))
-      entity.onPointerReleased(e);
+    let entity = this.getEntityAtPosition(tilePosition);
+    if (entity !== undefined && entity.can('onInteract'))
+      entity.onInteract(e);
   }
 
   // Convert to string
   toString()
   {
-    return `${super.toString()} [${this.entities.length} entities]`;
+    return `${super.toString()} [${this.entities.length} entities]: width = ${this.width}, height = ${this.height}`;
   }
 }

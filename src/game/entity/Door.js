@@ -17,11 +17,11 @@ export default class Door extends Entity
   draw(ctx)
   {
     if (this.state === 'locked')
-      this.world.map.tileset.drawTile('door-locked', this.position, ctx);
+      this.world.tileset.drawTile('door-locked', this.position, ctx);
     else if (this.state === 'opened')
-      this.world.map.tileset.drawTile('door-opened', this.position, ctx);
+      this.world.tileset.drawTile('door-opened', this.position, ctx);
     else
-      this.world.map.tileset.drawTile('door-closed', this.position, ctx);
+      this.world.tileset.drawTile('door-closed', this.position, ctx);
   }
 
   // Interaction event handler

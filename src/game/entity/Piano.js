@@ -13,12 +13,12 @@ export default class Piano extends Entity
   // Draw the door
   draw(ctx)
   {
-    this.world.map.tileset.drawTile('piano', this.position, ctx);
+    this.world.tileset.drawTile('piano', this.position, ctx);
   }
 
   // Interaction event handler
   onInteract(e)
   {
-    console.log("Interacted with the piano!");
+    window.open('http://www.amberveerman.com/', '_blank');
   }
 }

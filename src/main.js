@@ -4,9 +4,9 @@ import Vector from './engine/util/Vector.js';
 import TilesetLoader from './engine/tileset/TilesetLoader.js';
 import WorldLoader from './engine/world/WorldLoader.js';
 
-import Character from './game/Character.js';
-import Door from './game/world/Door.js';
-import Piano from './game/world/Piano.js';
+import Door from './game/entity/Door.js';
+import Piano from './game/entity/Piano.js';
+import PlayerCharacter from './game/character/PlayerCharacter.js';
 
 
 // Create the game
@@ -22,6 +22,9 @@ game.preload = function() {
 
   this.world = worldLoader.loadUrl(game, 'assets/worlds/indoor-test.world');
 
+  if (typeof this.world.playerSpawn !== 'undefined')
+    this.player = this.world.addGameObject(new PlayerCharacter(this.world, 'Player', this.world.playerSpawn));
+
   // Initialize the tileset
-  this.world.map.tileset = TilesetLoader.loadUrl('assets/tilesets/indoor-test.tileset');
+  this.world.tileset = TilesetLoader.loadUrl('assets/tilesets/indoor-test.tileset');
 };

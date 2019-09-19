@@ -35,7 +35,7 @@ export default class Debugger extends GameObject
     });
 
     // Draw the pointer
-    if (typeof this.pointerPosition !== 'undefined')
+    /*if (typeof this.pointerPosition !== 'undefined')
     {
       ctx.fillStyle = (this.pointerDown ? 'white': 'lime');
       ctx.fillRect(this.pointerPosition.x - 5, this.pointerPosition.y - 5, 10, 10);
@@ -44,7 +44,7 @@ export default class Debugger extends GameObject
       ctx.textAlign = 'left';
       ctx.fillStyle = 'lime';
       ctx.fillText(`Game ${this.pointerPosition}, Camera ${this.game.camera.transformVector(this.pointerPosition)}`, this.pointerPosition.x - 5, this.pointerPosition.y - 10);
-    }
+    }*/
   }
 
   // Pointer hovered event

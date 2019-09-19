@@ -55,16 +55,28 @@ export default class Region
     return vector.x >= this.minX && vector.x <= this.maxX && vector.y >= this.minY && vector.y <= this.maxY;
   }
 
+  // Extend this region
+  extend(left, top, right, bottom)
+  {
+    return new Region (this.minX - left, this.minY - top, this.maxX + right, this.maxY + bottom);
+  }
+
+  // Contract this region
+  contract(left, top, right, bottom)
+  {
+    return new Region (this.minX + left, this.minY + top, this.maxX - right, this.maxY - bottom);
+  }
+
   // Translate this region
   translate(vector)
   {
-    return new Region(this.minX + vector.x, this.maxX + vector.x, this.minY + vector.y, this.maxY + vector.y);
+    return new Region(this.minX + vector.x,  this.minY + vector.y, this.maxX + vector.x, this.maxY + vector.y);
   }
 
   // Scale this region
   scale(vector)
   {
-    return new Region(this.minX * vector.x, this.maxX * vector.x, this.minY * vector.y, this.maxY * vector.y);
+    return new Region(this.minX * vector.x, this.minY * vector.y, this.maxX * vector.x, this.maxY * vector.y);
   }
 
   // Scale this region uniformly

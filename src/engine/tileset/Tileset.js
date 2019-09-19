@@ -1,5 +1,7 @@
 import GameObject from '../GameObject.js';
 
+import Vector from '../../engine/util/Vector.js';
+
 
 // Class that defines a tileset
 export default class Tileset extends GameObject
@@ -17,6 +19,36 @@ export default class Tileset extends GameObject
 
     // A map of all aliases
     this.aliases = new Map();
+  }
+
+  // Transform a vector from tile space to world space
+  transformVector(vector, centered)
+  {
+    return vector
+      .scaleUniform(this.tileSize)
+      .translate(new Vector(this.tileSize / 2, this.tileSize / 2));
+  }
+
+  // Transform a region from tile space to world space
+  transformRegion(region)
+  {
+    return region
+      .scaleUniform(this.tileSize);
+  }
+
+  // Transform a vector from world space to tile space
+  inverseTransformVector(vector)
+  {
+    return vector
+      .translate(new Vector(this.tileSize / 2, this.tileSize / 2).scaleUniform(-1))
+      .scaleUniform(1 / this.tileSize);
+  }
+
+  // Transform a region from world space to tile space
+  inverseTransformRegion(region)
+  {
+    return region
+      .scaleUniform(1 / this.tileSize);
   }
 
   // Register a tile definition
@@ -57,7 +89,10 @@ export default class Tileset extends GameObject
     // Check if the tile exists
     let tile = this.getTile(name);
     if (typeof tile !== 'undefined')
-      ctx.drawImage(tile.image, position.x * this.tileSize, position.y * this.tileSize, this.tileSize, this.tileSize);
+    {
+      let worldRegion = this.transformRegion(position.toRegion().extend(0, 0, 1, 1));
+      ctx.drawImage(tile.image, worldRegion.minX, worldRegion.minY, worldRegion.width, worldRegion.height);
+    }
   }
 
   // Convert to string

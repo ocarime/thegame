@@ -39,7 +39,7 @@ export default class CommandParser
     else
     {
       // No command found
-      console.warn(`Found unknown command in line '${line}'`);
+      console.warn(`Found unknown command '${string}'`);
     }
   }
 }
