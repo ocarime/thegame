@@ -21,9 +21,21 @@ export default class Vector
   }
 
   // Scale this vector
-  scale(scale)
+  scale(vector)
   {
-    return new Vector(this.x * scale, this.y * scale);
+    return new Vector(this.x * vector.x, this.y * vector.y);
+  }
+
+  // Scale this vector uniformly
+  scaleUniform(scalar)
+  {
+    return this.scale(new Vector(scalar, scalar));
+  }
+
+  // Get the multipicative inverse of this vector
+  reciprocal()
+  {
+    return new Vector(1 / this.x, 1 / this.y);
   }
 
   // Calculate the distance to another vector
@@ -41,3 +53,7 @@ export default class Vector
 
 // Constants
 Vector.origin = new Vector(0, 0);
+Vector.right = new Vector(1, 0);
+Vector.left = new Vector(-1, 0);
+Vector.down = new Vector(0, 1);
+Vector.up = new Vector(-1, 0);
