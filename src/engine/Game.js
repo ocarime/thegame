@@ -58,6 +58,19 @@ export default class Game extends GameObject
       this.canvas.height = window.innerHeight;
     }.bind(this));
 
+    // Add event handlers for pointer hovered
+    document.addEventListener('pointermove', function(e) {
+      // Create the pointer event
+      let event = new PointerEvent('hover', new Vector(e.x, e.y));
+
+      // Handle the pointer hovered event
+      this._each(function(gameObject) {
+        // Check if this game object can handle pointer hovered events
+        if (gameObject.can('onPointerHovered'))
+          gameObject.onPointerHovered(event);
+      }.bind(this));
+    }.bind(this));
+
     // Add event handlers for pointer pressed
     document.addEventListener('pointerdown', function(e) {
       // Create the pointer event
