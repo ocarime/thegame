@@ -28,3 +28,8 @@ game.preload = function() {
   // Initialize the tileset
   this.world.tileset = TilesetLoader.loadUrl('assets/tilesets/indoor-test.tileset');
 };
+
+// Game update
+game.update = function() {
+  this.camera.position = this.world.tileset.transformVector(this.player.position);
+};
