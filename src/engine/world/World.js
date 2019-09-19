@@ -19,7 +19,7 @@ export default class World extends GameObject
     // Dimensions of the world
     this._width = width;
     this._height = height;
-    this.region = new Region(0, 0, this.width, this.height);
+    this.region = new Region(0, 0, this.width - 1, this.height - 1);
 
     // The tileset reference
     this.tileset = tileset || new Tileset();
