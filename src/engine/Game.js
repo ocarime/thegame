@@ -25,7 +25,7 @@ export default class Game extends GameObject
     this.ctx = this.canvas.getContext('2d');
 
     // Timing variables
-    this._lastRender = Date.now()
+    this._lastRender = Date.now();
 
     // Add event handler for window loaded
     window.addEventListener('load', function() {
@@ -33,18 +33,13 @@ export default class Game extends GameObject
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
 
-      // Preload the assets
-      if (this.can('preload'))
-        this.preload.bind(this)();
+      // Execute the preload function
+      Promise.all(this.can('preload') ? [this.preload()] : []).then(function() {
+        console.log("Preloaded", this);
 
-      // Send preload finish event
-      window.dispatchEvent(new Event('game.preload'));
-    }.bind(this));
-
-    // Add event handler for preload finished
-    window.addEventListener('game.preload', function() {
-      // Start the game loop
-      window.requestAnimationFrame(this._loop.bind(this));
+        // Start the game loop
+        window.requestAnimationFrame(this._loop.bind(this));
+      }.bind(this));
     }.bind(this));
 
     // Add event handler for window resized

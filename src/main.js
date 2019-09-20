@@ -15,18 +15,17 @@ import WorldLoader from './engine/world/WorldLoader.js';
 let game = new Game('#canvas');
 
 // Preload the game assets
-game.preload = function() {
+game.preload = async function() {
   // Add a camera to the game
   this.camera = new Camera(this);
   this.addGameObject(this.camera);
 
   // Add a world to the game
   let tilesetLoader = new TilesetLoader(this);
-  this.tileset = tilesetLoader.loadUrl('assets/tilesets/indoor-test.tileset');
+  this.tileset = await tilesetLoader.loadUrl('assets/tilesets/indoor-test.tileset');
 
   let worldLoader = new WorldLoader(this, {door: Door, piano: Piano});
-  this.world = worldLoader.loadUrl('assets/worlds/indoor-test.world', this.tileset);
-
+  this.world = await worldLoader.loadUrl('assets/worlds/indoor-test.world', this.tileset);
   this.camera.addGameObject(this.world);
 
   if (typeof this.world.playerSpawn !== 'undefined')

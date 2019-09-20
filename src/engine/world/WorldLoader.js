@@ -88,19 +88,13 @@ export default class WorldLoader
   }
 
   // Load a world from a definition URL
-  loadUrl(url, ...args)
+  async loadUrl(url, ...args)
   {
-    // Create the request
-    var request = new XMLHttpRequest();
+    // Fetch the URL
+    let response = await fetch(url);
+    let responseText = await response.text();
 
-    // Open the URL
-    request.open('GET', url, false);
-    request.send();
-
-    // Check if the request was succesful
-    if (request.readyState === 4 && request.status === 200)
-      return this.load(request.responseText, ...args);
-    else
-      throw new Error(`Could not load ${url}: ${request.statusText}`);
+    // Load the world
+    return this.load(responseText, ...args);
   }
 }
