@@ -47,19 +47,21 @@ export default class WorldLoader
     let parser = new CommandParser();
 
     // Register command for defining areas
-    parser.registerCommand('area', function(minX, minY, maxX, maxY) {
+    parser.registerCommand('area', function(left, top, right, bottom, audioClip) {
+      console.log(arguments);
+      
       // Define the area
-      let worldRegion = new Area(world, parseInt(minX), parseInt(minY), parseInt(maxX), parseInt(maxY));
+      let worldRegion = new Area(world, parseInt(left), parseInt(top), parseInt(right), parseInt(bottom), typeof audioClip !== 'undefined' ? this.assets.audioClips[audioClip] : undefined);
       world.addGameObject(worldRegion);
-    });
+    }.bind(this));
 
     // Register command for spawning entities
     parser.registerCommand('entity', function(x, y, type, name, ...args) {
       // Get the entity asset
-      if (this.assets.hasOwnProperty(type))
+      if (this.assets.entities.hasOwnProperty(type))
       {
         // Create the entity
-        let entityClass = this.assets[type];
+        let entityClass = this.assets.entities[type];
         let entity = new entityClass(world, name, new Vector(parseInt(x), parseInt(y)), ...args);
         world.addGameObject(entity);
       }

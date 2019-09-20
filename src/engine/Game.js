@@ -1,4 +1,5 @@
 import Camera from './Camera.js';
+import GameAudioContext from './audio/GameAudioContext.js';
 import GameObject from './GameObject.js';
 import PointerEvent from './event/PointerEvent.js';
 import Vector from './util/Vector.js';
@@ -23,6 +24,9 @@ export default class Game extends GameObject
     // Initialize the canvas
     this.canvas = document.querySelector(canvas);
     this.ctx = this.canvas.getContext('2d');
+
+    // Initialize the audio context
+    this.audioContext = new GameAudioContext();
 
     // Timing variables
     this._lastRender = Date.now();

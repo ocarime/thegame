@@ -1,3 +1,4 @@
+import AudioSource from './engine/audio/AudioSource.js';
 import Camera from './engine/Camera.js';
 import Debugger from './engine/Debugger.js';
 import Door from './game/entity/Door.js';
@@ -24,13 +25,20 @@ game.preload = async function() {
   let tilesetLoader = new TilesetLoader(this);
   this.tileset = await tilesetLoader.loadUrl('assets/tilesets/indoor-test.tileset');
 
-  let worldLoader = new WorldLoader(this, {door: Door, piano: Piano});
+  let worldLoader = new WorldLoader(this, {
+    entities: {
+      door: Door,
+      piano: Piano},
+    audioClips: {
+      greg: await this.audioContext.createClipFromUrl('assets/audio/music-greg.ogg'),
+      danae: await this.audioContext.createClipFromUrl('assets/audio/music-danae.ogg')
+    }
+  });
   this.world = await worldLoader.loadUrl('assets/worlds/indoor-test.world', this.tileset);
   this.camera.addGameObject(this.world);
 
   if (typeof this.world.playerSpawn !== 'undefined')
     this.player = this.world.addGameObject(new PlayerCharacter(this.world, 'Player', this.world.playerSpawn));
-
 
   // Add a debugger to the game
   this.debugger = new Debugger(this);

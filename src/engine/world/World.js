@@ -1,6 +1,6 @@
 import Area from './Area.js';
 import Entity from './Entity.js';
-import GameObject from '../GameObject.js'
+import GameObject from '../GameObject.js';
 import RegionInt from '../util/RegionInt.js';
 import Tileset from '../tileset/Tileset.js';
 import Vector from '../util/Vector.js';
@@ -134,7 +134,22 @@ export default class World extends GameObject
     {
       // Move the player
       this.game.player.position = tilePosition;
-      console.log("Player in areas:", this.getAreasAtPosition(this.game.player.position));
+
+      // Get areas the player is in
+      for (let area of this.areas)
+      {
+        // Check if the player is in this area
+        if (area.region.contains(this.game.player.position))
+        {
+          if (typeof area.audioSource !== 'undefined' && !area.audioSource.playing)
+            area.audioSource.play();
+        }
+        else
+        {
+          if (typeof area.audioSource !== 'undefined' && area.audioSource.playing)
+            area.audioSource.stop();
+        }
+      }
     }
   }
 
