@@ -33,6 +33,7 @@ export default class Tileset extends GameObject
   transformRegion(region)
   {
     return region
+      .expand(0, 0, 1, 1)
       .scaleUniform(this.tileSize);
   }
 
@@ -48,7 +49,8 @@ export default class Tileset extends GameObject
   inverseTransformRegion(region)
   {
     return region
-      .scaleUniform(1 / this.tileSize);
+      .scaleUniform(1 / this.tileSize)
+      .contract(0, 0, 1, 1);
   }
 
   // Register a tile definition
@@ -90,7 +92,7 @@ export default class Tileset extends GameObject
     let tile = this.getTile(name);
     if (typeof tile !== 'undefined')
     {
-      let worldRegion = this.transformRegion(position.toRegion().extend(0, 0, 1, 1));
+      let worldRegion = this.transformRegion(position.toRegion());
       ctx.drawImage(tile.image, worldRegion.minX, worldRegion.minY, worldRegion.width, worldRegion.height);
     }
   }

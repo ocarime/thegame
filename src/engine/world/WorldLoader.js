@@ -1,4 +1,5 @@
 import World from './World.js';
+import Area from './Area.js';
 import CommandParser from '..//util/CommandParser.js';
 import Vector from '..//util/Vector.js';
 
@@ -41,6 +42,13 @@ export default class WorldLoader
 
     // Create a new command parser
     let parser = new CommandParser();
+
+    // Register command for defining areas
+    parser.registerCommand('area', function(minX, minY, maxX, maxY) {
+      // Define the area
+      let worldRegion = new Area(world, parseInt(minX), parseInt(minY), parseInt(maxX), parseInt(maxY));
+      world.addGameObject(worldRegion);
+    });
 
     // Register command for spawning entities
     parser.registerCommand('spawn', function(x, y, type, name, ...args) {

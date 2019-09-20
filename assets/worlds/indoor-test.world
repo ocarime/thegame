@@ -15,4 +15,8 @@ spawn 10 4 npc Amber
 spawn 8 2 zoom "Greg's zoom"
 spawn 9 4 piano "Amber's piano"
 
+area 1 1 7 5
+area 8 1 10 2
+area 8 4 10 5
+
 playerspawn 3 5

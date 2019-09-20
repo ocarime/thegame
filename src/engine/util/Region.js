@@ -55,8 +55,8 @@ export default class Region
     return vector.x >= this.minX && vector.x <= this.maxX && vector.y >= this.minY && vector.y <= this.maxY;
   }
 
-  // Extend this region
-  extend(left, top, right, bottom)
+  // Expand this region
+  expand(left, top, right, bottom)
   {
     return new Region (this.minX - left, this.minY - top, this.maxX + right, this.maxY + bottom);
   }

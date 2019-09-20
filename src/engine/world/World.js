@@ -1,4 +1,5 @@
 import GameObject from '../GameObject.js'
+import Area from './Area.js';
 import Entity from './Entity.js';
 import Tileset from '../tileset/Tileset.js';
 import Region from '../util/Region.js';
@@ -78,7 +79,19 @@ export default class World extends GameObject
   // Get an entity at a position
   getEntityAtPosition(position)
   {
-    return this.entities.find(entity => position.x == entity.position.x && position.y == entity.position.y);
+    return this.entities.find(entity => entity.position.x == position.x && entity.position.y == position.y);
+  }
+
+  // Get all areas
+  get areas()
+  {
+    return Array.from(this.getGameObjects(Area));
+  }
+
+  // Get all areas at a position
+  getAreasAtPosition(position)
+  {
+    return this.areas.filter(area => area.region.contains(position));
   }
 
   // Draw the world
@@ -136,6 +149,7 @@ export default class World extends GameObject
     {
       // Move the player
       this.game.player.position = tilePosition;
+      console.log("Player in areas:", this.getAreasAtPosition(this.game.player.position));
     }
   }
 
