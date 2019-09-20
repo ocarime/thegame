@@ -11,12 +11,6 @@ export default class Vector
     this.y = y;
   }
 
-  // Invert this vector
-  invert()
-  {
-    return new Vector(-1 * this.x, -1 * this.y);
-  }
-
   // Translate this vector
   translate(vector)
   {
@@ -62,13 +56,13 @@ export default class Vector
   // Convert to region
   toRegion()
   {
-    return new Region(this.x, this.y ,this.x, this.y);
+    return new Region(this.x, this.y, this.x, this.y);
   }
 
   // Convert to string
   toString()
   {
-    return `(${this.x}, ${this.y})`;
+    return `${this.constructor.name}(${this.x}, ${this.y})`;
   }
 }
 

@@ -41,37 +41,40 @@ export default class GameObject
     return newGameObject;
   }
 
-  // Get all direct child game objects
-  *getGameObjects(type = undefined)
+  // Search for all objects of a type in the direct children
+  *getObjects(type = undefined)
+  {
+    if (typeof type === 'undefined')
+      yield* this.gameObjects;
+    else
+      yield* this.gameObjects.filter(gameObject => gameObject instanceof type);
+  }
+
+  // Search for all objects (of a type) in all children using depth-first search
+  *getObjectsInChildren(type = undefined)
   {
     // Iterate over the game objects
     for (let gameObject of this.gameObjects)
     {
-      // Check the type
-      if (type === undefined || gameObject instanceof type)
-      {
-        // Yield the game object
+      // Yield the game object if the type matches
+      if (typeof type === 'undefined' || gameObject instanceof type)
         yield gameObject;
-      }
+
+      // Yield from the children
+      yield* gameObject.getObjectsInChildren(type);
     }
   }
 
-  // Get all direct child game objects
-  *getGameObjectsRecursive(type = undefined)
+  // Search for an object of a type in the direct children
+  getObject(type)
   {
-    // Iterate over the game objects
-    for (let gameObject of this.gameObjects)
-    {
-      // Check the type
-      if (type === undefined || gameObject instanceof type)
-      {
-        // Yield the game object
-        yield gameObject;
+    return this.gameObjects.find(gameObject => gameObject instanceof type);
+  }
 
-        // yield its children
-        yield* gameObject.getGameObjectsRecursive(type);
-      }
-    }
+  // Search for an object of a type in all children using depth-first search
+  getObjectInChildren(type)
+  {
+    return this.getObjectsInChildren(type).next();
   }
 
   // Execute a function on the game object and all its children

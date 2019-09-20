@@ -24,10 +24,6 @@ export default class Game extends GameObject
     this.canvas = document.querySelector(canvas);
     this.ctx = this.canvas.getContext('2d');
 
-    // Initialize the game objects
-    this.camera = new Camera(this);
-    this.world = new World(this);
-
     // Timing variables
     this._lastRender = Date.now()
 
@@ -108,32 +104,6 @@ export default class Game extends GameObject
     return this.canvas.height;
   }
 
-  // Get and set the camera
-  get camera()
-  {
-    return this._camera;
-  }
-  set camera(value)
-  {
-    if (typeof this._camera === 'undefined')
-      this._camera = this.addGameObject(value);
-    else
-      this._camera = this.replaceGameObject(this._camera, value);
-  }
-
-  // Get and set the world
-  get world()
-  {
-    return this._world;
-  }
-  set world(value)
-  {
-    if (typeof this._world === 'undefined')
-      this._world = this.camera.addGameObject(value);
-    else
-      this._world = this.camera.replaceGameObject(this._world, value);
-  }
-
   // Game loop
   _loop()
   {
@@ -161,6 +131,18 @@ export default class Game extends GameObject
     // Update timestamp and request new frame
     this._lastRender = Date.now();
     window.requestAnimationFrame(this._loop.bind(this));
+  }
+
+  // Load a tileset
+  loadTileset(url, ...args)
+  {
+    return new TilesetLoader().loadUrl(url, ...args);
+  }
+
+  // Load a world
+  loadWorld(url, ...args)
+  {
+    return new WorldLoader().loadUrl(url, ...args);
   }
 
   // Convert to string

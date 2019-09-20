@@ -1,17 +1,15 @@
-import GameObject from '../GameObject.js';
+import RegionInt from '../../engine/util/RegionInt.js';
 import Vector from '../../engine/util/Vector.js';
 
 
 // Class that defines a tileset
-export default class Tileset extends GameObject
+export default class Tileset
 {
   // Constructor
-  constructor()
+  constructor(size = 16)
   {
-    super();
-
     // The size of the tiles
-    this.tileSize = 16;
+    this.size = size;
 
     // A map of all tiles, indexed by name
     this.tiles = new Map();
@@ -24,39 +22,37 @@ export default class Tileset extends GameObject
   transformVector(vector, centered)
   {
     return vector
-      .scaleUniform(this.tileSize)
-      .translate(new Vector(this.tileSize / 2, this.tileSize / 2));
+      .scaleUniform(this.size)
+      .translate(new Vector(this.size / 2, this.size / 2));
   }
 
   // Transform a region from tile space to world space
   transformRegion(region)
   {
     return region
-      .expand(0, 0, 1, 1)
-      .scaleUniform(this.tileSize);
+      .scaleUniform(this.size);
   }
 
   // Transform a vector from world space to tile space
   inverseTransformVector(vector)
   {
     return vector
-      .translate(new Vector(this.tileSize / 2, this.tileSize / 2).scaleUniform(-1))
-      .scaleUniform(1 / this.tileSize);
+      .translate(new Vector(this.size / 2, this.size / 2).scaleUniform(-1))
+      .scaleUniform(1 / this.size);
   }
 
   // Transform a region from world space to tile space
   inverseTransformRegion(region)
   {
     return region
-      .scaleUniform(1 / this.tileSize)
-      .contract(0, 0, 1, 1);
+      .scaleUniform(1 / this.size);
   }
 
   // Register a tile definition
   registerTile(name, url, aliases = [])
   {
     // Create the image
-    let image = new Image(this.tileSize, this.tileSize);
+    let image = new Image(this.size, this.size);
     image.src = url;
 
     // Create the tile object
@@ -91,14 +87,8 @@ export default class Tileset extends GameObject
     let tile = this.getTile(name);
     if (typeof tile !== 'undefined')
     {
-      let worldRegion = this.transformRegion(position.toRegion());
-      ctx.drawImage(tile.image, worldRegion.minX, worldRegion.minY, worldRegion.width, worldRegion.height);
+      let worldRegion = this.transformRegion(RegionInt.fromVector(position));
+      ctx.drawImage(tile.image, worldRegion.left, worldRegion.top, worldRegion.width, worldRegion.height);
     }
-  }
-
-  // Convert to string
-  toString()
-  {
-    return `${super.toString()} [${this.tiles.size} tiles]`;
   }
 }

@@ -1,16 +1,16 @@
 import Vector from './Vector.js';
 
 
-// Class that represents a 2D region
-export default class Region
+// Class that represents a 2D region with integers as coordinates
+export default class RegionInt
 {
   // Constructor
   constructor(left, top, right, bottom)
   {
-    this.left = Math.min(left, right);
-    this.right = Math.max(left, right);
-    this.top = Math.min(top, bottom);
-    this.bottom = Math.max(top, bottom);
+    this.left = Math.trunc(Math.min(left, right));
+    this.right = Math.trunc(Math.max(left, right));
+    this.top = Math.trunc(Math.min(top, bottom));
+    this.bottom = Math.trunc(Math.max(top, bottom));
   }
 
   // Convenient methods to get the dimensions
@@ -58,25 +58,25 @@ export default class Region
   // Expand this region
   expand(region)
   {
-    return new Region(this.left - region.left, this.top - region.top, this.right + region.right, this.bottom + region.bottom);
+    return new RegionInt(this.left - region.left, this.top - region.top, this.right + region.right, this.bottom + region.bottom);
   }
 
   // Contract this region
   contract(region)
   {
-    return new Region (this.left + region.left, this.top + region.top, this.right - region.right, this.bottom - region.bottom);
+    return new RegionInt(this.left + region.left, this.top + region.top, this.right - region.right, this.bottom - region.bottom);
   }
 
   // Translate this region
   translate(vector)
   {
-    return new Region(this.left + vector.x,  this.top + vector.y, this.right + vector.x, this.bottom + vector.y);
+    return new RegionInt(this.left + vector.x,  this.top + vector.y, this.right + vector.x, this.bottom + vector.y);
   }
 
   // Scale this region
   scale(vector)
   {
-    return new Region(this.left * vector.x, this.top * vector.y, this.right * vector.x, this.bottom * vector.y);
+    return new RegionInt(this.left * vector.x, this.top * vector.y, this.right * vector.x, this.bottom * vector.y);
   }
 
   // Scale this region uniformly
@@ -92,14 +92,14 @@ export default class Region
   }
 
   // Create a region from a corner vector and dimensions
-  static fromVector(vector, width = 0, height = 0)
+  static fromVector(vector, width = 1, height = 1)
   {
-    return new Region(vector.x, vector.y, vector.x + width, vector.y + height);
+    return new RegionInt(vector.x, vector.y, vector.x + width, vector.y + height);
   }
 
   // Create a region from two corner vectors
   static fromVectorCorners(vector1, vector2)
   {
-    return new Region(vector1.x, vector1.y, vector2.x, vector2.y);
+    return new RegionInt(vector1.x, vector1.y, vector2.x, vector2.y);
   }
 }

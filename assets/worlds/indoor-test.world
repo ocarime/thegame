@@ -6,17 +6,17 @@
 # . . . . . . . . . . #
 # # X . X # # # # # # #
 
-spawn 7 1 door "Greg's room" closed
-spawn 7 5 door "Amber's room" opened
-spawn 3 6 door Exit locked
-
-spawn 10 2 npc Greg
-spawn 10 4 npc Amber
-spawn 8 2 zoom "Greg's zoom"
-spawn 9 4 piano "Amber's piano"
-
 area 1 1 7 5
 area 8 1 10 2
 area 8 4 10 5
+
+entity 7 1 door "Greg's room" closed
+entity 7 5 door "Amber's room" opened
+entity 3 6 door Exit locked
+
+entity 10 2 npc Greg
+entity 10 4 npc Amber
+entity 8 2 zoom "Greg's zoom"
+entity 9 4 piano "Amber's piano"
 
 playerspawn 3 5

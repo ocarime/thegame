@@ -6,7 +6,7 @@ import Tileset from './Tileset.js';
 export default class TilesetLoader
 {
   // Load from JSON
-  static load(string)
+  load(string)
   {
     // Create a new tileset
     let tileset = new Tileset();
@@ -17,7 +17,7 @@ export default class TilesetLoader
     // Register command for defining tile size
     parser.registerCommand('size', function(size) {
       // Set the size of the tiles
-      tileset.tileSize = parseInt(size);
+      tileset.size = parseInt(size);
     }.bind(this));
 
     /// Register command for defining tiles
@@ -42,7 +42,7 @@ export default class TilesetLoader
   }
 
   // Load from JSON using a URL
-  static loadUrl(url)
+  loadUrl(url)
   {
     // Create the request
     var request = new XMLHttpRequest();
@@ -53,7 +53,7 @@ export default class TilesetLoader
 
     // Check if the request was succesful
     if (request.readyState === 4 && request.status === 200)
-      return TilesetLoader.load(request.responseText);
+      return this.load(request.responseText);
     else
       throw new Error(`Could not load ${url}: ${request.statusText}`);
   }

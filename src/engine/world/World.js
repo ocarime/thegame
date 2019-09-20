@@ -1,7 +1,7 @@
 import Area from './Area.js';
 import Entity from './Entity.js';
 import GameObject from '../GameObject.js'
-import Region from '../util/Region.js';
+import RegionInt from '../util/RegionInt.js';
 import Tileset from '../tileset/Tileset.js';
 import Vector from '../util/Vector.js';
 
@@ -10,7 +10,7 @@ import Vector from '../util/Vector.js';
 export default class World extends GameObject
 {
   // Constructor
-  constructor(game, width = 16, height = 16, tileset = undefined)
+  constructor(game, width = 16, height = 16, tileset)
   {
     super();
 
@@ -18,38 +18,23 @@ export default class World extends GameObject
     this.game = game;
 
     // Dimensions of the world
-    this._width = width;
-    this._height = height;
-    this.region = new Region(0, 0, this.width - 1, this.height - 1);
+    this.region = new RegionInt(0, 0, width, height);
 
-    // The tileset reference
-    this.tileset = tileset || new Tileset();
+    // Reference to the tileset
+    this.tileset = tileset;
 
     // Tile array
-    this.tiles = Array.fill(undefined, this.width * this.height);
+    this.tiles = Array.fill(undefined, this.region.area);
   }
 
   // Get the dimensions of the map
   get width()
   {
-    return this._width;
+    return this.region.width;
   }
   get height()
   {
-    return this._height;
-  }
-
-  // Get and set the tileset
-  get tileset()
-  {
-    return this._tileset;
-  }
-  set tileset(value)
-  {
-    if (typeof this._tileset === 'undefined')
-      this._tileset = this.addGameObject(value);
-    else
-      this._tileset = this.replaceGameObject(this._tileset, value);
+    return this.region.height;
   }
 
   // Get a tile at a position
@@ -67,7 +52,7 @@ export default class World extends GameObject
   // Get all entities
   get entities()
   {
-    return Array.from(this.getGameObjects(Entity));
+    return Array.from(this.getObjects(Entity));
   }
 
   // Get an entity
@@ -85,7 +70,7 @@ export default class World extends GameObject
   // Get all areas
   get areas()
   {
-    return Array.from(this.getGameObjects(Area));
+    return Array.from(this.getObjects(Area));
   }
 
   // Get all areas at a position

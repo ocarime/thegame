@@ -8,30 +8,33 @@ import World from './World.js';
 export default class WorldLoader
 {
   // Constructor
-  constructor(assets)
+  constructor(game, assets)
   {
+    this.game = game;
+
     // Asset list
     this.assets = assets;
   }
 
   // Load a world from a definition string
-  load(game, string)
+  load(string, ...args)
   {
     let lines = string.split(/\r?\n/);
-    let line = null;
+    let line = "";
 
     // Read the map
     let cols = [];
-    do
+    line = lines.shift().trim();
+    while (typeof line !== 'undefined' && line !== "")
     {
-      line = lines.shift().trim();
-
       let tiles = line.split(/\s+/);
       cols.push(tiles);
-    } while (typeof line !== 'undefined' && line !== "")
+
+      line = lines.shift().trim();
+    }
 
     // Create a new world
-    let world = new World(game, cols[0].length, cols.length);
+    let world = new World(this.game, cols[0].length, cols.length, ...args);
 
     // Add the tiles to the map
     for (let y = 0; y < cols.length; y ++)
@@ -51,13 +54,13 @@ export default class WorldLoader
     });
 
     // Register command for spawning entities
-    parser.registerCommand('spawn', function(x, y, type, name, ...args) {
+    parser.registerCommand('entity', function(x, y, type, name, ...args) {
       // Get the entity asset
-      if (this.assets.entities.hasOwnProperty(type))
+      if (this.assets.hasOwnProperty(type))
       {
         // Create the entity
-        let entityClass = this.assets.entities[type];
-        let entity = new entityClass(world, name, new Vector(x, y), ...args);
+        let entityClass = this.assets[type];
+        let entity = new entityClass(world, name, new Vector(parseInt(x), parseInt(y)), ...args);
         world.addGameObject(entity);
       }
       else
@@ -85,7 +88,7 @@ export default class WorldLoader
   }
 
   // Load a world from a definition URL
-  loadUrl(game, url)
+  loadUrl(url, ...args)
   {
     // Create the request
     var request = new XMLHttpRequest();
@@ -96,7 +99,7 @@ export default class WorldLoader
 
     // Check if the request was succesful
     if (request.readyState === 4 && request.status === 200)
-      return this.load(game, request.responseText);
+      return this.load(request.responseText, ...args);
     else
       throw new Error(`Could not load ${url}: ${request.statusText}`);
   }
