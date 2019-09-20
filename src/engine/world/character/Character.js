@@ -1,5 +1,5 @@
-import Entity from '../../engine/world/Entity.js';
-import Vector from '../../engine/util/Vector.js';
+import Entity from '../Entity.js';
+import Vector from '../../util/Vector.js';
 
 
 // Class that represents an in-game character

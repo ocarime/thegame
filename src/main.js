@@ -1,12 +1,11 @@
 import Debugger from './engine/Debugger.js';
-import Game from './engine/Game.js';
-import Vector from './engine/util/Vector.js';
-import TilesetLoader from './engine/tileset/TilesetLoader.js';
-import WorldLoader from './engine/world/WorldLoader.js';
-
 import Door from './game/entity/Door.js';
+import Game from './engine/Game.js';
 import Piano from './game/entity/Piano.js';
-import PlayerCharacter from './game/character/PlayerCharacter.js';
+import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
+import TilesetLoader from './engine/tileset/TilesetLoader.js';
+import Vector from './engine/util/Vector.js';
+import WorldLoader from './engine/world/WorldLoader.js';
 
 
 // Create the game
