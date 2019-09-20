@@ -1,8 +1,8 @@
-import GameObject from '../GameObject.js'
 import Area from './Area.js';
 import Entity from './Entity.js';
-import Tileset from '../tileset/Tileset.js';
+import GameObject from '../GameObject.js'
 import Region from '../util/Region.js';
+import Tileset from '../tileset/Tileset.js';
 import Vector from '../util/Vector.js';
 
 

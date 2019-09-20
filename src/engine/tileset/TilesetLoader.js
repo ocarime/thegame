@@ -1,5 +1,5 @@
-import Tileset from './Tileset.js';
 import CommandParser from '../util/CommandParser.js';
+import Tileset from './Tileset.js';
 
 
 // Class that loads a tileset from a definition

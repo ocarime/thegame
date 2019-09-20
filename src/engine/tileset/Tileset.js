@@ -1,5 +1,4 @@
 import GameObject from '../GameObject.js';
-
 import Vector from '../../engine/util/Vector.js';
 
 

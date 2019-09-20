@@ -1,8 +1,8 @@
-import GameObject from './GameObject.js'
 import Camera from './Camera.js';
+import GameObject from './GameObject.js';
+import PointerEvent from './event/PointerEvent.js';
 import Vector from './util/Vector.js';
 import World from './world/World.js';
-import PointerEvent from './event/PointerEvent.js';
 
 
 // Class that handles high-level game logic

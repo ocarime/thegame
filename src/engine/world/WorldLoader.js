@@ -1,7 +1,7 @@
-import World from './World.js';
 import Area from './Area.js';
 import CommandParser from '..//util/CommandParser.js';
 import Vector from '..//util/Vector.js';
+import World from './World.js';
 
 
 // Class that loads a world from a definition
