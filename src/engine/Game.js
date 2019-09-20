@@ -69,8 +69,6 @@ export default class Game extends GameObject
       if (this.audioContext.context.state === 'suspended')
         this.audioContext.context.resume();
 
-      console.log(this.audioContext.context.state);
-
       // Create the pointer event
       let event = new PointerEvent('press', new Vector(e.x, e.y));
 
