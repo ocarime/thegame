@@ -35,8 +35,6 @@ export default class Game extends GameObject
 
       // Execute the preload function
       Promise.all(this.can('preload') ? [this.preload()] : []).then(function() {
-        console.log("Preloaded", this);
-
         // Start the game loop
         window.requestAnimationFrame(this._loop.bind(this));
       }.bind(this));
