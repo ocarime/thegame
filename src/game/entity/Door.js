@@ -1,4 +1,4 @@
-import Entity from '../../engine/world/Entity.js'
+import Entity from '../../engine/world/Entity.js';
 
 
 // Class that defines a door entity
