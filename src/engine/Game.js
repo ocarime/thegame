@@ -66,6 +66,11 @@ export default class Game extends GameObject
 
     // Add event handlers for pointer pressed
     this.canvas.addEventListener('pointerdown', function(e) {
+      if (this.audioContext.context.state === 'suspended')
+        this.audioContext.context.resume();
+
+      console.log(this.audioContext.context.state);
+
       // Create the pointer event
       let event = new PointerEvent('press', new Vector(e.x, e.y));
 

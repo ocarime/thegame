@@ -47,9 +47,7 @@ export default class WorldLoader
     let parser = new CommandParser();
 
     // Register command for defining areas
-    parser.registerCommand('area', function(left, top, right, bottom, audioClip) {
-      console.log(arguments);
-      
+    parser.registerCommand('area', function(left, top, right, bottom, audioClip) {      
       // Define the area
       let worldRegion = new Area(world, parseInt(left), parseInt(top), parseInt(right), parseInt(bottom), typeof audioClip !== 'undefined' ? this.assets.audioClips[audioClip] : undefined);
       world.addGameObject(worldRegion);
