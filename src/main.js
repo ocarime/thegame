@@ -51,14 +51,7 @@ game.preload = async function() {
       piano: Piano,
       npc: NonPlayerCharacter
     },
-    audioClips: {
-      amber: assets.music_amber,
-      bastiaan: assets.music_bastiaan,
-      common: assets.music_common,
-      danae: assets.music_danae,
-      greg: assets.music_greg,
-      thomas: assets.music_thomas
-    }
+    assets: assets
   });
   this.world = await worldLoader.load(assets.world_indoor_test, this.tileset);
   this.camera.addGameObject(this.world);
@@ -67,8 +60,8 @@ game.preload = async function() {
     this.player = this.world.addGameObject(new PlayerCharacter(this.world, 'Player', this.world.playerSpawn));
 
   // Add a debugger to the game
-  //this.debugger = new Debugger(this);
-  //this.addGameObject(this.debugger);
+  this.debugger = new Debugger(this);
+  this.addGameObject(this.debugger);
 };
 
 // Game update

@@ -8,12 +8,10 @@ import World from './World.js';
 export default class WorldLoader
 {
   // Constructor
-  constructor(game, assets)
+  constructor(game, context)
   {
     this.game = game;
-
-    // Asset list
-    this.assets = assets;
+    this.context = context;
   }
 
   // Load a world from a definition string
@@ -49,17 +47,17 @@ export default class WorldLoader
     // Register command for defining areas
     parser.registerCommand('area', function(left, top, right, bottom, audioClip) {
       // Define the area
-      let worldRegion = new Area(world, parseInt(left), parseInt(top), parseInt(right), parseInt(bottom), typeof audioClip !== 'undefined' ? this.assets.audioClips[audioClip] : undefined);
+      let worldRegion = new Area(world, parseInt(left), parseInt(top), parseInt(right), parseInt(bottom), typeof audioClip !== 'undefined' ? this.context.assets[audioClip] : undefined);
       world.addGameObject(worldRegion);
     }.bind(this));
 
     // Register command for spawning entities
     parser.registerCommand('entity', function(x, y, type, name, ...args) {
       // Get the entity asset
-      if (this.assets.entities.hasOwnProperty(type))
+      if (this.context.entities.hasOwnProperty(type))
       {
         // Create the entity
-        let entityClass = this.assets.entities[type];
+        let entityClass = this.context.entities[type];
         let entity = new entityClass(world, name, new Vector(parseInt(x), parseInt(y)), ...args);
         world.addGameObject(entity);
       }

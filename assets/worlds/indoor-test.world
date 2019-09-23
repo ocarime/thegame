@@ -21,13 +21,13 @@ X . . . . . . . . . . . . . X
 ~ ~ ~ ~ ~ ~ # . . . . . . . #
 ~ ~ ~ ~ ~ ~ # # X # # # X # #
 
-area 1 1 3 4 stijn
-area 1 6 3 9 danae
-area 7 4 9 7 bastiaan
-area 11 4 13 7 thomas
-area 7 11 9 14 greg
-area 11 11 13 14 amber
-area 1 11 3 14 sanne
+area 1 1 3 4 music_stijn
+area 1 6 3 9 music_danae
+area 7 4 9 7 music_bastiaan
+area 11 4 13 7 music_thomas
+area 7 11 9 14 music_greg
+area 11 11 13 14 music_amber
+area 1 11 3 14 music_sanne
 
 entity 3 19 door "Front door" locked
 entity 4 2 door "Stijn's room" closed
@@ -46,12 +46,12 @@ entity 9 13 piano "Greg's piano" "http://www.gregcandel.com/"
 entity 11 12 piano "Amber's piano" "http://amberveerman.com/"
 entity 1 12 piano "Sanne's piano" "#"
 
-entity 2 2 npc "Stijn"
+entity 2 2 npc "Stijn" "#8000AA"
 entity 2 7 npc "Danae" "#AA0050"
-entity 8 5 npc "Bastiaan"
-entity 12 5 npc "Thomas"
-entity 8 12 npc "Greg"
-entity 12 11 npc "Amber"
+entity 8 5 npc "Bastiaan" "#3CB371"
+entity 12 5 npc "Thomas" "#3333FF"
+entity 8 12 npc "Greg" "#FFEE33"
+entity 12 11 npc "Amber" "#40E0D0"
 entity 2 12 npc "Sanne"
 
 playerspawn 3 18
