@@ -52,7 +52,7 @@ export default class RegionInt
   // Return if a vector is inside this region
   contains(vector)
   {
-    return vector.x >= this.left && vector.x < this.right && vector.y >= this.top && vector.y < this.bottom;
+    return vector.x >= this.left && vector.x <= this.right && vector.y >= this.top && vector.y <= this.bottom;
   }
 
   // Expand this region

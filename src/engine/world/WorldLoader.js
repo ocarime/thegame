@@ -47,7 +47,7 @@ export default class WorldLoader
     let parser = new CommandParser();
 
     // Register command for defining areas
-    parser.registerCommand('area', function(left, top, right, bottom, audioClip) {      
+    parser.registerCommand('area', function(left, top, right, bottom, audioClip) {
       // Define the area
       let worldRegion = new Area(world, parseInt(left), parseInt(top), parseInt(right), parseInt(bottom), typeof audioClip !== 'undefined' ? this.assets.audioClips[audioClip] : undefined);
       world.addGameObject(worldRegion);
@@ -85,16 +85,5 @@ export default class WorldLoader
 
     // Return the world
     return world;
-  }
-
-  // Load a world from a definition URL
-  async loadUrl(url, ...args)
-  {
-    // Fetch the URL
-    let response = await fetch(url);
-    let responseText = await response.text();
-
-    // Load the world
-    return this.load(responseText, ...args);
   }
 }

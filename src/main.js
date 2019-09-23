@@ -1,3 +1,4 @@
+import AssetLoader from './engine/util/AssetLoader.js';
 import AudioSource from './engine/audio/AudioSource.js';
 import Camera from './engine/Camera.js';
 import Debugger from './engine/Debugger.js';
@@ -14,17 +15,35 @@ import WorldLoader from './engine/world/WorldLoader.js';
 
 
 // Create the game
-let game = new Game('#canvas');
+let game = new Game('#canvas', '#loadingScreen');
 
 // Preload the game assets
 game.preload = async function() {
+  // Create an asset loader
+  let assets = new AssetLoader('#loadingScreen');
+
+  // Register audio files
+  assets.register('music_amber', 'assets/audio/music-amber.ogg', this.audioContext.createClip, this.audioContext);
+  assets.register('music_bastiaan', 'assets/audio/music-bastiaan.ogg', this.audioContext.createClip, this.audioContext);
+  assets.register('music_common', 'assets/audio/music-common.ogg', this.audioContext.createClip, this.audioContext);
+  assets.register('music_danae', 'assets/audio/music-danae.ogg', this.audioContext.createClip, this.audioContext);
+  assets.register('music_greg', 'assets/audio/music-greg.ogg', this.audioContext.createClip, this.audioContext);
+  assets.register('music_thomas', 'assets/audio/music-thomas.ogg', this.audioContext.createClip, this.audioContext);
+
+  // Register world and tileset files
+  assets.register('tileset_indoor_test', 'assets/tilesets/indoor-test.tileset', response => response.text());
+  assets.register('world_indoor_test', 'assets/worlds/indoor-test.world', response => response.text());
+
+  // Load the assets
+  await assets.load();
+
   // Add a camera to the game
   this.camera = new Camera(this);
   this.addGameObject(this.camera);
 
   // Add a world to the game
   let tilesetLoader = new TilesetLoader(this);
-  this.tileset = await tilesetLoader.loadUrl('assets/tilesets/indoor-test.tileset');
+  this.tileset = await tilesetLoader.load(assets.tileset_indoor_test);
 
   let worldLoader = new WorldLoader(this, {
     entities: {
@@ -33,15 +52,15 @@ game.preload = async function() {
       npc: NonPlayerCharacter
     },
     audioClips: {
-      amber: await this.audioContext.createClipFromUrl('assets/audio/music-amber.ogg'),
-      bastiaan: await this.audioContext.createClipFromUrl('assets/audio/music-bastiaan.ogg'),
-      common: await this.audioContext.createClipFromUrl('assets/audio/music-common.ogg'),
-      danae: await this.audioContext.createClipFromUrl('assets/audio/music-danae.ogg'),
-      greg: await this.audioContext.createClipFromUrl('assets/audio/music-greg.ogg'),
-      thomas: await this.audioContext.createClipFromUrl('assets/audio/music-thomas.ogg')
+      amber: assets.music_amber,
+      bastiaan: assets.music_bastiaan,
+      common: assets.music_common,
+      danae: assets.music_danae,
+      greg: assets.music_greg,
+      thomas: assets.music_thomas
     }
   });
-  this.world = await worldLoader.loadUrl('assets/worlds/indoor-test.world', this.tileset);
+  this.world = await worldLoader.load(assets.world_indoor_test, this.tileset);
   this.camera.addGameObject(this.world);
 
   if (typeof this.world.playerSpawn !== 'undefined')

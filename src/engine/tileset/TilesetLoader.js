@@ -40,15 +40,4 @@ export default class TilesetLoader
     // Return the tileset
     return tileset;
   }
-
-  // Load a tileset from a definition URL
-  async loadUrl(url, ...args)
-  {
-    // Fetch the URL
-    let response = await fetch(url);
-    let responseText = await response.text();
-
-    // Load the world
-    return this.load(responseText, ...args);
-  }
 }

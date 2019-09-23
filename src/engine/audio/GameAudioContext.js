@@ -18,10 +18,10 @@ export default class GameAudioContext
     this.endpoint = this.gainNode;
   }
 
-  // Create a clip from a URL
-  async createClipFromUrl(url)
+  // Create a clip from a fetch response
+  async createClip(response)
   {
-    let response = await fetch(url);
+    //console.log(this);
     let arrayBuffer = await response.arrayBuffer();
     let buffer = await this.context.decodeAudioData(arrayBuffer);
 

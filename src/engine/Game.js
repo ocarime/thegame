@@ -17,13 +17,17 @@ export default class Game extends GameObject
   //   endContext(ctx)    Is called after drawing itself and all children
 
   // Constructor
-  constructor(canvas)
+  constructor(canvas, loadingScreen)
   {
     super();
 
     // Initialize the canvas
     this.canvas = document.querySelector(canvas);
     this.ctx = this.canvas.getContext('2d');
+
+    // Initialize the loading screen
+    this.loadingScreen = document.querySelector(loadingScreen);
+    this.loadingItems = 0;
 
     // Initialize the audio context
     this.audioContext = new GameAudioContext();
@@ -133,16 +137,29 @@ export default class Game extends GameObject
     window.requestAnimationFrame(this._loop.bind(this));
   }
 
-  // Load a tileset
-  loadTileset(url, ...args)
+  // Load an asset
+  async load(url)
   {
-    return new TilesetLoader().loadUrl(url, ...args);
-  }
+    // Add loading item
+    this.loadingItems ++;
+    let div = document.createElement('div');
+    div.textContent = url;
+    this.loadingScreen.appendChild(div);
 
-  // Load a world
-  loadWorld(url, ...args)
-  {
-    return new WorldLoader().loadUrl(url, ...args);
+    // Load the item
+    let contents = await fetch(url);
+
+    // Remove loadingItems
+    this.loadingItems --;
+    //div.remove();
+
+    if (this.loadingItems == 0)
+      this.loadingScreen.style.display = 'none';
+    else
+      this.loadingScreen.style.display = 'block';
+
+    // Return the contents
+    return contents;
   }
 
   // Convert to string
