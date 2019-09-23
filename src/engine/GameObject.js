@@ -77,6 +77,19 @@ export default class GameObject
     return this.getObjectsInChildren(type).next();
   }
 
+  // Remove an object in the direct children
+  removeObject(object)
+  {
+    if (this.gameObjects.indexOf(object) > -1)
+      this.gameObjects.splice(this.gameObjects.indexOf(object), 1);
+  }
+
+  // Remove an object in all children using depth-first search
+  removeObjectInChildren(object)
+  {
+    this._each(gameObject => gameObject.removeObject(object));
+  }
+
   // Execute a function on the game object and all its children
   _each(fn, parents = [])
   {

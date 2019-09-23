@@ -1,3 +1,4 @@
+import Animation from '../../util/Animation.js';
 import Entity from '../Entity.js';
 import Vector from '../../util/Vector.js';
 
@@ -9,6 +10,12 @@ export default class Character extends Entity
   constructor(world, name, position)
   {
     super(world, name, position);
+  }
+
+  // Move the character to a position
+  moveTo(vector)
+  {
+    this.addGameObject(new Animation(this.position, [this.position.distanceTo(vector) * 100, vector]));
   }
 
   // Draw the character

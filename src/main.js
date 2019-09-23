@@ -60,8 +60,8 @@ game.preload = async function() {
     this.player = this.world.addGameObject(new PlayerCharacter(this.world, 'Player', this.world.playerSpawn));
 
   // Add a debugger to the game
-  this.debugger = new Debugger(this);
-  this.addGameObject(this.debugger);
+  //this.debugger = new Debugger(this);
+  //this.addGameObject(this.debugger);
 };
 
 // Game update

@@ -119,6 +119,10 @@ export default class Game extends GameObject
       // Check if this game object can update
       if (gameObject.can('update'))
         gameObject.update(deltaTime);
+
+      // Check if the game object can be finished
+      if (typeof gameObject.finished !== 'undefined' && gameObject.finished)
+        this.removeObjectInChildren(gameObject);
     }.bind(this));
 
     // Draw the background
@@ -135,31 +139,6 @@ export default class Game extends GameObject
     // Update timestamp and request new frame
     this._lastRender = Date.now();
     window.requestAnimationFrame(this._loop.bind(this));
-  }
-
-  // Load an asset
-  async load(url)
-  {
-    // Add loading item
-    this.loadingItems ++;
-    let div = document.createElement('div');
-    div.textContent = url;
-    this.loadingScreen.appendChild(div);
-
-    // Load the item
-    let contents = await fetch(url);
-
-    // Remove loadingItems
-    this.loadingItems --;
-    //div.remove();
-
-    if (this.loadingItems == 0)
-      this.loadingScreen.style.display = 'none';
-    else
-      this.loadingScreen.style.display = 'block';
-
-    // Return the contents
-    return contents;
   }
 
   // Convert to string

@@ -133,13 +133,13 @@ export default class World extends GameObject
     else
     {
       // Move the player
-      this.game.player.position = tilePosition;
+      this.game.player.moveTo(tilePosition);
 
       // Get areas the player is in
       for (let area of this.areas)
       {
         // Check if the player is in this area
-        if (area.region.contains(this.game.player.position))
+        if (area.region.contains(tilePosition))
         {
           if (typeof area.audioSource !== 'undefined' && !area.audioSource.playing)
             area.audioSource.play();

@@ -4,7 +4,7 @@ import Vector from '../../util/Vector.js';
 
 
 // Class that defines the player character
-export default class PlayerCharacter extends Character
+export default class NonPlayerCharacter extends Character
 {
   // Constructor
   constructor(world, name, position, color = 'aqua')
