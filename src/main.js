@@ -28,10 +28,15 @@ game.preload = async function() {
   let worldLoader = new WorldLoader(this, {
     entities: {
       door: Door,
-      piano: Piano},
+      piano: Piano
+    },
     audioClips: {
+      amber: await this.audioContext.createClipFromUrl('assets/audio/music-amber.ogg'),
+      bastiaan: await this.audioContext.createClipFromUrl('assets/audio/music-bastiaan.ogg'),
+      common: await this.audioContext.createClipFromUrl('assets/audio/music-common.ogg'),
+      danae: await this.audioContext.createClipFromUrl('assets/audio/music-danae.ogg'),
       greg: await this.audioContext.createClipFromUrl('assets/audio/music-greg.ogg'),
-      danae: await this.audioContext.createClipFromUrl('assets/audio/music-danae.ogg')
+      thomas: await this.audioContext.createClipFromUrl('assets/audio/music-thomas.ogg')
     }
   });
   this.world = await worldLoader.loadUrl('assets/worlds/indoor-test.world', this.tileset);
