@@ -21,9 +21,9 @@ export default class TilesetLoader
     }.bind(this));
 
     /// Register command for defining tiles
-    parser.registerCommand('tile', function(name, url, ...aliases) {
+    parser.registerCommand('tile', function(name, url, passable, ...aliases) {
       // Register a new tile
-      tileset.registerTile(name, url, aliases);
+      tileset.registerTile(name, url, (passable === 'true'), ...aliases);
     }.bind(this));
 
     // Iterate over the lines

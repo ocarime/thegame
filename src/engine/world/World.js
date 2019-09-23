@@ -49,6 +49,19 @@ export default class World extends GameObject
     this.tiles[position.y * this.width + position.x] = tile;
   }
 
+  // Get neighboring tiles
+  *getNeighbors(position)
+  {
+    if (position.x > this.region.left)
+      yield position.translate(new Vector(-1, 0));
+    if (position.x < this.region.right)
+      yield position.translate(new Vector(1, 0));
+    if (position.y > this.region.top)
+      yield position.translate(new Vector(0, -1));
+    if (position.y < this.region.bottom)
+      yield position.translate(new Vector(0, 1));
+  }
+
   // Get all entities
   get entities()
   {
@@ -77,6 +90,22 @@ export default class World extends GameObject
   getAreasAtPosition(position)
   {
     return this.areas.filter(area => area.region.contains(position));
+  }
+
+  // Get information about a position in the world
+  getTileInfo(position)
+  {
+    let tile = this.tileset.getTile(this.getTile(position));
+    let entity = this.getEntityAtPosition(position);
+
+    return {
+      position: position,
+      tile: tile,
+      entity: entity,
+      isPassable: function() {
+        return typeof tile !== 'undefined' && tile.passable;
+      }
+    };
   }
 
   // Draw the world

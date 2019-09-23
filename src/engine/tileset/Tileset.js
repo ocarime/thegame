@@ -49,14 +49,14 @@ export default class Tileset
   }
 
   // Register a tile definition
-  registerTile(name, url, aliases = [])
+  registerTile(name, url, passable, ...aliases)
   {
     // Create the image
     let image = new Image(this.size, this.size);
     image.src = url;
 
     // Create the tile object
-    this.tiles.set(name, {image: image});
+    this.tiles.set(name, {name: name, passable: passable, image: image});
 
     // Register the aliases
     aliases.forEach(alias => this.aliases.set(alias, name));

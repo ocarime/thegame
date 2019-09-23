@@ -13,9 +13,10 @@ export default class Character extends Entity
   }
 
   // Move the character to a position
-  moveTo(vector)
+  moveTo(...vectors)
   {
-    this.addGameObject(new Animation(this.position, [this.position.distanceTo(vector) * 100, vector]));
+    let keyframes = Array.from(vectors.entries()).map(entry => [entry[0] * 200, entry[1]]);
+    this.addGameObject(new Animation(this.position, ...keyframes));
   }
 
   // Draw the character

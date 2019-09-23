@@ -1,8 +1,8 @@
 size 24
 
-tile floor "assets/images/tile-floor.png" .
-tile bricks "assets/images/tile-bricks.png" #
-tile iron "assets/images/tile-iron.png" X
+tile floor "assets/images/tile-floor.png" true .
+tile bricks "assets/images/tile-bricks.png" false #
+tile iron "assets/images/tile-iron.png" false X
 
 tile door-closed "assets/images/entity-door-closed.png"
 tile door-opened "assets/images/entity-door-opened.png"

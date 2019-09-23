@@ -47,12 +47,6 @@ export default class Vector
     return new Vector(Math.trunc(this.x), Math.trunc(this.y));
   }
 
-  // Calculate the distance to another vector
-  distanceTo(vector)
-  {
-    return Math.sqrt(Math.pow(vector.x - this.x, 2) + Math.pow(vector.y - this.y, 2));
-  }
-
   // Convert to region
   toRegion()
   {
@@ -63,6 +57,18 @@ export default class Vector
   toString()
   {
     return `${this.constructor.name}(${this.x}, ${this.y})`;
+  }
+
+  // Calculate the distance between two vectors
+  static distance(vector1, vector2)
+  {
+    return Math.sqrt(Math.pow(vector2.x - vector1.x, 2) + Math.pow(vector2.y - vector1.y, 2));
+  }
+
+  // Calculate the Manhattan distance between two vectors
+  static manhattanDistance(vector1, vector2)
+  {
+    return Math.abs(vector2.x - vector1.x) + Math.abs(vector2.y - vector1.y);
   }
 }
 
