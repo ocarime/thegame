@@ -28,6 +28,7 @@ game.preload = async function() {
   assets.register('music_common', 'assets/audio/music-common.ogg', this.audioContext.createClip, this.audioContext);
   assets.register('music_danae', 'assets/audio/music-danae.ogg', this.audioContext.createClip, this.audioContext);
   assets.register('music_greg', 'assets/audio/music-greg.ogg', this.audioContext.createClip, this.audioContext);
+  assets.register('music_stijn', 'assets/audio/music-stijn.ogg', this.audioContext.createClip, this.audioContext);
   assets.register('music_thomas', 'assets/audio/music-thomas.ogg', this.audioContext.createClip, this.audioContext);
 
   // Register world and tileset files
