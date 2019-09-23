@@ -5,9 +5,11 @@ import Entity from '../../engine/world/Entity.js';
 export default class Piano extends Entity
 {
   // Constructor
-  constructor(world, name, position)
+  constructor(world, name, position, url)
   {
     super(world, name, position);
+
+    this.url = url;
   }
 
   // Draw the door
@@ -19,6 +21,6 @@ export default class Piano extends Entity
   // Interaction event handler
   onInteract(e)
   {
-    window.open('http://www.amberveerman.com/', '_blank');
+    window.open(this.url, '_blank');
   }
 }

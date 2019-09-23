@@ -3,6 +3,7 @@ import Camera from './engine/Camera.js';
 import Debugger from './engine/Debugger.js';
 import Door from './game/entity/Door.js';
 import Game from './engine/Game.js';
+import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
 import Piano from './game/entity/Piano.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Tileset from './engine/tileset/Tileset.js';
@@ -28,7 +29,8 @@ game.preload = async function() {
   let worldLoader = new WorldLoader(this, {
     entities: {
       door: Door,
-      piano: Piano
+      piano: Piano,
+      npc: NonPlayerCharacter
     },
     audioClips: {
       amber: await this.audioContext.createClipFromUrl('assets/audio/music-amber.ogg'),

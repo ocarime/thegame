@@ -47,10 +47,11 @@ entity 11 12 piano "Amber's piano" "http://amberveerman.com/"
 entity 1 12 piano "Sanne's piano" "#"
 
 entity 2 2 npc "Stijn"
-entity 2 7 npc "Danae"
+entity 2 7 npc "Danae" "#AA0050"
 entity 8 5 npc "Bastiaan"
 entity 12 5 npc "Thomas"
 entity 8 12 npc "Greg"
 entity 12 11 npc "Amber"
+entity 2 12 npc "Sanne"
 
 playerspawn 3 18
