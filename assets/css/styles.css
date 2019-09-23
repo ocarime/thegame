@@ -19,6 +19,8 @@ canvas {
 }
 
 #loadingScreen {
+  max-width: 768px;
+  margin: 0 auto;
   padding: 1rem;
   text-align: center;
   color: #E0E0E0;
