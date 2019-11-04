@@ -13,32 +13,32 @@ export default class GameObject
     this.gameObjects = [];
   }
 
-  // Add a game object and return it
-  addGameObject(gameObject)
+  // Add a game object and return this
+  appendObject(gameObject)
   {
     this.gameObjects.push(gameObject);
-    return gameObject;
+    return this;
   }
 
-  // Add a game object before every other object and return it
-  prependGameObject(gameObject)
+  // Add this game object to another game object and return this
+  appendTo(gameObject)
+  {
+    gameObject.appendObject(this);
+    return this;
+  }
+
+  // Add a game object before every other object and return this
+  prependObject(gameObject)
   {
     this.gameObject.unshift(gameObject);
-    return gameObject;
+    return this;
   }
 
-  // Remove a game object and return it
-  removeGameObject(gameObject)
+  // Prepend this game object to another game object and return this
+  prependTo(gameObject)
   {
-    this.gameObjects.splice(this.gameObjects.indexOf(gameObject), 1);
-    return undefined;
-  }
-
-  // Replace a game object and return it
-  replaceGameObject(gameObject, newGameObject)
-  {
-    this.gameObjects.splice(this.gameObjects.indexOf(gameObject), 1, newGameObject);
-    return newGameObject;
+    gameObject.prependObject(this);
+    return this;
   }
 
   // Search for all objects of a type in the direct children

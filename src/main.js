@@ -39,30 +39,20 @@ game.preload = async function() {
   await assets.load();
 
   // Add a camera to the game
-  this.camera = new Camera(this);
-  this.addGameObject(this.camera);
+  this.camera = new Camera(this).appendTo(this);
 
   // Add a world to the game
   let tilesetLoader = new TilesetLoader(this);
-  this.tileset = await tilesetLoader.load(assets.ocarime_tileset);
+  this.tileset = tilesetLoader.load(assets.ocarime_tileset);
 
-  let worldLoader = new WorldLoader(this, {
-    entities: {
-      door: Door,
-      piano: Piano,
-      npc: NonPlayerCharacter
-    },
-    assets: assets
-  });
-  this.world = await worldLoader.load(assets.ocarime_world, this.tileset);
-  this.camera.addGameObject(this.world);
+  let worldLoader = new WorldLoader(this, {entities: {door: Door, piano: Piano, npc: NonPlayerCharacter}, assets: assets});
+  this.world = worldLoader.load(assets.ocarime_world, this.tileset).appendTo(this.camera);
 
   if (typeof this.world.playerSpawn !== 'undefined')
-    this.player = this.world.addGameObject(new PlayerCharacter(this.world, 'Player', this.world.playerSpawn));
+    this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn).appendTo(this.world);
 
   // Add a debugger to the game
-  //this.debugger = new Debugger(this);
-  //this.addGameObject(this.debugger);
+  this.debugger = new Debugger(this).appendTo(this);
 };
 
 // Game update
