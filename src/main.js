@@ -52,7 +52,7 @@ game.preload = async function() {
     this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn).appendTo(this.world);
 
   // Add a debugger to the game
-  this.debugger = new Debugger(this).appendTo(this);
+  //this.debugger = new Debugger(this).appendTo(this);
 };
 
 // Game update
