@@ -1,4 +1,4 @@
-size 32
+size 24
 
 tile floor "assets/images/tile-floor.png" true #
 tile bricks "assets/images/tile-bricks.png" false 1
