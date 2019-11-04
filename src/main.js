@@ -32,8 +32,8 @@ game.preload = async function() {
   assets.register('music_thomas', 'assets/audio/music-thomas.ogg', this.audioContext.createClip, this.audioContext);
 
   // Register world and tileset files
-  assets.register('tileset_indoor_test', 'assets/tilesets/indoor-test.tileset', response => response.text());
-  assets.register('world_indoor_test', 'assets/worlds/indoor-test.world', response => response.text());
+  assets.register('ocarime_tileset', 'assets/tilesets/ocarime.tileset', response => response.text());
+  assets.register('ocarime_world', 'assets/worlds/ocarime.world', response => response.text());
 
   // Load the assets
   await assets.load();
@@ -44,7 +44,7 @@ game.preload = async function() {
 
   // Add a world to the game
   let tilesetLoader = new TilesetLoader(this);
-  this.tileset = await tilesetLoader.load(assets.tileset_indoor_test);
+  this.tileset = await tilesetLoader.load(assets.ocarime_tileset);
 
   let worldLoader = new WorldLoader(this, {
     entities: {
@@ -54,7 +54,7 @@ game.preload = async function() {
     },
     assets: assets
   });
-  this.world = await worldLoader.load(assets.world_indoor_test, this.tileset);
+  this.world = await worldLoader.load(assets.ocarime_world, this.tileset);
   this.camera.addGameObject(this.world);
 
   if (typeof this.world.playerSpawn !== 'undefined')
