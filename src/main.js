@@ -6,6 +6,7 @@ import Door from './game/entity/Door.js';
 import Game from './engine/Game.js';
 import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
 import Piano from './game/entity/Piano.js';
+import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Tileset from './engine/tileset/Tileset.js';
 import TilesetLoader from './engine/tileset/TilesetLoader.js';
@@ -45,7 +46,7 @@ game.preload = async function() {
   let tilesetLoader = new TilesetLoader(this);
   this.tileset = tilesetLoader.load(assets.ocarime_tileset);
 
-  let worldLoader = new WorldLoader(this, {entities: {door: Door, piano: Piano, npc: NonPlayerCharacter}, assets: assets});
+  let worldLoader = new WorldLoader(this, {entities: {door: Door, painting: Painting, piano: Piano, npc: NonPlayerCharacter}, assets: assets});
   this.world = worldLoader.load(assets.ocarime_world, this.tileset).appendTo(this.camera);
 
   if (typeof this.world.playerSpawn !== 'undefined')
