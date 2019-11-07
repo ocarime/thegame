@@ -1,7 +1,6 @@
 import AssetLoader from './engine/util/AssetLoader.js';
 import AudioSource from './engine/audio/AudioSource.js';
 import Camera from './engine/Camera.js';
-import Debugger from './engine/Debugger.js';
 import Door from './game/entity/Door.js';
 import Game from './engine/Game.js';
 import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
@@ -49,9 +48,6 @@ game.preload = async function() {
 
   if (typeof this.world.playerSpawn !== 'undefined')
     this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn).appendTo(this.world);
-
-  // Add a debugger to the game
-  //this.debugger = new Debugger(this).appendTo(this);
 };
 
 // Game update

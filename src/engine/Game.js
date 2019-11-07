@@ -27,10 +27,12 @@ export default class Game extends GameObject
 
     // Initialize the loading screen
     this.loadingScreen = document.querySelector(loadingScreen);
-    this.loadingItems = 0;
 
     // Initialize the audio context
     this.audioContext = new GameAudioContext();
+
+    // Enable debugger drawing
+    this.showDebug = false;
 
     // Timing variables
     this._lastRender = Date.now();
@@ -55,8 +57,38 @@ export default class Game extends GameObject
       this.canvas.height = window.innerHeight;
     }.bind(this));
 
+    // Add event handlers for key pressed
+    document.addEventListener('keydown', function(e) {
+      // Toggle the wireframe
+      if (e.code === 'F9')
+        this.wireframe = !this.wireframe;
+
+      // Create the keyboard event
+      let event = e;
+
+      // Handle the key pressed event
+      this._each(function(gameObject) {
+        // Check if this game object can handle key pressed events
+        if (gameObject.can('onKeyPressed'))
+          gameObject.onKeyPressed(e);
+      }.bind(this));
+    }.bind(this));
+
+    // Add event handlers for key released
+    document.addEventListener('keyup', function(e) {
+      // Create the keyboard event
+      let event = e;
+
+      // Handle the key pressed event
+      this._each(function(gameObject) {
+        // Check if this game object can handle key pressed events
+        if (gameObject.can('onKeyReleased'))
+          gameObject.onKeyReleased(event);
+      }.bind(this));
+    }.bind(this));
+
     // Add event handlers for pointer hovered
-    this.canvas.addEventListener('pointermove', function(e) {
+    document.addEventListener('pointermove', function(e) {
       // Create the pointer event
       let event = new PointerEvent('hover', new Vector(e.x, e.y));
 
@@ -69,7 +101,7 @@ export default class Game extends GameObject
     }.bind(this));
 
     // Add event handlers for pointer pressed
-    this.canvas.addEventListener('pointerdown', function(e) {
+    document.addEventListener('pointerdown', function(e) {
       if (this.audioContext.context.state === 'suspended')
         this.audioContext.context.resume();
 
@@ -85,7 +117,7 @@ export default class Game extends GameObject
     }.bind(this));
 
     // Add event handler for pointer released
-    this.canvas.addEventListener('pointerup', function(e) {
+    document.addEventListener('pointerup', function(e) {
       // Create the pointer event
       let event = new PointerEvent('release', new Vector(e.x, e.y));
 
@@ -134,11 +166,33 @@ export default class Game extends GameObject
       // Check if this game object can draw
       if (gameObject.can('draw'))
         gameObject.draw(this.ctx);
+
+      // Check if this game object can draw a debug mode
+      if (this.showDebug && gameObject.can('debug'))
+        gameObject.debug(this.ctx);
     }.bind(this));
 
     // Update timestamp and request new frame
     this._lastRender = Date.now();
     window.requestAnimationFrame(this._loop.bind(this));
+  }
+
+  // Draw the debug mode
+  debug(ctx)
+  {
+    // Print all game objects
+    let line = 0;
+
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'lime';
+
+    this._each(function(gameObject, parents) {
+      let tx = 16 + 12 * parents.length;
+      let ty = 16 + 14 * line;
+      ctx.fillText(`${gameObject}`, tx, ty);
+      line ++;
+    });
   }
 
   // Convert to string

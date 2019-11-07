@@ -126,6 +126,16 @@ export default class World extends GameObject
     }
   }
 
+  // Draw the debug mode
+  debug(ctx)
+  {
+    // Draw world boundaries
+    let worldRegion = this.tileset.transformRegion(this.region);
+
+    ctx.strokeStyle = 'lime';
+    ctx.strokeRect(worldRegion.left, worldRegion.top, worldRegion.width, worldRegion.height);
+  }
+
   // Event handler when the pointer is hovered
   onPointerHovered(e)
   {
