@@ -1,9 +1,11 @@
 import Area from './Area.js';
+import BinaryHeap from '../util/BinaryHeap.js';
 import Entity from './Entity.js';
 import GameObject from '../GameObject.js';
 import RegionInt from '../util/RegionInt.js';
 import Tileset from '../tileset/Tileset.js';
 import Vector from '../util/Vector.js';
+import WorldInfo from './WorldInfo.js';
 
 
 // Class that defines the world
@@ -37,19 +39,7 @@ export default class World extends GameObject
     return this.region.height;
   }
 
-  // Get a tile at a position
-  getTile(position)
-  {
-    return this.tiles[position.y * this.width + position.x];
-  }
-
-  // Set a tile at a position
-  setTile(position, tile)
-  {
-    this.tiles[position.y * this.width + position.x] = tile;
-  }
-
-  // Get neighboring tiles
+  // Get neighboring positions
   *getNeighbors(position)
   {
     if (position.x > this.region.left)
@@ -60,6 +50,18 @@ export default class World extends GameObject
       yield position.translate(new Vector(0, -1));
     if (position.y < this.region.bottom)
       yield position.translate(new Vector(0, 1));
+  }
+
+  // Get a tile at a position
+  getTile(position)
+  {
+    return this.tiles[position.y * this.width + position.x];
+  }
+
+  // Set a tile at a position
+  setTile(position, tile)
+  {
+    this.tiles[position.y * this.width + position.x] = tile;
   }
 
   // Get all entities
@@ -93,19 +95,89 @@ export default class World extends GameObject
   }
 
   // Get information about a position in the world
-  getTileInfo(position)
+  getInfo(position)
   {
-    let tile = this.tileset.getTile(this.getTile(position));
-    let entity = this.getEntityAtPosition(position);
+    return new WorldInfo(this, position);
+  }
 
-    return {
-      position: position,
-      tile: tile,
-      entity: entity,
-      isPassable: function() {
-        return typeof tile !== 'undefined' && tile.passable;
+  // Get information about all positions in the world
+  *[Symbol.iterator]()
+  {
+    for (let y = this.region.top; y < this.region.bottom; y ++)
+      for (let x = this.region.left; x < this.RegionInt.right; x ++)
+        yield this.getPosition(new Vector(x, y));
+  }
+
+  // Get a path between two positions using the A* algorithm
+  getPath(start, end)
+  {
+    // Check if the end is reachable
+    let endInfo = this.getInfo(end);
+    if (!endInfo.passable)
+      return undefined;
+
+    // For node n, parent[n] is the node immediately preceding it on the cheapest path from start to n currently known
+    let parent = new Map();
+
+    // For node n, gScore[n] is the cost of the cheapest path from start to n currently known
+    let gScore = new Map([[start.toString(), 0]]);
+
+    // For node n, fScore[n] = gScore[n] + h(n)
+    let fScore = new Map([[start.toString(), 0]]);
+
+    // The heap of discovered nodes that need to be (re-)expanded
+    let openHeap = new BinaryHeap(node => fScore.get(node.toString()) || 0);
+    openHeap.push(start);
+
+    // The set of closed nodes
+    let closedSet = new Set();
+
+    // Iterate while the heap is not empty
+    while (openHeap.size > 0)
+    {
+      // Grab the lowest f(x) to process next
+      let node = openHeap.pop();
+
+      // End case -- result has been found, return the traced path
+      if (node.x === end.x && node.y === end.y)
+      {
+        let path = [node];
+        while (parent.has(node.toString()))
+        {
+          node = parent.get(node.toString());
+          path.unshift(node);
+        }
+        return path;
       }
-    };
+
+      // Normal case -- move node from open to closed, process each of its neighbors
+      closedSet.add(node.toString());
+
+      // Find all neighbors for the current node
+      for (let neighbor of this.getNeighbors(node))
+      {
+        let neighborInfo = this.getInfo(neighbor);
+
+        // If the neighbor is already closed or is not passable, then continue
+        if (closedSet.has(neighbor.toString()) || !neighborInfo.passable)
+          continue;
+
+        // The g score is the shortest distance from start to current node
+        // We need to check if the path we have arrived at this neighbor is the shortest one we have seen yet
+        let gScoreTentative = gScore.get(node.toString()) + neighborInfo.cost;
+        if (!gScore.has(neighbor.toString()) || gScoreTentative < gScore.get(neighbor.toString()))
+        {
+          parent.set(neighbor.toString(), node);
+          gScore.set(neighbor.toString(), gScoreTentative);
+          fScore.set(neighbor.toString(), gScoreTentative + Vector.manhattanDistance(neighbor, end));
+
+          if (!openHeap.has(neighbor))
+            openHeap.push(neighbor);
+          else
+            openHeap.rescoreElement(neighbor);
+        }
+      }
+    }
   }
 
   // Draw the world
@@ -172,7 +244,12 @@ export default class World extends GameObject
     else
     {
       // Move the player
-      this.game.player.moveTo(tilePosition);
+      let path = this.getPath(this.game.player.position, tilePosition);
+      if (path !== undefined)
+      {
+        path.shift();
+        this.game.player.moveTo(...path);
+      }
 
       // Get areas the player is in
       for (let area of this.areas)

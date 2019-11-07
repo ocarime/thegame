@@ -10,12 +10,14 @@ export default class Character extends Entity
   constructor(world, name, position)
   {
     super(world, name, position);
+
+    this.velocity = 10;
   }
 
   // Move the character to a position
   moveTo(...vectors)
   {
-    let keyframes = Array.from(vectors.entries()).map(entry => [(entry[0] + 1) * 200, entry[1]]);
+    let keyframes = Array.from(vectors.entries()).map(entry => [(entry[0] + 1) * (1000 / this.velocity), entry[1]]);
     new Animation(this.position, ...keyframes).appendTo(this);
   }
 
