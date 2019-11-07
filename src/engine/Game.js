@@ -59,9 +59,9 @@ export default class Game extends GameObject
 
     // Add event handlers for key pressed
     document.addEventListener('keydown', function(e) {
-      // Toggle the wireframe
+      // Toggle the debugger
       if (e.code === 'F9')
-        this.wireframe = !this.wireframe;
+        this.showDebug = !this.showDebug;
 
       // Create the keyboard event
       let event = e;
