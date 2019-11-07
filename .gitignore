@@ -1,2 +1,5 @@
+# macOS unnescessary files
+.DS_Store
+
 # Resources not used by the game
 resources/

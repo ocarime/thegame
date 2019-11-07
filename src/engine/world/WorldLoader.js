@@ -58,8 +58,7 @@ export default class WorldLoader
       {
         // Create the entity
         let entityClass = this.context.entities[type];
-        let entity = new entityClass(world, name, new Vector(parseInt(x), parseInt(y)), ...args);
-        world.addGameObject(entity);
+        let entity = new entityClass(world, name, new Vector(parseInt(x), parseInt(y)), ...args).appendTo(world);
       }
       else
         console.warn(`Found unknown entity '${type}'`);

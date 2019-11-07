@@ -1,3 +1,4 @@
+import CommandParser from '../util/CommandParser.js';
 import RegionInt from '../../engine/util/RegionInt.js';
 import Vector from '../../engine/util/Vector.js';
 
@@ -90,5 +91,41 @@ export default class Tileset
       let worldRegion = this.transformRegion(RegionInt.fromVector(position));
       ctx.drawImage(tile.image, worldRegion.left, worldRegion.top, worldRegion.width, worldRegion.height);
     }
+  }
+
+  // Load a tileset from a definition string
+  static load(string)
+  {
+    // Create a new tileset
+    let tileset = new Tileset();
+
+    // Create a new command parser
+    let parser = new CommandParser();
+
+    // Register command for defining tile size
+    parser.registerCommand('size', function(size) {
+      // Set the size of the tiles
+      tileset.size = parseInt(size);
+    }.bind(this));
+
+    /// Register command for defining tiles
+    parser.registerCommand('tile', function(name, url, passable, ...aliases) {
+      // Register a new tile
+      tileset.registerTile(name, url, (passable === 'true'), ...aliases);
+    }.bind(this));
+
+    // Iterate over the lines
+    for (let line of string.split(/\r?\n/))
+    {
+      // Skip empty lines
+      if (line.trim() === '')
+        continue;
+
+      // Parse the command
+      parser.parse(line);
+    }
+
+    // Return the tileset
+    return tileset;
   }
 }

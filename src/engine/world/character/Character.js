@@ -16,7 +16,7 @@ export default class Character extends Entity
   moveTo(...vectors)
   {
     let keyframes = Array.from(vectors.entries()).map(entry => [(entry[0] + 1) * 200, entry[1]]);
-    this.addGameObject(new Animation(this.position, ...keyframes));
+    new Animation(this.position, ...keyframes).appendTo(this);
   }
 
   // Draw the character
