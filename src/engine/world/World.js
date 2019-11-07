@@ -109,159 +109,75 @@ export default class World extends GameObject
   }
 
   // Get a path between two positions using the A* algorithm
-  getPath(start, end, heuristic)
+  getPath(start, end)
   {
-    heuristic = heuristic || Vector.manhattanDistance;
+    // Check if the end is reachable
+    let endInfo = this.getInfo(end);
+    if (!endInfo.passable)
+      return undefined;
 
-    // Create the grid and populate it
-    let grid = [];
-    for (let x = 0; x < this.width; x ++)
-    {
-      grid[x] = [];
-      for (let y = 0; y < this.height; y ++)
-      {
-        grid[x][y] = this.getInfo(new Vector(x, y));
-        grid[x][y].f = 0;
-        grid[x][y].g = 0;
-        grid[x][y].h = 0;
-        grid[x][y].visited = false;
-        grid[x][y].closed = false;
-        grid[x][y].parent = undefined;
-      }
-    }
-
-    let heap = new BinaryHeap(node => node.f);
-    heap.push(grid[start.x][start.y]);
-
-    // Iterate while the heap is not empty
-    while (heap.size() > 0)
-    {
-      // Grab the lowest f(x) to process next
-      let node = heap.pop();
-
-      // End case -- result has been found, return the traced path
-      if (node.position.x === end.x && node.position.y === end.y)
-      {
-        let path = [];
-        while (typeof node.parent !== 'undefined')
-        {
-          path.push(node);
-          node = node.parent;
-        }
-        return path.reverse();
-      }
-
-      // Normal case -- move node from open to closed, process each of its neighbors
-      node.closed = true;
-
-      // Find all neighbors for the current node
-      for (let position of this.getNeighbors(node.position))
-      {
-        let neighbor = grid[position.x][position.y];
-
-        // If the neighbor is already closed or is not passable, then continue
-        if (neighbor.closed || !neighbor.passable)
-          continue;
-
-        // The g score is the shortest distance from start to current node
-        // We need to check if the path we have arrived at this neighbor is the shortest one we have seen yet
-        let g = node.g + neighbor.cost;
-        let visited = neighbor.visited;
-
-        if (!visited || g < neighbor.g)
-        {
-          // Found an optimal (so far) path to this node.  Take score for node to see how good it is.
-          neighbor.visited = true;
-          neighbor.parent = node;
-          neighbor.h = neighbor.h || heuristic(neighbor.position, end.position);
-          neighbor.g = g;
-          neighbor.f = neighbor.g + neighbor.h;
-
-          if (!visited)
-            // Pushing to heap will put it in proper place based on the f value
-            heap.push(neighbor);
-          else
-            // Already seen the node, but since it has been rescored we need to reorder it in the heap
-            heap.rescoreElement(neighbor);
-        }
-      }
-    }
-  }
-
-  // Find a path between two positions using A*
-  findPath(start, goal)
-  {
-    // The set of discovered nodes that need to be (re-)expanded
-    // Initially, only the start node is known
-    let openSet = [start];
-
-    // The set of closed nodes
-    let closedSet = [];
-
-    // For node n, cameFrom[n] is the node immediately preceding it on the cheapest path from start to n currently known
-    let cameFrom = new Map();
+    // For node n, parent[n] is the node immediately preceding it on the cheapest path from start to n currently known
+    let parent = new Map();
 
     // For node n, gScore[n] is the cost of the cheapest path from start to n currently known
-    let gScore = new Map([[start, 0]]);
+    let gScore = new Map([[start.toString(), 0]]);
 
-    // For node n, fScore[n] := gScore[n] + h(n)
-    let fScore = new Map([[start, 0]]);
+    // For node n, fScore[n] = gScore[n] + h(n)
+    let fScore = new Map([[start.toString(), 0]]);
 
-    while (openSet.length > 0)
+    // The heap of discovered nodes that need to be (re-)expanded
+    let openHeap = new BinaryHeap(node => fScore.get(node.toString()) || 0);
+    openHeap.push(start);
+
+    // The set of closed nodes
+    let closedSet = new Set();
+
+    // Iterate while the heap is not empty
+    while (openHeap.size > 0)
     {
-      // The current node is the node in openSet having the lowest fScore[] value
-      let current = undefined;
-      for (let node of openSet)
-      {
-        if (typeof current === 'undefined' || (fScore.has(node) && fScore.get(node) < fScore.get(current)))
-          current = node;
-      }
+      // Grab the lowest f(x) to process next
+      let node = openHeap.pop();
 
-      // Check if the current node is the goal
-      if (current.x === goal.x && current.y === goal.y)
+      // End case -- result has been found, return the traced path
+      if (node.x === end.x && node.y === end.y)
       {
-        let path = [current];
-        while (cameFrom.has(current))
+        let path = [node];
+        while (parent.has(node.toString()))
         {
-          current = cameFrom.get(current);
-          path.unshift(current);
+          node = parent.get(node.toString());
+          path.unshift(node);
         }
         return path;
       }
 
-      openSet.splice(openSet.indexOf(current), 1);
-      closedSet.push(current);
+      // Normal case -- move node from open to closed, process each of its neighbors
+      closedSet.add(node.toString());
 
-      console.log(openSet);
-
-      // Iterate over the neighbors of the current node
-      for (let neighbor of this.getNeighbors(current))
+      // Find all neighbors for the current node
+      for (let neighbor of this.getNeighbors(node))
       {
-        let neighborInfo = this.getTileInfo(neighbor);
+        let neighborInfo = this.getInfo(neighbor);
 
-        // Check if the node is already visited
-        if (closedSet.includes(neighbor))
+        // If the neighbor is already closed or is not passable, then continue
+        if (closedSet.has(neighbor.toString()) || !neighborInfo.passable)
           continue;
 
-        // Check if the node is passable
-        if (!neighborInfo.isPassable())
-          continue;
-
-        // gScoreTentative is the distance from start to the neighbor through current
-        let gScoreTentative = gScore.get(current) + 1;
-        if (!gScore.has(neighbor) || gScoreTentative < gScore.get(neighbor))
+        // The g score is the shortest distance from start to current node
+        // We need to check if the path we have arrived at this neighbor is the shortest one we have seen yet
+        let gScoreTentative = gScore.get(node.toString()) + neighborInfo.cost;
+        if (!gScore.has(neighbor.toString()) || gScoreTentative < gScore.get(neighbor.toString()))
         {
-          cameFrom.set(neighbor, current);
-          gScore.set(neighbor, gScoreTentative);
-          fScore.set(neighbor, gScoreTentative + Vector.manhattanDistance(neighbor, goal));
+          parent.set(neighbor.toString(), node);
+          gScore.set(neighbor.toString(), gScoreTentative);
+          fScore.set(neighbor.toString(), gScoreTentative + Vector.manhattanDistance(neighbor, end));
 
-          if (!openSet.includes(neighbor))
-            openSet.push(neighbor);
+          if (!openHeap.has(neighbor))
+            openHeap.push(neighbor);
+          else
+            openHeap.rescoreElement(neighbor);
         }
       }
     }
-
-    return [];
   }
 
   // Draw the world
@@ -329,9 +245,11 @@ export default class World extends GameObject
     {
       // Move the player
       let path = this.getPath(this.game.player.position, tilePosition);
-      path.shift();
-      console.log(path);
-      this.game.player.moveTo(...path);
+      if (path !== undefined)
+      {
+        path.shift();
+        this.game.player.moveTo(...path);
+      }
 
       // Get areas the player is in
       for (let area of this.areas)

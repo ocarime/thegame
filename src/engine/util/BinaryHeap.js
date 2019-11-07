@@ -14,11 +14,11 @@ export default class BinaryHeap
     // Add the new element to the end of the array
     this.content.push(element);
 
-    // Allow it to sink down
-    this._sinkDown(this.content.length - 1);
+    // Allow it to bubble up
+    this.bubbleUp(this.content.length - 1);
   }
 
-  // Pop the last element from the heap
+  // Pop the lowest element from the heap
   pop()
   {
     // Store the first element so we can return it later
@@ -27,78 +27,42 @@ export default class BinaryHeap
     // Get the element at the end of the array
     let end = this.content.pop();
 
-    // If there are any elements left, put the end element at the start, and let it bubble up
+    // If there are any elements left, put the end element at the start, and let it sink down
     if (this.content.length > 0)
     {
       this.content[0] = end;
-      this._bubbleUp(0);
+      this.sinkDown(0);
     }
 
     return result;
   }
 
-  // Remove an element from the heap
-  remove(element)
+  bubbleUp(n)
   {
-    let i = this.content.indexOf(element);
-
-    // When it is found, the process seen in pop is repeated to fill up the hole
-    let end = this.content.pop();
-    if (i !== this.content.length - 1)
-    {
-      this.content[i] = end;
-
-      if (this.scoreFunction(end) < this.scoreFunction(element))
-        this._sinkDown(i);
-      else
-        this._bubbleUp(i);
-    }
-  }
-
-  // Return the size of the heap
-  size()
-  {
-    return this.content.length;
-  }
-
-  // Rescore an element
-  rescoreElement(element)
-  {
-    this._sinkDown(this.content.indexOf(element));
-  }
-
-  // Sink an element down
-  _sinkDown(n)
-  {
-    // Fetch the element that has to be sunk
+    // Look up the target element and its score
     let element = this.content[n];
+    let elemScore = this.scoreFunction(element);
 
-    // When at 0, an element can not sink any further
+    // When at 0, an element can not bubble any further
     while (n > 0)
     {
       // Compute the parent element's index, and fetch it
       let parentN = ((n + 1) >> 1) - 1;
       let parent = this.content[parentN];
 
-      // Swap the elements if the parent is greater
-      if (this.scoreFunction(element) < this.scoreFunction(parent))
-      {
-        this.content[parentN] = element;
-        this.content[n] = parent;
-
-        // Update n to continue at the new position.
-        n = parentN;
-      }
-
-      // Found a parent that is less, no need to sink any further
-      else
+      // If the parent is less, then no need to bubble any further
+      if (elemScore > this.scoreFunction(parent))
         break;
+
+      // Swap the elements if the parent is greater
+      this.content[parentN] = element;
+      this.content[n] = parent;
+      n = parentN;
     }
   }
 
-  // BUbble an element up
-  _bubbleUp(n)
-   {
+  sinkDown(n)
+  {
     // Look up the target element and its score
     let length = this.content.length;
     let element = this.content[n];
@@ -135,17 +99,32 @@ export default class BinaryHeap
           swap = child2N;
       }
 
-      // If the element needs to be moved, swap it, and continue
-      if (swap !== null)
-      {
-        this.content[n] = this.content[swap];
-        this.content[swap] = element;
-        n = swap;
-      }
-
-      // Otherwise, we are done
-      else
+      // If the element doesn't need to be moved, we are done
+      if (swap === null)
         break;
+
+      // Otherwise swap it, and continue
+      this.content[n] = this.content[swap];
+      this.content[swap] = element;
+      n = swap;
     }
+  }
+
+  // Return the size of the heap
+  get size()
+  {
+    return this.content.length;
+  }
+
+  // Return if an element is present in the heap
+  has(element)
+  {
+    return this.content.includes(element);
+  }
+
+  // Rescore an element
+  rescoreElement(element)
+  {
+    this.sinkDown(this.content.indexOf(element));
   }
 }
