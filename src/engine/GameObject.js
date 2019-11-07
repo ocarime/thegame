@@ -68,7 +68,7 @@ export default class GameObject
   // Search for an object of a type in the direct children
   getObject(type)
   {
-    return this.gameObjects.find(gameObject => gameObject instanceof type);
+    return this.getObjects(type).next();
   }
 
   // Search for an object of a type in all children using depth-first search

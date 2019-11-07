@@ -9,7 +9,6 @@ import Piano from './game/entity/Piano.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Tileset from './engine/tileset/Tileset.js';
-import TilesetLoader from './engine/tileset/TilesetLoader.js';
 import Vector from './engine/util/Vector.js';
 import World from './engine/world/World.js';
 import WorldLoader from './engine/world/WorldLoader.js';
@@ -33,7 +32,7 @@ game.preload = async function() {
   assets.register('music_thomas', 'assets/audio/music-thomas.ogg', this.audioContext.createClip, this.audioContext);
 
   // Register world and tileset files
-  assets.register('ocarime_tileset', 'assets/tilesets/ocarime.tileset', response => response.text());
+  assets.register('ocarime_tileset', 'assets/tilesets/ocarime.tileset', async response => Tileset.load(await response.text()));
   assets.register('ocarime_world', 'assets/worlds/ocarime.world', response => response.text());
 
   // Load the assets
@@ -43,8 +42,7 @@ game.preload = async function() {
   this.camera = new Camera(this).appendTo(this);
 
   // Add a world to the game
-  let tilesetLoader = new TilesetLoader(this);
-  this.tileset = tilesetLoader.load(assets.ocarime_tileset);
+  this.tileset = assets.ocarime_tileset;
 
   let worldLoader = new WorldLoader(this, {entities: {door: Door, painting: Painting, piano: Piano, npc: NonPlayerCharacter}, assets: assets});
   this.world = worldLoader.load(assets.ocarime_world, this.tileset).appendTo(this.camera);

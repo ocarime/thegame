@@ -5,19 +5,19 @@ export default class AssetLoader
   constructor(element)
   {
     // Loading screen elements
-    this.element = document.querySelector(element);
+    this._element = document.querySelector(element);
 
-    this.loadingText = document.createElement('p');
-    this.loadingText.textContent = 'Loading assets';
-    this.element.appendChild(this.loadingText);
+    this._loadingText = document.createElement('p');
+    this._loadingText.textContent = 'Loading assets';
+    this._element.appendChild(this._loadingText);
 
-    this.loadingBar = document.createElement('div');
-    this.loadingBar.className = 'loadingBar';
-    this.element.appendChild(this.loadingBar);
+    this._loadingBar = document.createElement('div');
+    this._loadingBar.className = 'loadingBar';
+    this._element.appendChild(this._loadingBar);
 
-    this.loadingBarInner = document.createElement('div');
-    this.loadingBarInner.className = 'loadingBarInner';
-    this.loadingBar.appendChild(this.loadingBarInner);
+    this._loadingBarInner = document.createElement('div');
+    this._loadingBarInner.className = 'loadingBarInner';
+    this._loadingBar.appendChild(this._loadingBarInner);
 
     // Map of assets
     this._assets = new Map();
@@ -71,11 +71,11 @@ export default class AssetLoader
 
         // Update the progress
         let progress = (this._assets.size - loadingAssets.length) / this._assets.size;
-        this.loadingText.textContent = `Loading assets: ${Math.round(progress * 100.0)}%`;
-        this.loadingBarInner.style.width = `${progress * 100.0}%`;
+        this._loadingText.textContent = `Loading assets: ${Math.round(progress * 100.0)}%`;
+        this._loadingBarInner.style.width = `${progress * 100.0}%`;
 
         if (progress >= 1.0)
-          this.element.style.display = 'none';
+          this._element.style.display = 'none';
       }.bind(this)));
     }
 
