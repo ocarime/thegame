@@ -246,10 +246,7 @@ export default class World extends GameObject
       // Move the player
       let path = this.getPath(this.game.player.position, tilePosition);
       if (path !== undefined)
-      {
-        path.shift();
-        this.game.player.moveTo(...path);
-      }
+        this.game.player.moveTo(...path.slice(1));
 
       // Get areas the player is in
       for (let area of this.areas)
