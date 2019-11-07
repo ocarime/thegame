@@ -188,6 +188,82 @@ export default class World extends GameObject
     }
   }
 
+  // Find a path between two positions using A*
+  findPath(start, goal)
+  {
+    // The set of discovered nodes that need to be (re-)expanded
+    // Initially, only the start node is known
+    let openSet = [start];
+
+    // The set of closed nodes
+    let closedSet = [];
+
+    // For node n, cameFrom[n] is the node immediately preceding it on the cheapest path from start to n currently known
+    let cameFrom = new Map();
+
+    // For node n, gScore[n] is the cost of the cheapest path from start to n currently known
+    let gScore = new Map([[start, 0]]);
+
+    // For node n, fScore[n] := gScore[n] + h(n)
+    let fScore = new Map([[start, 0]]);
+
+    while (openSet.length > 0)
+    {
+      // The current node is the node in openSet having the lowest fScore[] value
+      let current = undefined;
+      for (let node of openSet)
+      {
+        if (typeof current === 'undefined' || (fScore.has(node) && fScore.get(node) < fScore.get(current)))
+          current = node;
+      }
+
+      // Check if the current node is the goal
+      if (current.x === goal.x && current.y === goal.y)
+      {
+        let path = [current];
+        while (cameFrom.has(current))
+        {
+          current = cameFrom.get(current);
+          path.unshift(current);
+        }
+        return path;
+      }
+
+      openSet.splice(openSet.indexOf(current), 1);
+      closedSet.push(current);
+
+      console.log(openSet);
+
+      // Iterate over the neighbors of the current node
+      for (let neighbor of this.getNeighbors(current))
+      {
+        let neighborInfo = this.getTileInfo(neighbor);
+
+        // Check if the node is already visited
+        if (closedSet.includes(neighbor))
+          continue;
+
+        // Check if the node is passable
+        if (!neighborInfo.isPassable())
+          continue;
+
+        // gScoreTentative is the distance from start to the neighbor through current
+        let gScoreTentative = gScore.get(current) + 1;
+        if (!gScore.has(neighbor) || gScoreTentative < gScore.get(neighbor))
+        {
+          cameFrom.set(neighbor, current);
+          gScore.set(neighbor, gScoreTentative);
+          fScore.set(neighbor, gScoreTentative + Vector.manhattanDistance(neighbor, goal));
+
+          if (!openSet.includes(neighbor))
+            openSet.push(neighbor);
+        }
+      }
+    }
+
+    return [];
+  }
+
   // Draw the world
   draw(ctx)
   {
@@ -242,7 +318,10 @@ export default class World extends GameObject
     else
     {
       // Move the player
-      this.game.player.moveTo(...this.getPath(this.game.player.position, tilePosition));
+      let path = this.getPath(this.game.player.position, tilePosition);
+      path.shift();
+      console.log(path);
+      this.game.player.moveTo(...path);
 
       // Get areas the player is in
       for (let area of this.areas)
