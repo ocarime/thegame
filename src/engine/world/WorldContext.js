@@ -54,11 +54,8 @@ export default class WorldContext
     if (typeof type === 'undefined')
       return undefined;
 
-    // Assign extra constructor arguments
-    let args = type.constructorArgs.map(arg => object[arg]);
-
     // Construct the entity
-    return new type.constructor(world, object.name, new Vector(...object.position), ...args);
+    return new type.constructor(world, object.name, new Vector(...object.position), object);
   }
 
   // Load a world from a YAML string

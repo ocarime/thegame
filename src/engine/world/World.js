@@ -106,7 +106,6 @@ export default class World extends GameObject
   {
     // Check if the end is reachable
     let endInfo = this.getInfo(end);
-    console.log(endInfo);
     if (!endInfo.passable)
       return undefined;
 

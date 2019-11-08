@@ -43,9 +43,9 @@ game.preload = async function() {
   // Add a world to the game
   this.world = new WorldContext(this)
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
-    .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, constructorArgs: ['color']})
-    .registerEntityType('Door', {constructor: Door, constructorArgs: ['state']})
-    .registerEntityType('Painting', {constructor: Painting, constructorArgs: ['url']})
+    .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter})
+    .registerEntityType('Door', {constructor: Door})
+    .registerEntityType('Painting', {constructor: Painting})
     .create(assets.ocarime_world)
     .appendTo(this.camera);
 

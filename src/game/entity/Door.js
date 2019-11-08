@@ -5,12 +5,12 @@ import Entity from '../../engine/world/Entity.js';
 export default class Door extends Entity
 {
   // Constructor
-  constructor(world, name, position, state = 'closed')
+  constructor(world, name, position, options)
   {
-    super(world, name, position);
+    super(world, name, position, options);
 
     // State of the door
-    this.state = state;
+    this.state = options.state || 'closed';
   }
 
   // Draw the door
