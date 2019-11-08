@@ -5,17 +5,17 @@ import Entity from '../../engine/world/Entity.js';
 export default class Piano extends Entity
 {
   // Constructor
-  constructor(world, name, position, url)
+  constructor(world, name, position, options)
   {
-    super(world, name, position);
+    super(world, name, position, options);
 
-    this.url = url;
+    this.url = options.url;
   }
 
   // Draw the door
   draw(ctx)
   {
-    this.world.tileset.drawTile('piano', this.position, ctx);
+    this.world.tileset.tiles.get('piano')._draw(ctx, this.position);
   }
 
   // Interaction event handler

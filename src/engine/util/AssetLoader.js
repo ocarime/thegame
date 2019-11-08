@@ -63,7 +63,7 @@ export default class AssetLoader
         }
         else
         {
-          console.err(`Failed loading ${asset.url}: ${response.status}`);
+          console.error(`Failed loading ${asset.url}: ${response.statusText}`);
         }
 
         // Decrease the loading assets

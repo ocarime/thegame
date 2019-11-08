@@ -3,7 +3,8 @@ import BinaryHeap from '../util/BinaryHeap.js';
 import Entity from './Entity.js';
 import GameObject from '../GameObject.js';
 import RegionInt from '../util/RegionInt.js';
-import Tileset from '../tileset/Tileset.js';
+import Tile from './Tile.js';
+import Tileset from './Tileset.js';
 import Vector from '../util/Vector.js';
 import WorldInfo from './WorldInfo.js';
 
@@ -100,14 +101,6 @@ export default class World extends GameObject
     return new WorldInfo(this, position);
   }
 
-  // Get information about all positions in the world
-  *[Symbol.iterator]()
-  {
-    for (let y = this.region.top; y < this.region.bottom; y ++)
-      for (let x = this.region.left; x < this.RegionInt.right; x ++)
-        yield this.getPosition(new Vector(x, y));
-  }
-
   // Get a path between two positions using the A* algorithm
   getPath(start, end)
   {
@@ -191,9 +184,7 @@ export default class World extends GameObject
         let position = new Vector(x, y);
         let tile = this.getTile(position);
         if (typeof tile !== 'undefined')
-        {
-          this.tileset.drawTile(tile, position, ctx);
-        }
+          tile._draw(ctx, position);
       }
     }
   }

@@ -1,0 +1,118 @@
+tileset:
+  name: ocarime_tileset
+  aliases: {floor: ['#'], bricks: ['1'], iron: ['2']}
+
+tilemap: |-
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # # # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ # # # # # # # # ~ ~ ~ ~ ~ ~ 2 ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~ # # ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ # # # # # # # # # 1 ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ # # # # # # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~ # # # ~ 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ # # ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~ ~ ~
+ ~ ~ # # # # 2 ~ ~ ~ ~ ~ ~ ~ ~ # # # @ # # # ~ ~ ~ ~ ~ ~ # # # # # # ~ ~ ~
+ ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ # @ # # # @ # # # # # # # # # ~ ~ # # ~ ~ ~
+ ~ # # # # # # ~ ~ ~ ~ ~ ~ ~ # # # # # # # # # # # # # # # ~ ~ ~ # # ~ ~ ~
+ ~ ~ # # # # ~ ~ ~ ~ ~ 2 ~ ~ # @ # # # # # @ # ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~
+ ~ ~ ~ # # ~ ~ ~ # # # # # # # # # # # # # # # ~ ~ ~ ~ ~ ~ ~ # # # # # # ~
+ ~ ~ ~ # # ~ ~ # # # # # # # # # @ # # # @ # ~ ~ ~ ~ ~ ~ ~ ~ 2 # # # # ~ ~
+ ~ ~ ~ # # # # # # ~ ~ ~ ~ ~ ~ # # # @ # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~
+ ~ ~ ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 1 # # ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 1 # # # # # # # # # 1 ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ # # # # # # # # # ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~ # # ~ 1 # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # # # # # ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ # # # # # # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+assets:
+  - type: AudioClip
+    name: music_common
+    url: assets/audio/music-common.ogg
+
+  - type: AudioClip
+    name: music_amber
+    url: assets/audio/music-amber.ogg
+
+  - type: AudioClip
+    name: music_bastiaan
+    url: assets/audio/music-bastiaan.ogg
+
+  - type: AudioClip
+    name: music_danae
+    url: assets/audio/music-danae.ogg
+
+  - type: AudioClip
+    name: music_greg
+    url: assets/audio/music-greg.ogg
+
+  - type: AudioClip
+    name: music_stijn
+    url: assets/audio/music-stijn.ogg
+
+  - type: AudioClip
+    name: music_thomas
+    url: assets/audio/music-thomas.ogg
+
+entities:
+  #- type: PlayerCharacter
+  #  name: Player
+  #  position: [18, 17]
+
+  - type: NonPlayerCharacter
+    name: Stijn
+    position: [3, 16]
+    color: '#8000AA'
+    roamingArea: [1, 13, 6, 18]
+    roamingInterval: 10
+
+  - type: NonPlayerCharacter
+    name: Danae
+    position: [10, 6]
+    color: '#AA0050'
+    roamingArea: [8, 4, 13, 9]
+    roamingInterval: 10
+
+  - type: NonPlayerCharacter
+    name: Bastiaan
+    position: [21, 3]
+    color: '#3CB371'
+    roamingArea: [18, 1, 23, 6]
+    roamingInterval: 10
+
+  - type: NonPlayerCharacter
+    name: Thomas
+    position: [33, 18]
+    color: '#3333FF'
+    roamingArea: [30, 16, 35, 21]
+    roamingInterval: 10
+
+  - type: NonPlayerCharacter
+    name: Greg
+    position: [26, 28]
+    color: '#FFEE33'
+    roamingArea: [23, 25, 28, 30]
+    roamingInterval: 10
+
+  - type: NonPlayerCharacter
+    name: Amber
+    position: [15, 31]
+    color: '#8000AA'
+    roamingArea: [13, 28, 18, 33]
+    roamingInterval: 10
+
+playerSpawn: [18, 17]

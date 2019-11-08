@@ -7,11 +7,11 @@ import Vector from '../../util/Vector.js';
 export default class Character extends Entity
 {
   // Constructor
-  constructor(world, name, position)
+  constructor(world, name, position, options)
   {
-    super(world, name, position);
+    super(world, name, position, options);
 
-    this.velocity = 10;
+    this.velocity = options.velocity || 10;
   }
 
   // Move the character to a position

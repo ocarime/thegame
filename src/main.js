@@ -7,10 +7,10 @@ import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
 import Piano from './game/entity/Piano.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
-import Tileset from './engine/tileset/Tileset.js';
+import Tileset from './engine/world/Tileset.js';
 import Vector from './engine/util/Vector.js';
 import World from './engine/world/World.js';
-import WorldLoader from './engine/world/WorldLoader.js';
+import WorldContext from './engine/world/WorldContext.js';
 
 
 // Create the game
@@ -31,8 +31,8 @@ game.preload = async function() {
   assets.register('music_thomas', 'assets/audio/music-thomas.ogg', this.audioContext.createClip, this.audioContext);
 
   // Register world and tileset files
-  assets.register('ocarime_tileset', 'assets/tilesets/ocarime.tileset', async response => Tileset.load(await response.text()));
-  assets.register('ocarime_world', 'assets/worlds/ocarime.world', response => response.text());
+  assets.register('ocarime_tileset', 'assets/tilesets/ocarime_tileset.yml', async response => Tileset.load(await response.text()));
+  assets.register('ocarime_world', 'assets/worlds/ocarime_world.yml', response => response.text());
 
   // Load the assets
   await assets.load();
@@ -41,16 +41,19 @@ game.preload = async function() {
   this.camera = new Camera(this).appendTo(this);
 
   // Add a world to the game
-  this.tileset = assets.ocarime_tileset;
-
-  let worldLoader = new WorldLoader(this, {entities: {door: Door, painting: Painting, piano: Piano, npc: NonPlayerCharacter}, assets: assets});
-  this.world = worldLoader.load(assets.ocarime_world, this.tileset).appendTo(this.camera);
+  this.world = new WorldContext(this)
+    .registerTileset('ocarime_tileset', assets.ocarime_tileset)
+    .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter})
+    .registerEntityType('Door', {constructor: Door})
+    .registerEntityType('Painting', {constructor: Painting})
+    .create(assets.ocarime_world)
+    .appendTo(this.camera);
 
   if (typeof this.world.playerSpawn !== 'undefined')
-    this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn).appendTo(this.world);
+    this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn, {velocity: 10}).appendTo(this.world);
 };
 
 // Game update
 game.update = function() {
-  this.camera.position = this.tileset.transformVector(this.player.position);
+  this.camera.position = this.world.tileset.transformVector(this.player.position);
 };

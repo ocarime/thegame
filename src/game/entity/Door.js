@@ -5,23 +5,23 @@ import Entity from '../../engine/world/Entity.js';
 export default class Door extends Entity
 {
   // Constructor
-  constructor(world, name, position, state = 'closed')
+  constructor(world, name, position, options)
   {
-    super(world, name, position);
+    super(world, name, position, options);
 
     // State of the door
-    this.state = state;
+    this.state = options.state || 'closed';
   }
 
   // Draw the door
   draw(ctx)
   {
     if (this.state === 'locked')
-      this.world.tileset.drawTile('door-locked', this.position, ctx);
+      this.world.tileset.tiles.get('door-locked')._draw(ctx, this.position);
     else if (this.state === 'opened')
-      this.world.tileset.drawTile('door-opened', this.position, ctx);
+      this.world.tileset.tiles.get('door-opened')._draw(ctx, this.position);
     else
-      this.world.tileset.drawTile('door-closed', this.position, ctx);
+      this.world.tileset.tiles.get('door-closed')._draw(ctx, this.position);
   }
 
   // Interaction event handler
