@@ -10,7 +10,7 @@ import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Tileset from './engine/tileset/Tileset.js';
 import Vector from './engine/util/Vector.js';
 import World from './engine/world/World.js';
-import WorldLoader from './engine/world/WorldLoader.js';
+import WorldContext from './engine/world/WorldContext.js';
 
 
 // Create the game
@@ -32,19 +32,22 @@ game.preload = async function() {
 
   // Register world and tileset files
   assets.register('ocarime_tileset', 'assets/tilesets/ocarime.tileset', async response => Tileset.load(await response.text()));
-  assets.register('ocarime_world', 'assets/worlds/ocarime.world', response => response.text());
+  assets.register('ocarime_world', 'assets/worlds/ocarime_world.yml', response => response.text());
 
   // Load the assets
   await assets.load();
 
   // Add a camera to the game
   this.camera = new Camera(this).appendTo(this);
-
+  
   // Add a world to the game
   this.tileset = assets.ocarime_tileset;
-
-  let worldLoader = new WorldLoader(this, {entities: {door: Door, painting: Painting, piano: Piano, npc: NonPlayerCharacter}, assets: assets});
-  this.world = worldLoader.load(assets.ocarime_world, this.tileset).appendTo(this.camera);
+  this.world = new WorldContext(this)
+    .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, constructorArgs: ['color']})
+    .registerEntityType('Door', {constructor: Door, constructorArgs: ['state']})
+    .registerEntityType('Painting', {constructor: Painting, constructorArgs: ['url']})
+    .create(assets.ocarime_world, this.tileset)
+    .appendTo(this.camera);
 
   if (typeof this.world.playerSpawn !== 'undefined')
     this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn).appendTo(this.world);
