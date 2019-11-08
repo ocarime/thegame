@@ -6,7 +6,7 @@ export default class WorldInfo
   {
     this.world = world;
     this.position = position;
-    this.tile = world.tileset.getTile(world.getTile(position));
+    this.tile = world.getTile(position);
     this.entity = world.getEntityAtPosition(position);
   }
 

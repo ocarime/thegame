@@ -7,7 +7,7 @@ import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
 import Piano from './game/entity/Piano.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
-import Tileset from './engine/tileset/Tileset.js';
+import Tileset from './engine/world/Tileset.js';
 import Vector from './engine/util/Vector.js';
 import World from './engine/world/World.js';
 import WorldContext from './engine/world/WorldContext.js';
@@ -31,7 +31,7 @@ game.preload = async function() {
   assets.register('music_thomas', 'assets/audio/music-thomas.ogg', this.audioContext.createClip, this.audioContext);
 
   // Register world and tileset files
-  assets.register('ocarime_tileset', 'assets/tilesets/ocarime.tileset', async response => Tileset.load(await response.text()));
+  assets.register('ocarime_tileset', 'assets/tilesets/ocarime_tileset.yml', async response => Tileset.load(await response.text()));
   assets.register('ocarime_world', 'assets/worlds/ocarime_world.yml', response => response.text());
 
   // Load the assets
@@ -39,14 +39,14 @@ game.preload = async function() {
 
   // Add a camera to the game
   this.camera = new Camera(this).appendTo(this);
-  
+
   // Add a world to the game
-  this.tileset = assets.ocarime_tileset;
   this.world = new WorldContext(this)
+    .registerTileset('ocarime_tileset', assets.ocarime_tileset)
     .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, constructorArgs: ['color']})
     .registerEntityType('Door', {constructor: Door, constructorArgs: ['state']})
     .registerEntityType('Painting', {constructor: Painting, constructorArgs: ['url']})
-    .create(assets.ocarime_world, this.tileset)
+    .create(assets.ocarime_world)
     .appendTo(this.camera);
 
   if (typeof this.world.playerSpawn !== 'undefined')
@@ -55,5 +55,5 @@ game.preload = async function() {
 
 // Game update
 game.update = function() {
-  this.camera.position = this.tileset.transformVector(this.player.position);
+  this.camera.position = this.world.tileset.transformVector(this.player.position);
 };

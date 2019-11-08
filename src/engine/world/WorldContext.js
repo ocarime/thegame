@@ -10,21 +10,35 @@ export default class WorldContext
   {
     this.game = game;
 
+    this._tilesets = new Map();
     this._entities = new Map();
   }
 
+  // Register a new tileset
+  registerTileset(name, tileset)
+  {
+    this._tilesets.set(name, tileset);
+    return this;
+  }
+
+  // Unregister a tileset
+  unregisterTileset(name)
+  {
+    this._tilesets.delete(name);
+    return this;
+  }
 
   // Register a new entity type
-  registerEntityType(type, typeDefinition)
+  registerEntityType(name, definition)
   {
-    this._entities.set(type, typeDefinition);
+    this._entities.set(name, definition);
     return this;
   }
 
   // Unregister an entity type
-  unregisterEntityType(type)
+  unregisterEntityType(name)
   {
-    this._entities.remove(type);
+    this._entities.delete(name);
     return this;
   }
 
@@ -48,16 +62,36 @@ export default class WorldContext
   }
 
   // Load a world from a YAML string
-  create(string, ...args)
+  create(string)
   {
     // Parse the YAML string
     let yaml = YAML.parse(string);
 
+    // Load the tileset
+    let tileset = this._tilesets.get(yaml.tileset.name);
+    if (typeof tileset === 'undefined')
+      return undefined;
+
+    // Get tile aliases
+    let tiles = new Map();
+    if (typeof yaml.tileset.aliases !== 'undefined')
+    {
+      for (let tileName in yaml.tileset.aliases)
+      {
+        if (!yaml.tileset.aliases.hasOwnProperty(tileName))
+          continue;
+
+        let tileAliases = yaml.tileset.aliases[tileName];
+        for (let tileAlias of tileAliases)
+          tiles.set(tileAlias, tileName);
+      }
+    }
+
     // Read the map
-    let map = yaml.map.split(/(?:\r?\n)+/).map(row => row.split(/\s+/));
+    let map = yaml.tilemap.split(/(?:\r?\n)+/).map(row => row.split(/\s+/).map(tile => tileset.tiles.get(tiles.get(tile))));
 
     // Create a new world
-    let world = new World(this.game, map[0].length, map.length, ...args);
+    let world = new World(this.game, map[0].length, map.length, tileset);
 
     // Add the tiles to the map
     for (let y = 0; y < map.length; y ++)
