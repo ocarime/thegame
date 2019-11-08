@@ -78,41 +78,47 @@ entities:
     position: [3, 16]
     color: '#8000AA'
     roamingArea: [1, 13, 6, 18]
-    roamingInterval: 10
+    roamingCooldown: 5
+    roamingInterval: 20
 
   - type: NonPlayerCharacter
     name: Danae
     position: [10, 6]
     color: '#AA0050'
     roamingArea: [8, 4, 13, 9]
-    roamingInterval: 10
+    roamingCooldown: 5
+    roamingInterval: 20
 
   - type: NonPlayerCharacter
     name: Bastiaan
     position: [21, 3]
     color: '#3CB371'
     roamingArea: [18, 1, 23, 6]
-    roamingInterval: 10
+    roamingCooldown: 5
+    roamingInterval: 20
 
   - type: NonPlayerCharacter
     name: Thomas
     position: [33, 18]
     color: '#3333FF'
     roamingArea: [30, 16, 35, 21]
-    roamingInterval: 10
+    roamingCooldown: 5
+    roamingInterval: 20
 
   - type: NonPlayerCharacter
     name: Greg
     position: [26, 28]
     color: '#FFEE33'
     roamingArea: [23, 25, 28, 30]
-    roamingInterval: 10
+    roamingCooldown: 5
+    roamingInterval: 210
 
   - type: NonPlayerCharacter
     name: Amber
     position: [15, 31]
     color: '#8000AA'
     roamingArea: [13, 28, 18, 33]
-    roamingInterval: 10
+    roamingCooldown: 5
+    roamingInterval: 20
 
 playerSpawn: [18, 17]

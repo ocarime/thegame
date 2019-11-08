@@ -1,5 +1,6 @@
 import Character from './Character.js';
 import Region from '../../util/Region.js';
+import RegionInt from '../../util/RegionInt.js';
 import Vector from '../../util/Vector.js';
 
 
@@ -7,11 +8,19 @@ import Vector from '../../util/Vector.js';
 export default class NonPlayerCharacter extends Character
 {
   // Constructor
-  constructor(world, name, position, color = 'aqua')
+  constructor(world, name, position, options)
   {
-    super(world, name, position);
+    super(world, name, position, options);
 
-    this.color = color;
+    // Definition variables
+    this.color = options.color || 'aqua';
+
+    // Variables for random walking of the NPC
+    this.roamingArea = typeof options.roamingArea !== 'undefined' ? new RegionInt(...options.roamingArea) : this.position.toRegion();
+    this.roamingCooldown = options.roamingCooldown || 0;
+    this.roamingInterval = options.roamingInterval || 0;
+
+    this._roamingTimer = (Math.random() * this.roamingInterval) * 1000;;
   }
 
   // Draw the character
@@ -42,5 +51,36 @@ export default class NonPlayerCharacter extends Character
     ctx.textAlign = 'center';
     ctx.fillStyle = this.color;
     ctx.fillText(this.name, anchor.x, anchor.y);
+  }
+
+  // Update the character logic
+  update(deltaTime)
+  {
+    // Check if the character can roam
+    if (this.roamingInterval > 0)
+    {
+      // Check if the current interval is over
+      if (this._roamingTimer <= 0)
+      {
+        // Roam
+        let path = undefined;
+        while (typeof path === 'undefined')
+        {
+          path = this.world.getPath(this.position, new Vector(
+            Math.floor(Math.random() * (this.roamingArea.width + 1)) + this.roamingArea.left,
+            Math.floor(Math.random() * (this.roamingArea.height + 1)) + this.roamingArea.top
+          ));
+        }
+        this.moveTo(...path.slice(1));
+
+        // Calculate a new interval
+        this._roamingTimer = (Math.random() * this.roamingInterval + this.roamingCooldown) * 1000;
+      }
+      else
+      {
+        // Decrease the roaming timer
+        this._roamingTimer -= deltaTime;
+      }
+    }
   }
 }
