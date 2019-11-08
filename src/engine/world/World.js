@@ -2,6 +2,7 @@ import Area from './Area.js';
 import BinaryHeap from '../util/BinaryHeap.js';
 import Entity from './Entity.js';
 import GameObject from '../GameObject.js';
+import PlayerCharacter from './character/PlayerCharacter.js';
 import RegionInt from '../util/RegionInt.js';
 import Tile from './Tile.js';
 import Tileset from './Tileset.js';
@@ -13,18 +14,16 @@ import WorldInfo from './WorldInfo.js';
 export default class World extends GameObject
 {
   // Constructor
-  constructor(game, width = 16, height = 16, tileset)
+  constructor(width = 16, height = 16, tileset)
   {
     super();
-
-    // The game instance
-    this.game = game;
 
     // Dimensions of the world
     this.region = new RegionInt(0, 0, width, height);
 
     // Reference to the tileset
     this.tileset = tileset;
+    //this.scale = new Vector(this.tileset.size, this.tileset.size);
 
     // Tile array
     this.tiles = Array.fill(undefined, this.region.area);
@@ -38,6 +37,38 @@ export default class World extends GameObject
   get height()
   {
     return this.region.height;
+  }
+
+  // Transform a vector from local space to world space
+  transformVector(vector)
+  {
+    vector = vector.scaleUniform(this.tileset.size);
+    vector = super.transformVector(vector);
+    return vector;
+  }
+
+  // Transform a region from local space to world space
+  transformRegion(region)
+  {
+    region = region.scaleUniform(this.tileset.size);
+    region = super.transformRegion(region);
+    return region;
+  }
+
+  // Transform a vector from world space to local space
+  inverseTransformVector(vector)
+  {
+    vector = super.inverseTransformVector(vector);
+    vector = vector.scaleUniform(1 / this.tileset.size);
+    return vector;
+  }
+
+  // Transform a region from world space to local space
+  inverseTransformRegion(region)
+  {
+    region = super.inverseTransformRegion(region);
+    region = region.scaleUniform(1 / this.tileset.size);
+    return region;
   }
 
   // Get neighboring positions
@@ -81,6 +112,12 @@ export default class World extends GameObject
   getEntityAtPosition(position)
   {
     return this.entities.find(entity => entity.position.x == position.x && entity.position.y == position.y);
+  }
+
+  // Get the player character
+  get player()
+  {
+    return this.entities.find(entity => entity instanceof PlayerCharacter);
   }
 
   // Get all areas
@@ -189,28 +226,17 @@ export default class World extends GameObject
     }
   }
 
-  // Draw the debug mode
-  debug(ctx)
-  {
-    // Draw world boundaries
-    let worldRegion = this.tileset.transformRegion(this.region);
-
-    ctx.strokeStyle = 'lime';
-    ctx.strokeRect(worldRegion.left, worldRegion.top, worldRegion.width, worldRegion.height);
-  }
-
   // Event handler when the pointer is hovered
   onPointerHovered(e)
   {
-    let position = this.game.camera.inverseTransformVector(e.position);
-    let tilePosition = this.tileset.inverseTransformVector(position).round();
+    let position = this.inverseTransformVector(e.position).trunc();
 
     // Check if the tile is in the world
-    if (!this.region.contains(tilePosition))
+    if (!this.region.contains(position))
       return;
 
     // Get the entity at the position
-    let entity = this.getEntityAtPosition(tilePosition);
+    let entity = this.getEntityAtPosition(position);
     if (entity !== undefined && entity.can('onInspect'))
       entity.onInspect(e);
   }
@@ -218,15 +244,16 @@ export default class World extends GameObject
   // Event handler when the pointer is pressed
   onPointerPressed(e)
   {
-    let position = this.game.camera.inverseTransformVector(e.position);
-    let tilePosition = this.tileset.inverseTransformVector(position).round();
+    let position = this.inverseTransformVector(e.position).trunc();
+
+    console.log(position);
 
     // Check if the tile is in the world
-    if (!this.region.contains(tilePosition))
+    if (!this.region.contains(position))
       return;
 
     // Get the entity at the position
-    let entity = this.getEntityAtPosition(tilePosition);
+    let entity = this.getEntityAtPosition(position);
     if (entity !== undefined && entity.can('onInteract'))
     {
       // Interact with the entity
@@ -234,25 +261,12 @@ export default class World extends GameObject
     }
     else
     {
-      // Move the player
-      let path = this.getPath(this.game.player.position, tilePosition);
-      if (path !== undefined)
-        this.game.player.moveTo(...path.slice(1));
-
-      // Get areas the player is in
-      for (let area of this.areas)
+      // Move the player if present
+      if (typeof this.player !== 'undefined')
       {
-        // Check if the player is in this area
-        if (area.region.contains(tilePosition))
-        {
-          if (typeof area.audioSource !== 'undefined' && !area.audioSource.playing)
-            area.audioSource.play();
-        }
-        else
-        {
-          if (typeof area.audioSource !== 'undefined' && area.audioSource.playing)
-            area.audioSource.stop();
-        }
+        let path = this.getPath(this.player.position, position);
+        if (path !== undefined)
+          this.player.moveTo(...path.slice(1));
       }
     }
   }

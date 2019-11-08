@@ -12,14 +12,10 @@ export default class Camera extends GameObject
 
     // The game instance
     this.game = game;
-
-    // Transformations
-    this.position = new Vector(0, 0);
-    this.scale = new Vector(1, 1)
   }
 
-  // Get the position offset to center the screen at the position
-  get positionOffset()
+  // Return the position offset to center the screen at the position
+  get offset()
   {
     return new Vector(this.game.width / 2, this.game.height / 2);
   }
@@ -27,26 +23,35 @@ export default class Camera extends GameObject
   // Transform a vector from camera space to world space
   transformVector(vector)
   {
-    return vector
-      .translate(this.position.scaleUniform(-1))
-      .scale(this.scale)
-      .translate(this.positionOffset);
+    // Apply transformations of the parents
+    if (typeof this.parent !== 'undefined' || parent instanceof Camera)
+      vector = this.parent.transformVector(vector);
+
+    return vector;
   }
 
   // Transform a region from camera space to world space
   transformRegion(region)
   {
-    return region
-      .translate(this.position.scaleUniform(-1))
-      .scale(this.scale)
-      .translate(this.positionOffset);
+    // Apply transformations of the parents
+    if (typeof this.parent !== 'undefined')
+      region = this.parent.transformRegion(region);
+
+    return region;
   }
 
   // Transform a vector from world space to camera space
   inverseTransformVector(vector)
   {
+    // Apply inverse camera offset
+    vector = vector.translate(this.offset.scaleUniform(-1));
+
+    // Apply inverse transformations of the parents
+    if (typeof this.parent !== 'undefined')
+      vector = this.parent.inverseTransformVector(vector);
+
+    // Apply inverse transformations of this game object
     return vector
-      .translate(this.positionOffset.scaleUniform(-1))
       .scale(this.scale.reciprocal())
       .translate(this.position);
   }
@@ -54,42 +59,37 @@ export default class Camera extends GameObject
   // Transform a region from world space to camera space
   inverseTransformRegion(region)
   {
+    // Apply inverse camera offset
+    region = region.translate(this.offset.scaleUniform(-1));
+
+    // Apply inverse transformations of the parents
+    if (typeof this.parent !== 'undefined' || parent instanceof Camera)
+      region = this.parent.inverseTransformRegion(region);
+
+    // Apply inverse transformations of this game object
     return region
-      .translate(this.positionOffset.scaleUniform(-1))
       .scale(this.scale.reciprocal())
       .translate(this.position);
   }
 
-  // Begin the camera context
+  // Begin the canvas context
   beginContext(ctx)
   {
     // Save the current canvas state
     ctx.save();
 
     // Translate to the center of the screen
-    ctx.translate(this.game.width / 2, this.game.height / 2);
+    ctx.translate(this.offset.x, this.offset.y);
 
     // Apply transformations
     ctx.scale(this.scale.x, this.scale.y);
     ctx.translate(this.position.scaleUniform(-1).x, this.position.scaleUniform(-1).y);
   }
 
-  // End the camera context
+  // End the canvas context
   endContext(ctx)
   {
     // Restore the previous canvas state
     ctx.restore();
-  }
-
-  // Update the camera logic
-  update(deltaTime)
-  {
-    // TODO: Implement things
-  }
-
-  // Convert to string
-  toString()
-  {
-    return `${super.toString()}: position = ${this.position}, scale = ${this.scale}`;
   }
 }

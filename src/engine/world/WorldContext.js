@@ -6,10 +6,8 @@ import World from './World.js';
 export default class WorldContext
 {
   // Constructor
-  constructor(game)
+  constructor()
   {
-    this.game = game;
-
     this._tilesets = new Map();
     this._entities = new Map();
   }
@@ -88,7 +86,7 @@ export default class WorldContext
     let map = yaml.tilemap.split(/(?:\r?\n)+/).map(row => row.split(/\s+/).map(tile => tileset.tiles.get(tiles.get(tile))));
 
     // Create a new world
-    let world = new World(this.game, map[0].length, map.length, tileset);
+    let world = new World(map[0].length, map.length, tileset);
 
     // Add the tiles to the map
     for (let y = 0; y < map.length; y ++)

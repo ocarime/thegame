@@ -1,5 +1,5 @@
 import Camera from './Camera.js';
-import GameAudioContext from './audio/GameAudioContext.js';
+import Context from './audio/Context.js';
 import GameObject from './GameObject.js';
 import PointerEvent from './event/PointerEvent.js';
 import Vector from './util/Vector.js';
@@ -29,7 +29,7 @@ export default class Game extends GameObject
     this.loadingScreen = document.querySelector(loadingScreen);
 
     // Initialize the audio context
-    this.audioContext = new GameAudioContext();
+    this.audioContext = new Context(this);
 
     // Enable debugger drawing
     this.showDebug = false;
@@ -102,8 +102,8 @@ export default class Game extends GameObject
 
     // Add event handlers for pointer pressed
     document.addEventListener('pointerdown', function(e) {
-      if (this.audioContext.context.state === 'suspended')
-        this.audioContext.context.resume();
+      if (this.audioContext.webAudioContext.state === 'suspended')
+        this.audioContext.webAudioContext.resume();
 
       // Create the pointer event
       let event = new PointerEvent('press', new Vector(e.x, e.y));
@@ -166,11 +166,17 @@ export default class Game extends GameObject
       // Check if this game object can draw
       if (gameObject.can('draw'))
         gameObject.draw(this.ctx);
-
-      // Check if this game object can draw a debug mode
-      if (this.showDebug && gameObject.can('debug'))
-        gameObject.debug(this.ctx);
     }.bind(this));
+
+    // Draw all deug information
+    if (this.showDebug)
+    {
+      this._eachContext(this.ctx, function(gameObject) {
+        // Check if this game object can draw a debug mode
+        if (gameObject.can('debug'))
+          gameObject.debug(this.ctx);
+      }.bind(this));
+    }
 
     // Update timestamp and request new frame
     this._lastRender = Date.now();
@@ -187,8 +193,8 @@ export default class Game extends GameObject
     ctx.textAlign = 'left';
     ctx.fillStyle = 'lime';
 
-    this._each(function(gameObject, parents) {
-      let tx = 16 + 12 * parents.length;
+    this._each(function(gameObject) {
+      let tx = 16 + 12 * (gameObject.hierarchy.length - 1);
       let ty = 16 + 14 * line;
       ctx.fillText(`${gameObject}`, tx, ty);
       line ++;

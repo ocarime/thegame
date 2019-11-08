@@ -22,7 +22,7 @@ export default class Tile
   // Draw the tile
   _draw(ctx, position)
   {
-    let worldRegion = this.tileset.transformRegion(RegionInt.fromVector(position));
-    ctx.drawImage(this.image, worldRegion.left, worldRegion.top, worldRegion.width, worldRegion.height);
+    let region = RegionInt.fromVector(position).scaleUniform(this.tileset.size);
+    ctx.drawImage(this.image, region.left, region.top, region.width, region.height);
   }
 }

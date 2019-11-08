@@ -16,36 +16,6 @@ export default class Tileset
     this.tiles = new Map();
   }
 
-  // Transform a vector from tile space to world space
-  transformVector(vector, centered)
-  {
-    return vector
-      .scaleUniform(this.size)
-      .translate(new Vector(this.size / 2, this.size / 2));
-  }
-
-  // Transform a region from tile space to world space
-  transformRegion(region)
-  {
-    return region
-      .scaleUniform(this.size);
-  }
-
-  // Transform a vector from world space to tile space
-  inverseTransformVector(vector)
-  {
-    return vector
-      .translate(new Vector(this.size / 2, this.size / 2).scaleUniform(-1))
-      .scaleUniform(1 / this.size);
-  }
-
-  // Transform a region from world space to tile space
-  inverseTransformRegion(region)
-  {
-    return region
-      .scaleUniform(1 / this.size);
-  }
-
   // Load a tileset from a definition string
   static load(string)
   {

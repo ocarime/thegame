@@ -1,5 +1,4 @@
 import AssetLoader from './engine/util/AssetLoader.js';
-import AudioSource from './engine/audio/AudioSource.js';
 import Camera from './engine/Camera.js';
 import Door from './game/entity/Door.js';
 import Game from './engine/Game.js';
@@ -41,7 +40,7 @@ game.preload = async function() {
   this.camera = new Camera(this).appendTo(this);
 
   // Add a world to the game
-  this.world = new WorldContext(this)
+  this.world = new WorldContext()
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
     .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter})
     .registerEntityType('Door', {constructor: Door})
@@ -55,5 +54,5 @@ game.preload = async function() {
 
 // Game update
 game.update = function() {
-  this.camera.position = this.world.tileset.transformVector(this.player.position);
+  this.camera.position = this.world.transformVector(this.player.position);
 };

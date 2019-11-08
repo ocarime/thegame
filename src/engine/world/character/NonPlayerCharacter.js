@@ -12,9 +12,6 @@ export default class NonPlayerCharacter extends Character
   {
     super(world, name, position, options);
 
-    // Definition variables
-    this.color = options.color || 'aqua';
-
     // Variables for random walking of the NPC
     this.roamingArea = typeof options.roamingArea !== 'undefined' ? new RegionInt(...options.roamingArea) : this.position.toRegion();
     this.roamingCooldown = options.roamingCooldown || 0;
@@ -26,19 +23,16 @@ export default class NonPlayerCharacter extends Character
   // Draw the character
   draw(ctx)
   {
-    let worldPosition = this.world.tileset.transformVector(this.position);
-
     // Draw the character
-    ctx.fillStyle = this.color;
-    ctx.fillRect(worldPosition.x - 8, worldPosition.y - 8, 16, 16);
+    super.draw(ctx);
+
+    let worldPosition = this.world.transformVector(this.position);
 
     // Draw the name of the character
-
-    // Get the text dimensions
     ctx.font = 'bold 10px sans-serif';
 
     let width = ctx.measureText(this.name).width;
-    let anchor = worldPosition.translate(new Vector(0, -this.world.tileset.size / 2 - 6));
+    let anchor = worldPosition.translate(new Vector(this.world.tileset.size / 2, -6));
     let frame = new Region(anchor.x - width / 2 - 4, anchor.y - 10, anchor.x + width / 2 + 4, anchor.y + 5);
 
     // Draw the frame
