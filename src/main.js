@@ -50,7 +50,7 @@ game.preload = async function() {
     .appendTo(this.camera);
 
   if (typeof this.world.playerSpawn !== 'undefined')
-    this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn).appendTo(this.world);
+    this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn, {velocity: 10}).appendTo(this.world);
 };
 
 // Game update
