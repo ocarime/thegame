@@ -6,10 +6,21 @@ import World from './World.js';
 export default class WorldContext
 {
   // Constructor
-  constructor()
+  constructor(game)
   {
+    // Reference to the game
+    this.game = game;
+
+    this.assets = {};
     this._tilesets = new Map();
     this._entities = new Map();
+  }
+
+  // Register assets
+  registerAssets(assets)
+  {
+    Object.assign(this.assets, assets);
+    return this;
   }
 
   // Register a new tileset
@@ -51,6 +62,9 @@ export default class WorldContext
     let type = this._entities.get(object.type);
     if (typeof type === 'undefined')
       return undefined;
+
+    // Add world context to the object
+    Object.assign(object, {game: this.game, context: this});
 
     // Construct the entity
     return new type.constructor(world, object.name, new Vector(...object.position), object);

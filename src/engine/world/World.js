@@ -23,7 +23,6 @@ export default class World extends GameObject
 
     // Reference to the tileset
     this.tileset = tileset;
-    //this.scale = new Vector(this.tileset.size, this.tileset.size);
 
     // Tile array
     this.tiles = Array.fill(undefined, this.region.area);

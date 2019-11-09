@@ -1,7 +1,3 @@
-tileset:
-  name: ocarime_tileset
-  aliases: {floor: ['#'], bricks: ['1'], iron: ['2']}
-
 tilemap: |-
  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~
  ~ ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~
@@ -39,6 +35,10 @@ tilemap: |-
  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 1 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
+tileset:
+  name: ocarime_tileset
+  aliases: {floor: ['#'], bricks: ['1'], iron: ['2']}
+
 assets:
   - type: AudioClip
     name: music_common
@@ -73,6 +73,11 @@ entities:
   #  name: Player
   #  position: [18, 17]
 
+  - type: Speaker
+    name: Common Room Speaker
+    position: [18, 17]
+    audioClip: music_common
+
   - type: NonPlayerCharacter
     name: Stijn
     position: [3, 16]
@@ -80,6 +85,11 @@ entities:
     roamingArea: [1, 13, 6, 18]
     roamingCooldown: 5
     roamingInterval: 20
+
+  - type: Speaker
+    name: Stijn's Speaker
+    position: [5, 16]
+    audioClip: music_stijn
 
   - type: NonPlayerCharacter
     name: Danae
@@ -121,4 +131,4 @@ entities:
     roamingCooldown: 5
     roamingInterval: 20
 
-playerSpawn: [18, 17]
+playerSpawn: [18, 16]

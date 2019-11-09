@@ -6,6 +6,7 @@ import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
 import Piano from './game/entity/Piano.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
+import Speaker from './game/entity/Speaker.js';
 import Tileset from './engine/world/Tileset.js';
 import Vector from './engine/util/Vector.js';
 import World from './engine/world/World.js';
@@ -21,13 +22,13 @@ game.preload = async function() {
   let assets = new AssetLoader('#loadingScreen');
 
   // Register audio files
-  assets.register('music_amber', 'assets/audio/music-amber.ogg', this.audioContext.createClip, this.audioContext);
-  assets.register('music_bastiaan', 'assets/audio/music-bastiaan.ogg', this.audioContext.createClip, this.audioContext);
-  assets.register('music_common', 'assets/audio/music-common.ogg', this.audioContext.createClip, this.audioContext);
-  assets.register('music_danae', 'assets/audio/music-danae.ogg', this.audioContext.createClip, this.audioContext);
-  assets.register('music_greg', 'assets/audio/music-greg.ogg', this.audioContext.createClip, this.audioContext);
-  assets.register('music_stijn', 'assets/audio/music-stijn.ogg', this.audioContext.createClip, this.audioContext);
-  assets.register('music_thomas', 'assets/audio/music-thomas.ogg', this.audioContext.createClip, this.audioContext);
+  assets.register('music_amber', 'assets/audio/music-amber.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
+  assets.register('music_bastiaan', 'assets/audio/music-bastiaan.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
+  assets.register('music_common', 'assets/audio/music-common.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
+  assets.register('music_danae', 'assets/audio/music-danae.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
+  assets.register('music_greg', 'assets/audio/music-greg.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
+  assets.register('music_stijn', 'assets/audio/music-stijn.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
+  assets.register('music_thomas', 'assets/audio/music-thomas.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
 
   // Register world and tileset files
   assets.register('ocarime_tileset', 'assets/tilesets/ocarime_tileset.yml', async response => Tileset.load(await response.text()));
@@ -40,11 +41,13 @@ game.preload = async function() {
   this.camera = new Camera(this).appendTo(this);
 
   // Add a world to the game
-  this.world = new WorldContext()
+  this.world = new WorldContext(this)
+    .registerAssets(assets)
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
     .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter})
     .registerEntityType('Door', {constructor: Door})
     .registerEntityType('Painting', {constructor: Painting})
+    .registerEntityType('Speaker', {constructor: Speaker})
     .create(assets.ocarime_world)
     .appendTo(this.camera);
 
