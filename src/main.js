@@ -58,7 +58,7 @@ game.preload = async function() {
   if (typeof this.world.playerSpawn !== 'undefined')
   {
     this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn, {velocity: 10}).appendTo(this.world);
-    this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.player.position);
+    this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.player.position).appendTo(this.player);
   }
 };
 
