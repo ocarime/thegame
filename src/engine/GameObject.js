@@ -91,19 +91,22 @@ export default class GameObject
   // Search for an object of a type in the direct children
   getObject(type)
   {
-    return this.getObjects(type).next();
+    let next = this.getObjects(type).next();
+    return next.done ? undefined : next.value;
   }
 
   // Search for an object of a type in the hierarchy
   getObjectInHierarchy(type)
   {
-    return this.getObjectsInHierarchy(type).next();
+    let next = this.getObjectsInHierarchy(type).next();
+    return next.done ? undefined : next.value;
   }
 
   // Search for an object of a type in all children using depth-first search
   getObjectInChildren(type)
   {
-    return this.getObjectsInChildren(type).next();
+    let next = this.getObjectsInChildren(type).next();
+    return next.done ? undefined : next.value;
   }
 
   // Remove an object in the direct children

@@ -5,12 +5,12 @@ import Entity from '../world/Entity.js';
 export default class AudioSource extends Entity
 {
   // Constructor
-  constructor(world, name, position, options)
+  constructor(context, world, name, position, options)
   {
     super(world, name, position, options);
 
     // Reference to the audio context
-    this.context = options.context;
+    this.context = context;
     this.webAudioContext = this.context.webAudioContext;
 
     // Add two source nodes for looping
@@ -55,10 +55,13 @@ export default class AudioSource extends Entity
   // Play this audio source
   play()
   {
+    console.log(`${this} starts playing ${this.clip}`);
+
     // If there is no clip, we cannot play
     if (typeof this.clip === 'undefined')
       return;
 
+    this.clip.activeSourceNode.loop = this.loop;
     this.clip.activeSourceNode.connect(this.inputNode)
     this.clip.activeSourceNode.start();
   }

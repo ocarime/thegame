@@ -2,6 +2,7 @@ import AssetLoader from './engine/util/AssetLoader.js';
 import Camera from './engine/Camera.js';
 import Door from './game/entity/Door.js';
 import Game from './engine/Game.js';
+import MusicSystem from './game/audio/MusicSystem.js';
 import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
 import Piano from './game/entity/Piano.js';
 import Painting from './game/entity/Painting.js';
@@ -37,6 +38,9 @@ game.preload = async function() {
   // Load the assets
   await assets.load();
 
+  // Add a music system to the game
+  this.musicSystem = new MusicSystem().appendTo(this);
+
   // Add a camera to the game
   this.camera = new Camera(this).appendTo(this);
 
@@ -52,7 +56,10 @@ game.preload = async function() {
     .appendTo(this.camera);
 
   if (typeof this.world.playerSpawn !== 'undefined')
+  {
     this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn, {velocity: 10}).appendTo(this.world);
+    this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.player.position);
+  }
 };
 
 // Game update

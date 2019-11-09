@@ -1,6 +1,7 @@
 import AudioSource from '../../engine/audio/AudioSource.js';
 import Entity from '../../engine/world/Entity.js';
 import Game from '../../engine/Game.js';
+import MusicSystem from '../audio/MusicSystem.js';
 
 
 // Class that defines a speaker entity
@@ -11,14 +12,18 @@ export default class Speaker extends Entity
   {
     super(world, name, position, options);
 
+    // Create a reference to the music system
+    this.musicSystem = options.game.getObjectInChildren(MusicSystem);
+
     // Create an audio source
     this.audioClip = typeof options.audioClip !== 'undefined' ? options.context.assets[options.audioClip] : undefined;
     this.audioSource = options.game.audioContext.createSource(world, `${name}_AudioSource`, position, {
-      clip: this.audioClip
+      clip: this.audioClip,
+      loop: options.loop
     }).appendTo(this);
-    //this.audioSource.play();
+    this.musicSystem.sources.push(this.audioSource);
 
-    console.log(this);
+
   }
 
   // Draw the door

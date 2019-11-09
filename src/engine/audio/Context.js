@@ -11,6 +11,12 @@ export default class Context
   {
     // Create the web audio context
     this.webAudioContext = new AudioContext;
+
+    // Reference to the listener
+    this.listener = undefined;
+
+    // Reference to the sources
+    this.sources = [];
   }
 
   // Create a new audio clip
@@ -19,10 +25,31 @@ export default class Context
     return await new AudioClip(this).init(buffer);
   }
 
-  // Create a new audio source
-  createSource(world, name, position, options)
+  // Create a new audio listener
+  createListener(world, name, position, options = {})
   {
-    Object.assign(options, {context: this});
-    return new AudioSource(world, name, position, options);
+    let listener = new AudioListener(this, world, position, options);
+
+    // Connect present sources to the listener
+    for (let source of this.sources)
+      source.outputNode.connect(listener.inputNode);
+
+    // Add the listener to the context
+    this.listener = listener;
+    return listener;
+  }
+
+  // Create a new audio source
+  createSource(world, name, position, options = {})
+  {
+    let source = new AudioSource(this, world, name, position, options);
+
+    // Connect the source to the listener
+    if (typeof this.listener !== 'undefined')
+      source.outputNode.connect(this.listener.inputNode);
+
+    // Add the source to the context
+    this.sources.push(source);
+    return source;
   }
 }
