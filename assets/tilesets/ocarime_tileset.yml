@@ -18,4 +18,6 @@ tiles:
   piano:
     imageUrl: assets/images/entity-piano.png
   painting:
-    imageUrl: assets/images/entity-painting.jpeg
+    imageUrl: assets/images/entity-painting.png
+  speaker:
+    imageUrl: assets/images/entity-speaker.png
