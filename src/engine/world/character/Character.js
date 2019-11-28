@@ -14,6 +14,7 @@ export default class Character extends Entity
 
     // Definition variables
     this.color = options.color || 'green';
+    this.sprite = options.sprite || undefined;
     this.velocity = options.velocity || 10;
   }
 
@@ -27,10 +28,19 @@ export default class Character extends Entity
   // Draw the character
   draw(ctx)
   {
-    let region = this.world.transformRegion(Region.fromVector(this.position, 1, 1));
+    if (typeof this.sprite !== 'undefined')
+    {
+      // Draw the sprite
+      this.world.tileset.tiles.get(this.sprite)._draw(ctx, this.position);
+    }
+    else
+    {
+      // Draw rectangle
+      let region = this.world.transformRegion(Region.fromVector(this.position, 1, 1));
 
-    ctx.fillStyle = this.color;
-    ctx.fillRect(region.left + 4, region.top + 4, region.width - 8, region.height - 8);
+      ctx.fillStyle = this.color;
+      ctx.fillRect(region.left + 4, region.top + 4, region.width - 8, region.height - 8);
+    }
   }
 
   // Event handler when the pointer is pressed

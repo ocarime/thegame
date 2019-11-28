@@ -1,4 +1,4 @@
-size: 24
+size: 48
 
 tiles:
   floor:
@@ -21,3 +21,15 @@ tiles:
     imageUrl: assets/images/entity-painting.png
   speaker:
     imageUrl: assets/images/entity-speaker.png
+  npc-amber:
+    imageUrl: assets/images/npc-amber.png
+  npc-bastiaan:
+    imageUrl: assets/images/npc-bastiaan.png
+  npc-danae:
+    imageUrl: assets/images/npc-danae.png
+  npc-greg:
+    imageUrl: assets/images/npc-greg.png
+  npc-stijn:
+    imageUrl: assets/images/npc-stijn.png
+  npc-thomas:
+    imageUrl: assets/images/npc-thomas.png
