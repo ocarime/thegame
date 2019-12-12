@@ -83,6 +83,7 @@ entities:
     name: Stijn
     position: [3, 16]
     color: '#8000AA'
+    sprite: 'npc-stijn'
     roamingArea: [1, 13, 6, 18]
     roamingCooldown: 5
     roamingInterval: 20
@@ -96,6 +97,7 @@ entities:
     name: Danae
     position: [10, 6]
     color: '#AA0050'
+    sprite: 'npc-danae'
     roamingArea: [8, 4, 13, 9]
     roamingCooldown: 5
     roamingInterval: 20
@@ -104,6 +106,7 @@ entities:
     name: Bastiaan
     position: [21, 3]
     color: '#3CB371'
+    sprite: 'npc-bastiaan'
     roamingArea: [18, 1, 23, 6]
     roamingCooldown: 5
     roamingInterval: 20
@@ -112,6 +115,7 @@ entities:
     name: Thomas
     position: [33, 18]
     color: '#3333FF'
+    sprite: 'npc-thomas'
     roamingArea: [30, 16, 35, 21]
     roamingCooldown: 5
     roamingInterval: 20
@@ -120,6 +124,7 @@ entities:
     name: Greg
     position: [26, 28]
     color: '#FFEE33'
+    sprite: 'npc-greg'
     roamingArea: [23, 25, 28, 30]
     roamingCooldown: 5
     roamingInterval: 210
@@ -127,7 +132,8 @@ entities:
   - type: NonPlayerCharacter
     name: Amber
     position: [15, 31]
-    color: '#8000AA'
+    color: '#40E0D0'
+    sprite: 'npc-amber'
     roamingArea: [13, 28, 18, 33]
     roamingCooldown: 5
     roamingInterval: 20

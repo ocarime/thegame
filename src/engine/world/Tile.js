@@ -1,4 +1,4 @@
-import RegionInt from '../util/RegionInt.js';
+import Region from '../util/Region.js';
 
 
 // Class that defines a tile
@@ -22,7 +22,7 @@ export default class Tile
   // Draw the tile
   _draw(ctx, position)
   {
-    let region = RegionInt.fromVector(position).scaleUniform(this.tileset.size);
+    let region = Region.fromVector(position, 1.0, 1.0).scaleUniform(this.tileset.size);
     ctx.drawImage(this.image, region.left, region.top, region.width, region.height);
   }
 }
