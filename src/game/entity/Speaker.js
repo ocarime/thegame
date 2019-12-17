@@ -19,11 +19,11 @@ export default class Speaker extends Entity
     this.audioClip = typeof options.audioClip !== 'undefined' ? options.context.assets[options.audioClip] : undefined;
     this.audioSource = options.game.audioContext.createSource(world, `${name}_AudioSource`, position, {
       clip: this.audioClip,
-      loop: options.loop
+      loop: options.loop,
+      minDistance: 2,
+      maxDistance: 10
     }).appendTo(this);
     this.musicSystem.sources.push(this.audioSource);
-
-
   }
 
   // Draw the door

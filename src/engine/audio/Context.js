@@ -28,7 +28,7 @@ export default class Context
   // Create a new audio listener
   createListener(world, name, position, options = {})
   {
-    let listener = new AudioListener(this, world, position, options);
+    let listener = new AudioListener(this, world, name, position, options);
 
     // Connect present sources to the listener
     for (let source of this.sources)

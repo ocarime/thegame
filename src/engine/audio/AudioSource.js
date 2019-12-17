@@ -1,4 +1,5 @@
 import Entity from '../world/Entity.js';
+import Vector from '../util/Vector.js';
 
 
 // Class that represents an audio source
@@ -42,21 +43,24 @@ export default class AudioSource extends Entity
       else if (distance > this.maxDistance)
         return 0;
       else
-        return (distance - this.minDistance) / (this.maxDistance - this.minDistance);
+        return 1 - (distance - this.minDistance) / (this.maxDistance - this.minDistance);
     };
   }
 
   // Update the audio source logic
   update(deltaTime)
   {
+    // Calculate the distance to the audio listener
+    let distance = Vector.distance(this.position, this.context.listener.position);
+    let rolloff = this.rolloffFunction(distance);
 
+    // Adjust the gain and filter of this audio source
+    this.gain.value = rolloff;
   }
 
   // Play this audio source
   play()
   {
-    console.log(`${this} starts playing ${this.clip}`);
-
     // If there is no clip, we cannot play
     if (typeof this.clip === 'undefined')
       return;
