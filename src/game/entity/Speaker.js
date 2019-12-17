@@ -20,8 +20,8 @@ export default class Speaker extends Entity
     this.audioSource = options.game.audioContext.createSource(world, `${name}_AudioSource`, position, {
       clip: this.audioClip,
       loop: options.loop,
-      minDistance: 2,
-      maxDistance: 10
+      minDistance: options.minDistance,
+      maxDistance: options.maxDistance
     }).appendTo(this);
     this.musicSystem.sources.push(this.audioSource);
   }

@@ -78,6 +78,8 @@ entities:
     position: [18, 17]
     audioClip: music_common
     loop: true
+    minDistance: 3
+    maxDistance: 10
 
   - type: NonPlayerCharacter
     name: Stijn
@@ -88,10 +90,13 @@ entities:
     roamingCooldown: 5
     roamingInterval: 20
 
-  #- type: Speaker
-  #  name: Stijn's Speaker
-  #  position: [5, 16]
-  #  audioClip: music_stijn
+  - type: Speaker
+    name: Stijn's Speaker
+    position: [5, 16]
+    audioClip: music_stijn
+    loop: true
+    minDistance: 2
+    maxDistance: 6
 
   - type: NonPlayerCharacter
     name: Danae
@@ -102,6 +107,14 @@ entities:
     roamingCooldown: 5
     roamingInterval: 20
 
+  - type: Speaker
+    name: Danae's Speaker
+    position: [11, 7]
+    audioClip: music_danae
+    loop: true
+    minDistance: 2
+    maxDistance: 6
+
   - type: NonPlayerCharacter
     name: Bastiaan
     position: [21, 3]
@@ -110,6 +123,14 @@ entities:
     roamingArea: [18, 1, 23, 6]
     roamingCooldown: 5
     roamingInterval: 20
+
+  - type: Speaker
+    name: Bastiaan's Speaker
+    position: [20, 4]
+    audioClip: music_bastiaan
+    loop: true
+    minDistance: 2
+    maxDistance: 6
 
   - type: NonPlayerCharacter
     name: Thomas
@@ -120,6 +141,14 @@ entities:
     roamingCooldown: 5
     roamingInterval: 20
 
+  - type: Speaker
+    name: Thomas's Speaker
+    position: [31, 18]
+    audioClip: music_thomas
+    loop: true
+    minDistance: 2
+    maxDistance: 6
+
   - type: NonPlayerCharacter
     name: Greg
     position: [26, 28]
@@ -129,6 +158,14 @@ entities:
     roamingCooldown: 5
     roamingInterval: 210
 
+  - type: Speaker
+    name: Greg's Speaker
+    position: [25, 27]
+    audioClip: music_greg
+    loop: true
+    minDistance: 2
+    maxDistance: 6
+
   - type: NonPlayerCharacter
     name: Amber
     position: [15, 31]
@@ -137,5 +174,13 @@ entities:
     roamingArea: [13, 28, 18, 33]
     roamingCooldown: 5
     roamingInterval: 20
+
+  - type: Speaker
+    name: Amber's Speaker
+    position: [16, 30]
+    audioClip: music_amber
+    loop: true
+    minDistance: 2
+    maxDistance: 6
 
 playerSpawn: [18, 16]

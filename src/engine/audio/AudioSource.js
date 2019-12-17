@@ -64,7 +64,6 @@ export default class AudioSource extends Entity
     // Adjust the gain and filter of this audio source
     this.gain.value = rolloff;
     this.lowpassFrequency.value = Math.pow(20000, rolloff) + 2000;
-    console.log(this.lowpassFrequency.value);
   }
 
   // Play this audio source
