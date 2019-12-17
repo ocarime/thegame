@@ -17,12 +17,19 @@ export default class AudioSource extends Entity
     // Add two source nodes for looping
     this.sourceNode = undefined;
 
+    // Add a lowpass filter node
+    this.lowpassFilterNode = this.webAudioContext.createBiquadFilter();
+    this.lowpassFilterNode.type = 'lowpass';
+    this.lowpassFilterNode.frequency.value = 24000;
+    this.lowpassFrequency = this.lowpassFilterNode.frequency;
+
     // Add a gain node
     this.gainNode = this.webAudioContext.createGain();
     this.gain = this.gainNode.gain;
+    this.lowpassFilterNode.connect(this.gainNode);
 
     // Input node to link to the source node of a clip
-    this.inputNode = this.gainNode;
+    this.inputNode = this.lowpassFilterNode;
 
     // Output node to link to the input node of a listener
     this.outputNode = this.gainNode;
@@ -56,6 +63,8 @@ export default class AudioSource extends Entity
 
     // Adjust the gain and filter of this audio source
     this.gain.value = rolloff;
+    this.lowpassFrequency.value = Math.pow(20000, rolloff) + 2000;
+    console.log(this.lowpassFrequency.value);
   }
 
   // Play this audio source
