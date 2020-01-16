@@ -15,7 +15,7 @@ export default class Painting extends Entity
   // Draw the door
   draw(ctx)
   {
-    this.world.tileset.tiles.get('painting')._draw(ctx, this.position);
+    this.world.tileset.get('painting').draw(ctx, this.position);
   }
 
   // Interaction event handler

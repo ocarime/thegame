@@ -11,16 +11,17 @@ export default class Tile
 
     // Definition variables
     this.name = name;
-    this.imageUrl = options.imageUrl || null;
+    this.src = options.src || null;
+    this.conditions = options.conditions || {};
     this.passable = typeof options.passable !== 'undefined' ? options.passable : true;
 
     // Create the image
     this.image = new Image(this.tileset.size, this.tileset.size);
-    this.image.src = this.imageUrl;
+    this.image.src = this.src;
   }
 
   // Draw the tile
-  _draw(ctx, position)
+  draw(ctx, position)
   {
     let region = Region.fromVector(position, 1.0, 1.0).scaleUniform(this.tileset.size);
 

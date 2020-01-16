@@ -29,6 +29,6 @@ export default class Speaker extends Entity
   // Draw the door
   draw(ctx)
   {
-    this.world.tileset.tiles.get('speaker')._draw(ctx, this.position);
+    this.world.tileset.get('speaker').draw(ctx, this.position);
   }
 }

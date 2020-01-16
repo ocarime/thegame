@@ -3,104 +3,117 @@ size: 32
 tiles:
   # Floors
   floor-light:
-    imageUrl: assets/images/floor-light.png
+  - src: assets/images/floor-light.png
   floor-dark:
-    imageUrl: assets/images/floor-dark.png
+  - src: assets/images/floor-dark.png
 
   # Walls
   wall-horizonal:
-    imageUrl: assets/images/wall-horizontal.png
+  - src: assets/images/wall-horizontal.png
     passable: false
   wall-vertical:
-    imageUrl: assets/images/wall-vertical.png
+  - src: assets/images/wall-vertical.png
     passable: false
   wall-down-right:
-    imageUrl: assets/images/wall-down-right.png
+  - src: assets/images/wall-down-right.png
     passable: false
   wall-down-left:
-    imageUrl: assets/images/wall-down-left.png
+  - src: assets/images/wall-down-left.png
     passable: false
   wall-up-right:
-    imageUrl: assets/images/wall-up-right.png
+  - src: assets/images/wall-up-right.png
     passable: false
   wall-up-left:
-    imageUrl: assets/images/wall-up-left.png
+  - src: assets/images/wall-up-left.png
     passable: false
   wall-vertical-right:
-    imageUrl: assets/images/wall-vertical-right.png
+  - src: assets/images/wall-vertical-right.png
     passable: false
   wall-vertical-left:
-    imageUrl: assets/images/wall-vertical-left.png
+  - src: assets/images/wall-vertical-left.png
     passable: false
   wall-down-horizontal:
-    imageUrl: assets/images/wall-down-horizontal.png
+  - src: assets/images/wall-down-horizontal.png
     passable: false
   wall-up-horizontal:
-    imageUrl: assets/images/wall-up-horizontal.png
+  - src: assets/images/wall-up-horizontal.png
     passable: false
   wall-vertical-horizontal:
-    imageUrl: assets/images/wall-vertical-horizontal.png
+  - src: assets/images/wall-vertical-horizontal.png
     passable: false
 
   pillar:
-    imageUrl: assets/images/pillar.png
+  - src: assets/images/pillar.png
     passable: false
 
   # Cave walls
   cave-horizontal:
-    imageUrl: assets/images/cave-horizontal.png
+  - src: assets/images/cave-horizontal.png
     passable: false
   cave-vertical:
-    imageUrl: assets/images/cave-vertical.png
+  - src: assets/images/cave-vertical.png
     passable: false
   cave-down-right:
-    imageUrl: assets/images/cave-down-right.png
+  - src: assets/images/cave-down-right.png
     passable: false
   cave-down-left:
-    imageUrl: assets/images/cave-down-left.png
+  - src: assets/images/cave-down-left.png
     passable: false
   cave-up-right:
-    imageUrl: assets/images/cave-up-right.png
+  - src: assets/images/cave-up-right.png
     passable: false
   cave-up-left:
-    imageUrl: assets/images/cave-up-left.png
+  - src: assets/images/cave-up-left.png
     passable: false
 
   # Door
-  door-closed-horizontal:
-    imageUrl: assets/images/door-closed-horizontal.png
+  door:
+  - src: assets/images/door-closed-horizontal.png
+    conditions:
+      state: closed
+      orientation: horizontal
     passable: false
-  door-closed-vertical:
-    imageUrl: assets/images/door-closed-vertical.png
+  - src: assets/images/door-closed-vertical.png
+    conditions:
+      state: closed
+      orientation: vertical
     passable: false
-  door-opened-horizontal:
-    imageUrl: assets/images/door-opened-horizontal.png
-  door-opened-vertical:
-    imageUrl: assets/images/door-opened-vertical.png
-  door-locked-horizontal:
-    imageUrl: assets/images/door-locked-horizontal.png
+  - src: assets/images/door-opened-horizontal.png
+    conditions:
+      state: opened
+      orientation: horizontal
+  - src: assets/images/door-opened-vertical.png
+    conditions:
+      state: opened
+      orientation: vertical
+  - src: assets/images/door-locked-horizontal.png
+    conditions:
+      state: locked
+      orientation: horizontal
     passable: false
-  door-locked-vertical:
-    imageUrl: assets/images/door-locked-vertical.png
+  - src: assets/images/door-locked-vertical.png
+    conditions:
+      state: locked
+      orientation: vertical
     passable: false
 
   piano:
-    imageUrl: assets/images/entity-piano.png
+  - src: assets/images/entity-piano.png
   painting:
-    imageUrl: assets/images/entity-painting.png
+  - src: assets/images/entity-painting.png
   speaker:
-    imageUrl: assets/images/entity-speaker.png
+  - src: assets/images/entity-speaker.png
   npc-amber:
-    imageUrl: assets/images/npc-amber.png
+  - src: assets/images/npc-amber.png
 
   # Characters
   npc-bastiaan:
-    imageUrl: assets/images/npc-bastiaan.png
+  - src: assets/images/npc-bastiaan.png
   npc-danae:
-    imageUrl: assets/images/npc-danae.png
+  - src: assets/images/npc-danae.png
   npc-greg:
-    imageUrl: assets/images/npc-greg.png
+  - src: assets/images/npc-greg.png
   npc-stijn:
-    imageUrl: assets/images/npc-stijn.png
+  - src: assets/images/npc-stijn.png
   npc-thomas:
-    imageUrl: assets/images/npc-thomas.png
+  - src: assets/images/npc-thomas.png

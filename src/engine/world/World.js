@@ -4,7 +4,6 @@ import Entity from './Entity.js';
 import GameObject from '../GameObject.js';
 import PlayerCharacter from './character/PlayerCharacter.js';
 import RegionInt from '../util/RegionInt.js';
-import Tile from './Tile.js';
 import Tileset from './Tileset.js';
 import Vector from '../util/Vector.js';
 import WorldInfo from './WorldInfo.js';
@@ -220,7 +219,7 @@ export default class World extends GameObject
         let position = new Vector(x, y);
         let tile = this.getTile(position);
         if (typeof tile !== 'undefined')
-          tile._draw(ctx, position);
+          tile.draw(ctx, position);
       }
     }
   }

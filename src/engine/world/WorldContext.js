@@ -97,7 +97,7 @@ export default class WorldContext
     }
 
     // Read the map
-    let map = yaml.tilemap.split(/(?:\r?\n)+/).map(row => row.split(/\s+/).map(tile => tileset.tiles.get(tiles.get(tile))));
+    let map = yaml.tilemap.split(/(?:\r?\n)+/).map(row => row.split(/\s+/).map(tile => tileset.get(tiles.get(tile))));
 
     // Create a new world
     let world = new World(map[0].length, map.length, tileset);

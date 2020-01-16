@@ -15,7 +15,7 @@ export default class Piano extends Entity
   // Draw the door
   draw(ctx)
   {
-    this.world.tileset.tiles.get('piano')._draw(ctx, this.position);
+    this.world.tileset.get('piano').draw(ctx, this.position);
   }
 
   // Interaction event handler

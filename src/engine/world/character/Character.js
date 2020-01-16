@@ -31,7 +31,7 @@ export default class Character extends Entity
     if (typeof this.sprite !== 'undefined')
     {
       // Draw the sprite
-      this.world.tileset.tiles.get(this.sprite)._draw(ctx, this.position);
+      this.world.tileset.get(this.sprite).draw(ctx, this.position);
     }
     else
     {
