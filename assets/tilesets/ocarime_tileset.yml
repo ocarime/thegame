@@ -1,14 +1,72 @@
-size: 48
+size: 32
 
 tiles:
-  floor:
-    imageUrl: assets/images/tile-floor.png
-  bricks:
-    imageUrl: assets/images/tile-bricks.png
+  # Floors
+  floor-light:
+    imageUrl: assets/images/floor-light.png
+  floor-dark:
+    imageUrl: assets/images/floor-dark.png
+
+  # Walls
+  wall-horizonal:
+    imageUrl: assets/images/wall-horizontal.png
     passable: false
-  iron:
-    imageUrl: assets/images/tile-iron.png
+  wall-vertical:
+    imageUrl: assets/images/wall-vertical.png
     passable: false
+  wall-down-right:
+    imageUrl: assets/images/wall-down-right.png
+    passable: false
+  wall-down-left:
+    imageUrl: assets/images/wall-down-left.png
+    passable: false
+  wall-up-right:
+    imageUrl: assets/images/wall-up-right.png
+    passable: false
+  wall-up-left:
+    imageUrl: assets/images/wall-up-left.png
+    passable: false
+  wall-vertical-right:
+    imageUrl: assets/images/wall-vertical-right.png
+    passable: false
+  wall-vertical-left:
+    imageUrl: assets/images/wall-vertical-left.png
+    passable: false
+  wall-down-horizontal:
+    imageUrl: assets/images/wall-down-horizontal.png
+    passable: false
+  wall-up-horizontal:
+    imageUrl: assets/images/wall-up-horizontal.png
+    passable: false
+  wall-vertical-horizontal:
+    imageUrl: assets/images/wall-vertical-horizontal.png
+    passable: false
+
+  pillar:
+    imageUrl: assets/images/pillar.png
+    passable: false
+
+  # Cave walls
+  cave-horizontal:
+    imageUrl: assets/images/cave-horizontal.png
+    passable: false
+  cave-vertical:
+    imageUrl: assets/images/cave-vertical.png
+    passable: false
+  cave-down-right:
+    imageUrl: assets/images/cave-down-right.png
+    passable: false
+  cave-down-left:
+    imageUrl: assets/images/cave-down-left.png
+    passable: false
+  cave-up-right:
+    imageUrl: assets/images/cave-up-right.png
+    passable: false
+  cave-up-left:
+    imageUrl: assets/images/cave-up-left.png
+    passable: false
+
+  # Door
   door-closed:
     imageUrl: assets/images/entity-door-closed.png
   door-opened:
@@ -23,6 +81,8 @@ tiles:
     imageUrl: assets/images/entity-speaker.png
   npc-amber:
     imageUrl: assets/images/npc-amber.png
+
+  # Characters
   npc-bastiaan:
     imageUrl: assets/images/npc-bastiaan.png
   npc-danae:

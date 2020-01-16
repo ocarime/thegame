@@ -23,6 +23,16 @@ export default class Tile
   _draw(ctx, position)
   {
     let region = Region.fromVector(position, 1.0, 1.0).scaleUniform(this.tileset.size);
-    ctx.drawImage(this.image, region.left, region.top, region.width, region.height);
+
+    if (this.image.naturalWidth === this.tileset.size && this.image.naturalHeight === this.tileset.size)
+    {
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(this.image, region.left, region.top);
+    }
+    else
+    {
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(this.image, region.left, region.top, region.width, region.height);
+    }
   }
 }
