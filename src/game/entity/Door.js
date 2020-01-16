@@ -16,6 +16,12 @@ export default class Door extends Entity
     this.state = options.state || 'closed';
   }
 
+  // Get if the door is passable
+  get passable()
+  {
+    return this.state === 'opened';
+  }
+
   // Draw the door
   draw(ctx)
   {

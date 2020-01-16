@@ -17,6 +17,10 @@ export default class WorldInfo
     if (typeof this.tile === 'undefined' || !this.tile.passable)
       return false;
 
+    // Check if there is an entity
+    if (typeof this.entity !== 'undefined' && typeof this.entity.passable !== 'undefined' && !this.entity.passable)
+      return false;
+
     // All checks passed
     return true;
   }

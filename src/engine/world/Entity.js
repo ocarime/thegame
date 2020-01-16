@@ -5,7 +5,7 @@ import GameObject from '../GameObject.js';
 export default class Entity extends GameObject
 {
   // Constructor
-  constructor(world, name, position)
+  constructor(world, name, position, options)
   {
     super();
 
