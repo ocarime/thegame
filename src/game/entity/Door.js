@@ -9,6 +9,9 @@ export default class Door extends Entity
   {
     super(world, name, position, options);
 
+    // Orientation of the door
+    this.orientation = options.orientation || 'horizontal';
+
     // State of the door
     this.state = options.state || 'closed';
   }
@@ -17,11 +20,26 @@ export default class Door extends Entity
   draw(ctx)
   {
     if (this.state === 'locked')
-      this.world.tileset.tiles.get('door-locked')._draw(ctx, this.position);
+    {
+      if (this.orientation === 'vertical')
+        this.world.tileset.tiles.get('door-locked-vertical')._draw(ctx, this.position);
+      else
+        this.world.tileset.tiles.get('door-locked-horizontal')._draw(ctx, this.position);
+    }
     else if (this.state === 'opened')
-      this.world.tileset.tiles.get('door-opened')._draw(ctx, this.position);
+    {
+      if (this.orientation === 'vertical')
+        this.world.tileset.tiles.get('door-opened-vertical')._draw(ctx, this.position);
+      else
+        this.world.tileset.tiles.get('door-opened-horizontal')._draw(ctx, this.position);
+    }
     else
-      this.world.tileset.tiles.get('door-closed')._draw(ctx, this.position);
+    {
+      if (this.orientation === 'vertical')
+        this.world.tileset.tiles.get('door-closed-vertical')._draw(ctx, this.position);
+      else
+        this.world.tileset.tiles.get('door-closed-horizontal')._draw(ctx, this.position);
+    }
   }
 
   // Interaction event handler

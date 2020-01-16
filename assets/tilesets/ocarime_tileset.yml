@@ -67,12 +67,23 @@ tiles:
     passable: false
 
   # Door
-  door-closed:
-    imageUrl: assets/images/entity-door-closed.png
-  door-opened:
-    imageUrl: assets/images/entity-door-opened.png
-  door-locked:
-    imageUrl: assets/images/entity-door-locked.png
+  door-closed-horizontal:
+    imageUrl: assets/images/door-closed-horizontal.png
+    passable: false
+  door-closed-vertical:
+    imageUrl: assets/images/door-closed-vertical.png
+    passable: false
+  door-opened-horizontal:
+    imageUrl: assets/images/door-opened-horizontal.png
+  door-opened-vertical:
+    imageUrl: assets/images/door-opened-vertical.png
+  door-locked-horizontal:
+    imageUrl: assets/images/door-locked-horizontal.png
+    passable: false
+  door-locked-vertical:
+    imageUrl: assets/images/door-locked-vertical.png
+    passable: false
+
   piano:
     imageUrl: assets/images/entity-piano.png
   painting:
