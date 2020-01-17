@@ -1,5 +1,7 @@
-import Animation from '../../util/Animation.js';
+import Action from './action/Action.js';
 import Entity from '../Entity.js';
+import InteractAction from './action/InteractAction.js';
+import MoveAction from './action/MoveAction.js';
 import Region from '../../util/Region.js';
 import Vector from '../../util/Vector.js';
 
@@ -18,11 +20,59 @@ export default class Character extends Entity
     this.velocity = options.velocity || 10;
   }
 
-  // Move the character to a position
-  moveTo(...vectors)
+  // Get all character actions
+  get actions()
   {
-    let keyframes = Array.from(vectors.entries()).map(entry => [(entry[0] + 1) * (1000 / this.velocity), entry[1]]);
-    let a = new Animation(this.position, ...keyframes).appendTo(this);
+    return Array.from(this.getObjects(Action));
+  }
+
+  // Move the character to a position
+  moveTo(position)
+  {
+    // Get a path to the position
+    let path = this.world.path(this.position, position);
+    if (typeof path === 'undefined')
+      return false;
+
+    // Slice the path in character actions
+    let actions = [];
+    let vectors = [];
+    for (let info of path)
+    {
+      // Check the passability of the position
+      if (info.passable === true)
+      {
+        // Add the position to the vectors
+        vectors.push(info.position);
+      }
+      else
+      {
+        // Create a new move action
+        actions.push(new MoveAction(this, vectors));
+        vectors = [info.position];
+
+        // Check if we need to interact with the entity
+        if (info.passable === false)
+        {
+          // Invalid path, so break
+          break;
+        }
+        else
+        {
+          // Create a new interact action
+          actions.push(new InteractAction(this, info.entity, info.passable));
+        }
+      }
+    }
+
+    // Finish the last move action if there are vectors left
+    if (vectors.length > 0)
+      actions.push(new MoveAction(this, vectors));
+
+    // Append the actions
+    for (let action of actions)
+      action.appendTo(this);
+    return true;
   }
 
   // Draw the character
@@ -44,9 +94,27 @@ export default class Character extends Entity
     }
   }
 
-  // Event handler when the pointer is pressed
-  onInteract(e)
+  // Update the character
+  update(deltaTime)
   {
-    console.log(`You clicked ${this.name}!`);
+    // Get the first action in the action list
+    let action = this.actions[0];
+    if (typeof action !== 'undefined')
+    {
+      // If the action is waiting
+      if (action.status === 'waiting')
+      {
+        // Execute the action
+        action.status = action.execute();
+      }
+
+      // If the action is finished or interrupted
+      if (action.status === 'finished' || action.status === 'interrupted')
+      {
+        // Remove the action
+        this.removeObject(action);
+        this.update(0);
+      }
+    }
   }
 }
