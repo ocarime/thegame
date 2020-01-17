@@ -1,6 +1,7 @@
 import RegionInt from '../../util/RegionInt.js';
 import Sprite from '../../util/Sprite.js';
 import Tile from './Tile.js';
+import Vector from '../../util/Vector.js';
 
 
 // Class that defines a tileset
@@ -97,7 +98,7 @@ export default class TileSet
         // Iterate over the tile definitions
         for (let tileDefinition of tileDefinitions)
         {
-          // Create the sprite
+          // Creat ethe sprite
           tileDefinition.sprite = await Sprite.create(tileDefinition.sprite);
 
           // Add the tile definition

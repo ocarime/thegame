@@ -29,6 +29,12 @@ export default class Vector
     return this.scale(new Vector(scalar, scalar));
   }
 
+  // Get the inverted (mirrored in origin) vector of this vector
+  invert()
+  {
+    return new Vector(-this.x, -this.y);
+  }
+
   // Get the multipicative inverse of this vector
   reciprocal()
   {

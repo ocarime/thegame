@@ -1,4 +1,5 @@
 import Region from '../../util/Region.js';
+import Vector from '../../util/Vector.js';
 
 
 // Class that defines a tile
@@ -17,12 +18,14 @@ export default class Tile
 
     // Drawing variables
     this.sprite = options.sprite;
+    this.size = typeof options.size != 'undefined' ? new Vector(...options.size) : new Vector(1, 1);
+    this.anchor = typeof options.anchor != 'undefined' ? new Vector(...options.anchor) : new Vector(0, 0);
   }
 
   // Draw the tile
   draw(ctx, position)
   {
-    let region = Region.fromVector(position, 1.0, 1.0).scaleUniform(this.tileset.size);
+    let region = Region.fromVector(position.translate(this.anchor.invert()), this.size.x, this.size.y).scaleUniform(this.tileset.size);
     this.sprite.draw(ctx, region);
   }
 }
