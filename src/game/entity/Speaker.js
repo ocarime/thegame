@@ -12,6 +12,9 @@ export default class Speaker extends Entity
   {
     super(world, name, position, properties);
 
+    // Properties of the entity
+    this.orientation = properties.orientation || 'right';
+
     // Create a reference to the music system
     this.musicSystem = properties.game.getObjectInChildren(MusicSystem);
 

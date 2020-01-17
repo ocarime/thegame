@@ -82,13 +82,6 @@ entities:
   #  position: [18, 17]
 
   # Common room
-  - type: Door
-    name: Door to Stijn's room
-    position: [4, 18]
-    properties:
-      orientation: horizontal
-      state: locked
-
   - type: Speaker
     name: Common Room Speaker
     position: [18, 17]
@@ -99,10 +92,18 @@ entities:
       maxDistance: 10
 
   # Stijn's room
+  - type: Door
+    name: Door to Stijn's room
+    position: [4, 18]
+    properties:
+      orientation: horizontal
+      state: locked
+
   - type: Speaker
     name: Stijn's Speaker
     position: [5, 16]
     properties:
+      orientation: left
       audioClip: music_stijn
       loop: true
       minDistance: 2
@@ -116,18 +117,36 @@ entities:
       orientation: vertical
       state: closed
 
+  - type: Window
+    position: [9, 3]
+  - type: Window
+    position: [11, 3]
+  - type: Window
+    position: [9, 10]
+  - type: Window
+    position: [11, 10]
   - type: Furniture
-    position: [10, 8]
+    position: [10, 7]
     properties: {type: blue-carpet}
+  - type: Furniture
+    position: [12, 4]
+    properties: {type: iron-chair-right}
+  - type: Furniture
+    position: [11, 4]
+    properties: {type: iron-table}
+  - type: Furniture
+    position: [8, 5]
+    properties: {type: closet-books-2}
 
   - type: Speaker
     name: Danae's Speaker
-    position: [11, 7]
+    position: [8, 8]
     properties:
+      orientation: right
       audioClip: music_danae
       loop: true
-      minDistance: 2
-      maxDistance: 6
+      minDistance: 3
+      maxDistance: 8
 
   # Bastiaan's room
   - type: Door
@@ -141,10 +160,11 @@ entities:
     name: Bastiaan's Speaker
     position: [20, 4]
     properties:
+      orientation: left
       audioClip: music_bastiaan
       loop: true
-      minDistance: 2
-      maxDistance: 6
+      minDistance: 3
+      maxDistance: 8
 
   # Thomas's room
   - type: Door
@@ -158,10 +178,11 @@ entities:
     name: Thomas's Speaker
     position: [31, 18]
     properties:
+      orientation: left
       audioClip: music_thomas
       loop: true
-      minDistance: 2
-      maxDistance: 6
+      minDistance: 3
+      maxDistance: 8
 
   # Greg's room
   - type: Door
@@ -175,10 +196,11 @@ entities:
     name: Greg's Speaker
     position: [25, 27]
     properties:
+      orientation: left
       audioClip: music_greg
       loop: true
-      minDistance: 2
-      maxDistance: 6
+      minDistance: 3
+      maxDistance: 8
 
   # Amber's room
   - type: Door
@@ -192,10 +214,11 @@ entities:
     name: Amber's Speaker
     position: [16, 30]
     properties:
+      orientation: left
       audioClip: music_amber
       loop: true
-      minDistance: 2
-      maxDistance: 6
+      minDistance: 3
+      maxDistance: 8
 
   # NPC's
   - type: NonPlayerCharacter
@@ -211,6 +234,7 @@ entities:
     name: Danae
     position: [10, 6]
     properties:
+
       color: '#AA0050'
       roamingArea: [8, 4, 13, 9]
       roamingCooldown: 5
