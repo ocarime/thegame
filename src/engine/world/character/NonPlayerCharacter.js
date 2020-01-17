@@ -50,22 +50,23 @@ export default class NonPlayerCharacter extends Character
   // Update the character logic
   update(deltaTime)
   {
+    super.update(deltaTime);
+
     // Check if the character can roam
     if (this.roamingInterval > 0)
     {
       // Check if the current interval is over
       if (this._roamingTimer <= 0)
       {
-        // Roam
-        /*let path = undefined;
-        while (typeof path === 'undefined')
-        {
-          path = this.world.path(this.position, new Vector(
+        let roamPosition = undefined;
+        do {
+          roamPosition = new Vector(
             Math.floor(Math.random() * (this.roamingArea.width + 1)) + this.roamingArea.left,
             Math.floor(Math.random() * (this.roamingArea.height + 1)) + this.roamingArea.top
-          ));
-        }
-        this.moveTo(...path.slice(1));*/
+          );
+        } while(!this.moveTo(roamPosition));
+
+        console.log(`${this} roaming to ${roamPosition}`);
 
         // Calculate a new interval
         this._roamingTimer = (Math.random() * this.roamingInterval + this.roamingCooldown) * 1000;
