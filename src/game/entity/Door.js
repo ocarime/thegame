@@ -14,12 +14,6 @@ export default class Door extends Entity
     this.state = properties.state || 'closed';
   }
 
-  // Get if the door is passable
-  get passable()
-  {
-    return this.state === 'opened';
-  }
-
   // Interaction event handler
   onInteract(e)
   {

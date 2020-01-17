@@ -18,7 +18,7 @@ export default class Entity extends GameObject
     // Position of the entity
     this.position = position;
 
-    // Tile definition for the entity
+    // Properties of the entity
     this.tileDefinition = typeof properties.type !== 'undefined' && typeof properties.type.tileDefinition !== 'undefined' ? properties.type.tileDefinition : undefined;
   }
 
@@ -29,20 +29,21 @@ export default class Entity extends GameObject
     this.world.removeGameObject(this);
   }
 
+  // Get the defined tile for this entity
+  get tile()
+  {
+    if (typeof this.tileDefinition === 'undefined')
+      return undefined;
+    else
+      return this.world.tileset.getByArray(this.tileDefinition, this);
+  }
+
   // Draw the entity
   draw(ctx)
   {
-    // Check if a tile for this entity is defined
-    if (typeof this.tileDefinition === 'undefined')
-      return;
-
     // Check if a tile for this entity exists in the tileset
-    let tile = this.world.tileset.getByArray(this.tileDefinition, this);
-    if (typeof tile === 'undefined')
-      return;
-
-    // Draw the tile at the position of the entity
-    tile.draw(ctx, this.position);
+    if (typeof this.tile !== 'undefined')
+      this.tile.draw(ctx, this.position);
   }
 
   // Convert to string

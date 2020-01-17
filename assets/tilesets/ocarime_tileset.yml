@@ -79,8 +79,10 @@ tiles:
     passable: false
   - src: assets/images/door-opened-horizontal.png
     properties: {state: opened, orientation: horizontal}
+    passable: true
   - src: assets/images/door-opened-vertical.png
     properties: {state: opened, orientation: vertical}
+    passable: true
   - src: assets/images/door-locked-horizontal.png
     properties: {state: locked, orientation: horizontal}
     passable: false
@@ -94,6 +96,7 @@ tiles:
   - src: assets/images/entity-painting.png
   speaker:
   - src: assets/images/entity-speaker.png
+    passable: false
 
   # Characters
   npc:
