@@ -94,20 +94,21 @@ tiles:
   - src: assets/images/entity-painting.png
   speaker:
   - src: assets/images/entity-speaker.png
-  npc-amber:
-  - src: assets/images/npc-amber.png
 
   # Characters
-  npc-bastiaan:
+  npc:
+  - src: assets/images/npc-amber.png
+    properties: {name: Amber}
   - src: assets/images/npc-bastiaan.png
-  npc-danae:
+    properties: {name: Bastiaan}
   - src: assets/images/npc-danae.png
-  npc-greg:
+    properties: {name: Danae}
   - src: assets/images/npc-greg.png
-  npc-stijn:
+    properties: {name: Greg}
   - src: assets/images/npc-stijn.png
-  npc-thomas:
+    properties: {name: Stijn}
   - src: assets/images/npc-thomas.png
+    properties: {name: Thomas}
 
 # Definition of shortcuts used in tilemaps
 shortcuts:

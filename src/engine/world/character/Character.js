@@ -28,18 +28,19 @@ export default class Character extends Entity
   // Draw the character
   draw(ctx)
   {
-    if (typeof this.sprite !== 'undefined')
-    {
-      // Draw the sprite
-      this.world.tileset.get(this.sprite).draw(ctx, this.position);
-    }
-    else
+    // Check if a tile for this entity is defined
+    if (typeof this.tileDefinition === 'undefined')
     {
       // Draw rectangle
       let region = this.world.transformRegion(Region.fromVector(this.position, 1, 1));
 
       ctx.fillStyle = this.color;
       ctx.fillRect(region.left + 4, region.top + 4, region.width - 8, region.height - 8);
+    }
+    else
+    {
+      // Draw using the entity function
+      super.draw(ctx);
     }
   }
 
