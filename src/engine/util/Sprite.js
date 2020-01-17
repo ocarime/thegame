@@ -15,7 +15,7 @@ export default class Sprite
   draw(ctx, region)
   {
     ctx.imageSmoothingEnabled = !(this.imageRegion.width === region.width && this.imageRegion.height === region.height);
-    ctx.drawImage(this.image, this.imageRegion.left, this.imageRegion.top, this.imageRegion.width - 1, this.imageRegion.height - 1, region.left, region.top, region.width, region.height);
+    ctx.drawImage(this.image, this.imageRegion.left, this.imageRegion.top, this.imageRegion.width , this.imageRegion.height, region.left, region.top, region.width, region.height);
   }
 
   // Create a sprite from a definition string/array
