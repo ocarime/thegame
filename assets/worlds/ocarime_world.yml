@@ -141,7 +141,7 @@ entities:
     properties:
       color: '#8000AA'
       sprite: 'npc-stijn'
-      roamingArea: [1, 13, 6, 17]
+      roamingArea: [1, 13, 7, 17]
       roamingCooldown: 5
       roamingInterval: 20
 
@@ -161,7 +161,7 @@ entities:
     properties:
       color: '#AA0050'
       sprite: 'npc-danae'
-      roamingArea: [8, 4, 13, 9]
+      roamingArea: [8, 4, 12, 9]
       roamingCooldown: 5
       roamingInterval: 20
 
@@ -181,7 +181,7 @@ entities:
     properties:
       color: '#3CB371'
       sprite: 'npc-bastiaan'
-      roamingArea: [18, 1, 23, 6]
+      roamingArea: [19, 1, 23, 6]
       roamingCooldown: 5
       roamingInterval: 20
 
@@ -221,7 +221,7 @@ entities:
     properties:
       color: '#FFEE33'
       sprite: 'npc-greg'
-      roamingArea: [23, 25, 28, 30]
+      roamingArea: [24, 25, 28, 30]
       roamingCooldown: 5
       roamingInterval: 210
 
@@ -241,7 +241,7 @@ entities:
     properties:
       color: '#40E0D0'
       sprite: 'npc-amber'
-      roamingArea: [13, 28, 18, 33]
+      roamingArea: [13, 28, 17, 33]
       roamingCooldown: 5
       roamingInterval: 20
 
