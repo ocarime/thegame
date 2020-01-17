@@ -1,12 +1,10 @@
-import Area from './Area.js';
 import BinaryHeap from '../util/BinaryHeap.js';
 import Entity from './Entity.js';
 import GameObject from '../GameObject.js';
 import PlayerCharacter from './character/PlayerCharacter.js';
 import RegionInt from '../util/RegionInt.js';
-import Tileset from './Tileset.js';
 import Vector from '../util/Vector.js';
-import WorldInfo from './WorldInfo.js';
+import WorldPositionInfo from './WorldPositionInfo.js';
 
 
 // Class that defines the world
@@ -118,22 +116,10 @@ export default class World extends GameObject
     return this.entities.find(entity => entity instanceof PlayerCharacter);
   }
 
-  // Get all areas
-  get areas()
-  {
-    return Array.from(this.getObjects(Area));
-  }
-
-  // Get all areas at a position
-  getAreasAtPosition(position)
-  {
-    return this.areas.filter(area => area.region.contains(position));
-  }
-
   // Get information about a position in the world
   getInfo(position)
   {
-    return new WorldInfo(this, position);
+    return new WorldPositionInfo(this, position);
   }
 
   // Get a path between two positions using the A* algorithm
@@ -244,7 +230,7 @@ export default class World extends GameObject
   {
     let position = this.inverseTransformVector(e.position).trunc();
 
-    console.log(position);
+    console.log(this.getInfo(position));
 
     // Check if the tile is in the world
     if (!this.region.contains(position))

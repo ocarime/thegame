@@ -8,7 +8,7 @@ import Piano from './game/entity/Piano.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Speaker from './game/entity/Speaker.js';
-import Tileset from './engine/world/Tileset.js';
+import TileSet from './engine/world/tileset/TileSet.js';
 import Vector from './engine/util/Vector.js';
 import World from './engine/world/World.js';
 import WorldContext from './engine/world/WorldContext.js';
@@ -32,7 +32,7 @@ game.preload = async function() {
   assets.register('music_thomas', 'assets/audio/music-thomas.ogg', async response => this.audioContext.createClip(await response.arrayBuffer()));
 
   // Register world and tileset files
-  assets.register('ocarime_tileset', 'assets/tilesets/ocarime_tileset.yml', async response => Tileset.load(await response.text()));
+  assets.register('ocarime_tileset', 'assets/tilesets/ocarime_tileset.yml', async response => TileSet.load(await response.text()));
   assets.register('ocarime_world', 'assets/worlds/ocarime_world.yml', response => response.text());
 
   // Load the assets
@@ -51,7 +51,7 @@ game.preload = async function() {
     .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, tileDefinition: 'npc'})
     .registerEntityType('Door', {constructor: Door, tileDefinition: 'door'})
     .registerEntityType('Painting', {constructor: Painting, tileDefinition: 'painting'})
-    .registerEntityType('Speaker', {constructor: Speaker, tileDefinition: 'speaker'})
+    .registerEntityType('Speaker', {constructor: Speaker, tileDefinition: 'speaker', passable: false})
     .create(assets.ocarime_world)
     .appendTo(this.camera);
 

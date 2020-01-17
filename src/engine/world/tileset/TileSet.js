@@ -2,7 +2,7 @@ import Tile from './Tile.js';
 
 
 // Class that defines a tileset
-export default class Tileset
+export default class TileSet
 {
   // Constructor
   constructor(size = 16)
@@ -84,7 +84,7 @@ export default class Tileset
     let yaml = YAML.parse(string);
 
     // Create a new tileset with the specified size
-    let tileset = new Tileset(yaml.size || 16);
+    let tileset = new TileSet(yaml.size || 16);
 
     // Add the tile definitions
     if (typeof yaml.tiles !== 'undefined')

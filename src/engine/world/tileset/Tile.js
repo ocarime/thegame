@@ -1,4 +1,4 @@
-import Region from '../util/Region.js';
+import Region from '../../util/Region.js';
 
 
 // Class that defines a tile
@@ -12,8 +12,9 @@ export default class Tile
     // Definition variables
     this.name = name;
     this.properties = options.properties || {};
-    this.src = options.src || null;
     this.passable = typeof options.passable !== 'undefined' ? options.passable : true;
+    this.cost = options.cost || 1;
+    this.src = options.src || null;
 
     // Create the image
     this.image = new Image(this.tileset.size, this.tileset.size);
