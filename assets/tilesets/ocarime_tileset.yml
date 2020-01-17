@@ -5,119 +5,144 @@ size: 32
 tiles:
   # Floors
   floor:
-  - src: assets/images/floor-light.png
-    properties: {type: room}
-  - src: assets/images/floor-dark.png
-    properties: {type: cave}
+  - sprite: [assets/images/spritesheet.png, 0, 96, 32, 128]
+    properties: {type: room, shade: light}
+  - sprite: [assets/images/spritesheet.png, 32, 96, 64, 128]
+    properties: {type: room, shade: medium}
+  - sprite: [assets/images/spritesheet.png, 64, 96, 96, 128]
+    properties: {type: room, shade: dark}
+  - sprite: [assets/images/spritesheet.png, 160, 96, 192, 128]
+    properties: {type: cave, shade: medium}
+  - sprite: [assets/images/spritesheet.png, 192, 96, 224, 128]
+    properties: {type: cave, shade: dark}
 
   # Walls
   wall:
-  - src: assets/images/wall-horizontal.png
+  - sprite: [assets/images/spritesheet.png, 32, 0, 64, 32]
     properties: {type: room, orientation: horizontal}
     passable: false
-  - src: assets/images/wall-vertical.png
+  - sprite: [assets/images/spritesheet.png, 0, 32, 32, 64]
     properties: {type: room, orientation: vertical}
     passable: false
-  - src: assets/images/wall-down-right.png
+  - sprite: [assets/images/spritesheet.png, 0, 0, 32, 32]
     properties: {type: room, orientation: down-right}
     passable: false
-  - src: assets/images/wall-down-left.png
+  - sprite: [assets/images/spritesheet.png, 64, 0, 96, 32]
     properties: {type: room, orientation: down-left}
     passable: false
-  - src: assets/images/wall-up-right.png
+  - sprite: [assets/images/spritesheet.png, 0, 64, 32, 96]
     properties: {type: room, orientation: up-right}
     passable: false
-  - src: assets/images/wall-up-left.png
+  - sprite: [assets/images/spritesheet.png, 64, 64, 96, 96]
     properties: {type: room, orientation: up-left}
     passable: false
-  - src: assets/images/wall-vertical-right.png
+  - sprite: [assets/images/spritesheet.png, 64, 32, 96, 64]
     properties: {type: room, orientation: vertical-right}
     passable: false
-  - src: assets/images/wall-vertical-left.png
+  - sprite: [assets/images/spritesheet.png, 128, 32, 160, 64]
     properties: {type: room, orientation: vertical-left}
     passable: false
-  - src: assets/images/wall-down-horizontal.png
+  - sprite: [assets/images/spritesheet.png, 96, 0, 128, 32]
     properties: {type: room, orientation: down-horizontal}
     passable: false
-  - src: assets/images/wall-up-horizontal.png
+  - sprite: [assets/images/spritesheet.png, 96, 64, 128, 96]
     properties: {type: room, orientation: up-horizontal}
     passable: false
-  - src: assets/images/wall-vertical-horizontal.png
+  - sprite: [assets/images/spritesheet.png, 96, 32, 128, 64]
     properties: {type: room, orientation: vertical-horizontal}
     passable: false
-  - src: assets/images/cave-horizontal.png
+
+  - sprite: [assets/images/spritesheet.png, 192, 0, 224, 32]
     properties: {type: cave, orientation: horizontal}
     passable: false
-  - src: assets/images/cave-vertical.png
+  - sprite: [assets/images/spritesheet.png, 160, 32, 192, 64]
     properties: {type: cave, orientation: vertical}
     passable: false
-  - src: assets/images/cave-down-right.png
+  - sprite: [assets/images/spritesheet.png, 160, 0, 192, 32]
     properties: {type: cave, orientation: down-right}
     passable: false
-  - src: assets/images/cave-down-left.png
+  - sprite: [assets/images/spritesheet.png, 224, 0, 256, 32]
     properties: {type: cave, orientation: down-left}
     passable: false
-  - src: assets/images/cave-up-right.png
+  - sprite: [assets/images/spritesheet.png, 160, 64, 192, 96]
     properties: {type: cave, orientation: up-right}
     passable: false
-  - src: assets/images/cave-up-left.png
+  - sprite: [assets/images/spritesheet.png, 224, 64, 256, 96]
     properties: {type: cave, orientation: up-left}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 224, 32, 256, 64]
+    properties: {type: cave, orientation: vertical-right}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 288, 32, 320, 64]
+    properties: {type: cave, orientation: vertical-left}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 256, 0, 288, 32]
+    properties: {type: cave, orientation: down-horizontal}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 256, 64, 288, 96]
+    properties: {type: cave, orientation: up-horizontal}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 256, 32, 288, 64]
+    properties: {type: cave, orientation: vertical-horizontal}
     passable: false
 
   # Pillar
   pillar:
-  - src: assets/images/pillar.png
+  - sprite: assets/images/pillar.png
     passable: false
 
   # Door
   door:
-  - src: assets/images/door-closed-horizontal.png
+  - sprite: [assets/images/spritesheet.png, 0, 128, 32, 160]
     properties: {state: closed, orientation: horizontal}
     passable: false
-  - src: assets/images/door-closed-vertical.png
+  - sprite: [assets/images/spritesheet.png, 32, 128, 64, 160]
     properties: {state: closed, orientation: vertical}
     passable: false
-  - src: assets/images/door-opened-horizontal.png
+  - sprite: [assets/images/spritesheet.png, 64, 128, 96, 160]
     properties: {state: opened, orientation: horizontal}
     passable: true
-  - src: assets/images/door-opened-vertical.png
+  - sprite: [assets/images/spritesheet.png, 96, 128, 128, 160]
     properties: {state: opened, orientation: vertical}
     passable: true
-  - src: assets/images/door-locked-horizontal.png
+  - sprite: [assets/images/spritesheet.png, 128, 128, 160, 160]
     properties: {state: locked, orientation: horizontal}
     passable: false
-  - src: assets/images/door-locked-vertical.png
+  - sprite: [assets/images/spritesheet.png, 160, 128, 196, 160]
     properties: {state: locked, orientation: vertical}
     passable: false
 
   piano:
-  - src: assets/images/entity-piano.png
+  - sprite: assets/images/entity-piano.png
   painting:
-  - src: assets/images/entity-painting.png
+  - sprite: assets/images/entity-painting.png
   speaker:
-  - src: assets/images/entity-speaker.png
+  - sprite: assets/images/entity-speaker.png
     passable: false
 
   # Characters
   npc:
-  - src: assets/images/npc-amber.png
+  - sprite: assets/images/npc-amber.png
     properties: {name: Amber}
-  - src: assets/images/npc-bastiaan.png
+  - sprite: assets/images/npc-bastiaan.png
     properties: {name: Bastiaan}
-  - src: assets/images/npc-danae.png
+  - sprite: assets/images/npc-danae.png
     properties: {name: Danae}
-  - src: assets/images/npc-greg.png
+  - sprite: assets/images/npc-greg.png
     properties: {name: Greg}
-  - src: assets/images/npc-stijn.png
+  - sprite: assets/images/npc-stijn.png
     properties: {name: Stijn}
-  - src: assets/images/npc-thomas.png
+  - sprite: assets/images/npc-thomas.png
     properties: {name: Thomas}
 
 # Definition of shortcuts used in tilemaps
 shortcuts:
   # Floors
-  '░': [floor, {type: room}]
-  '▒': [floor, {type: cave}]
+  '1': [floor, {type: room, shade: light}]
+  '2': [floor, {type: room, shade: medium}]
+  '3': [floor, {type: room, shade: dark}]
+  '8': [floor, {type: cave, shade: medium}]
+  '9': [floor, {type: cave, shade: dark}]
 
   # Room walls
   '═': [wall, {type: room, orientation: horizontal}]

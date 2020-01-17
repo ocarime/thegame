@@ -1,3 +1,5 @@
+import RegionInt from '../../util/RegionInt.js';
+import Sprite from '../../util/Sprite.js';
 import Tile from './Tile.js';
 
 
@@ -78,7 +80,7 @@ export default class TileSet
   }
 
   // Load a tileset from a definition string
-  static load(string)
+  static async load(string)
   {
     // Parse the YAML string
     let yaml = YAML.parse(string);
@@ -94,7 +96,13 @@ export default class TileSet
       {
         // Iterate over the tile definitions
         for (let tileDefinition of tileDefinitions)
+        {
+          // Create the sprite
+          tileDefinition.sprite = await Sprite.create(tileDefinition.sprite);
+
+          // Add the tile definition
           tileset.set(tileName, tileDefinition);
+        }
       }
     }
 

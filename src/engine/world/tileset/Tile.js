@@ -14,27 +14,15 @@ export default class Tile
     this.properties = options.properties || {};
     this.passable = typeof options.passable !== 'undefined' ? options.passable : true;
     this.cost = options.cost || 1;
-    this.src = options.src || null;
 
-    // Create the image
-    this.image = new Image(this.tileset.size, this.tileset.size);
-    this.image.src = this.src;
+    // Drawing variables
+    this.sprite = options.sprite;
   }
 
   // Draw the tile
   draw(ctx, position)
   {
     let region = Region.fromVector(position, 1.0, 1.0).scaleUniform(this.tileset.size);
-
-    if (this.image.naturalWidth === this.tileset.size && this.image.naturalHeight === this.tileset.size)
-    {
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(this.image, region.left, region.top);
-    }
-    else
-    {
-      ctx.imageSmoothingEnabled = true;
-      ctx.drawImage(this.image, region.left, region.top, region.width, region.height);
-    }
+    this.sprite.draw(ctx, region);
   }
 }
