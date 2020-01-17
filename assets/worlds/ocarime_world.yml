@@ -87,7 +87,7 @@ entities:
     position: [4, 18]
     properties:
       orientation: horizontal
-      state: locked
+      state: closed
 
   - type: Door
     name: Door to Danae's room
@@ -254,4 +254,4 @@ entities:
       minDistance: 2
       maxDistance: 6
 
-playerSpawn: [18, 17]
+playerSpawn: [18, 16]

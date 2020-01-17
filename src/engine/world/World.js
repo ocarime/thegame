@@ -117,17 +117,17 @@ export default class World extends GameObject
   }
 
   // Get information about a position in the world
-  getInfo(position)
+  positionInfo(position)
   {
     return new WorldPositionInfo(this, position);
   }
 
   // Get a path between two positions using the A* algorithm
-  getPath(start, end)
+  path(start, end)
   {
     // Check if the end is reachable
-    let endInfo = this.getInfo(end);
-    if (!endInfo.passable)
+    let endInfo = this.positionInfo(end);
+    if (endInfo.passable === false)
       return undefined;
 
     // For node n, parent[n] is the node immediately preceding it on the cheapest path from start to n currently known
@@ -161,7 +161,7 @@ export default class World extends GameObject
           node = parent.get(node.toString());
           path.unshift(node);
         }
-        return path;
+        return path.map(position => this.positionInfo(position));
       }
 
       // Normal case -- move node from open to closed, process each of its neighbors
@@ -170,10 +170,10 @@ export default class World extends GameObject
       // Find all neighbors for the current node
       for (let neighbor of this.getNeighbors(node))
       {
-        let neighborInfo = this.getInfo(neighbor);
+        let neighborInfo = this.positionInfo(neighbor);
 
         // If the neighbor is already closed or is not passable, then continue
-        if (closedSet.has(neighbor.toString()) || !neighborInfo.passable)
+        if (closedSet.has(neighbor.toString()) || neighborInfo.passable === false)
           continue;
 
         // The g score is the shortest distance from start to current node
@@ -192,6 +192,9 @@ export default class World extends GameObject
         }
       }
     }
+
+    // No path found, so return undefined
+    return undefined;
   }
 
   // Draw the world
@@ -210,48 +213,28 @@ export default class World extends GameObject
     }
   }
 
-  // Event handler when the pointer is hovered
-  onPointerHovered(e)
-  {
-    let position = this.inverseTransformVector(e.position).trunc();
-
-    // Check if the tile is in the world
-    if (!this.region.contains(position))
-      return;
-
-    // Get the entity at the position
-    let entity = this.getEntityAtPosition(position);
-    if (entity !== undefined && entity.can('onInspect'))
-      entity.onInspect(e);
-  }
-
   // Event handler when the pointer is pressed
   onPointerPressed(e)
   {
     let position = this.inverseTransformVector(e.position).trunc();
-
-    console.log(this.getInfo(position));
+    let info = this.positionInfo(position);
 
     // Check if the tile is in the world
     if (!this.region.contains(position))
       return;
 
-    // Get the entity at the position
-    let entity = this.getEntityAtPosition(position);
-    if (entity !== undefined && entity.can('onInteract'))
+    // Check if the tile contains an entity and it is interactable
+    if (typeof info.entity !== 'undefined' && typeof info.entity.canInteract !== 'undefined')
     {
-      // Interact with the entity
-      entity.onInteract(e);
+      // Check if the player can interact with the entity
+      if (info.entity.canInteract(this.player))
+        info.entity.onInteract(this.player);
     }
     else
     {
-      // Move the player if present
-      if (typeof this.player !== 'undefined')
-      {
-        let path = this.getPath(this.player.position, position);
-        if (path !== undefined)
-          this.player.moveTo(...path.slice(1));
-      }
+      // Move the player to where he clicked
+      if (!this.player.moveTo(position))
+        console.warn(`${this.player} cannot move to ${position}`);
     }
   }
 

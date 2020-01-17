@@ -73,10 +73,10 @@ tiles:
   door:
   - src: assets/images/door-closed-horizontal.png
     properties: {state: closed, orientation: horizontal}
-    passable: false
+    passable: open
   - src: assets/images/door-closed-vertical.png
     properties: {state: closed, orientation: vertical}
-    passable: false
+    passable: open
   - src: assets/images/door-opened-horizontal.png
     properties: {state: opened, orientation: horizontal}
     passable: true
