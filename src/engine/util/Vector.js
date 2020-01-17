@@ -53,6 +53,12 @@ export default class Vector
     return new Region(this.x, this.y, this.x, this.y);
   }
 
+  // Convert to array
+  toArray()
+  {
+    return [this.x, this.y];
+  }
+
   // Convert to string
   toString()
   {

@@ -85,6 +85,12 @@ export default class RegionInt
     return this.scale(new Vector(scalar, scalar));
   }
 
+  // Convert to array
+  toArray()
+  {
+    return [this.left, this.top, this.right, this.bottom];
+  }
+
   // Convert to string
   toString()
   {

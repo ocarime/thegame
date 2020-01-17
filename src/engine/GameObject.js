@@ -211,6 +211,6 @@ export default class GameObject
   // Convert to string
   toString()
   {
-    return `${this.constructor.name} (${this.position}, ${this.scale})`;
+    return `${this.constructor.name} [${this.position.toArray()}] [${this.scale.toArray()}]`;
   }
 }
