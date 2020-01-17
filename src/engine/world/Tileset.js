@@ -38,6 +38,16 @@ export default class Tileset
     return undefined;
   }
 
+  // Set a defined tile
+  set(name, definition)
+  {
+    // Create a new tile
+    let tile = new Tile(this, name, definition);
+
+    // Add the tile to the list
+    this.tiles.push(tile);
+  }
+
   // Load a tileset from a definition string
   static load(string)
   {
@@ -58,7 +68,7 @@ export default class Tileset
 
         // Iterate over the tile definitions
         for (let tileDefinition of yaml.tiles[tileName])
-          tileset.tiles.push(new Tile(tileset, tileName, tileDefinition));
+          tileset.set(tileName, tileDefinition);
       }
     }
 

@@ -69,32 +69,20 @@ tiles:
   # Door
   door:
   - src: assets/images/door-closed-horizontal.png
-    conditions:
-      state: closed
-      orientation: horizontal
+    conditions: {state: closed, orientation: horizontal}
     passable: false
   - src: assets/images/door-closed-vertical.png
-    conditions:
-      state: closed
-      orientation: vertical
+    conditions: {state: closed, orientation: vertical}
     passable: false
   - src: assets/images/door-opened-horizontal.png
-    conditions:
-      state: opened
-      orientation: horizontal
+    conditions: {state: opened, orientation: horizontal}
   - src: assets/images/door-opened-vertical.png
-    conditions:
-      state: opened
-      orientation: vertical
+    conditions: {state: opened, orientation: vertical}
   - src: assets/images/door-locked-horizontal.png
-    conditions:
-      state: locked
-      orientation: horizontal
+    conditions: {state: locked, orientation: horizontal}
     passable: false
   - src: assets/images/door-locked-vertical.png
-    conditions:
-      state: locked
-      orientation: vertical
+    conditions: {state: locked, orientation: vertical}
     passable: false
 
   piano:
