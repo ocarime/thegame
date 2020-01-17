@@ -95,10 +95,10 @@ tiles:
   door:
   - sprite: [assets/images/spritesheet.png, 0, 128, 32, 160]
     properties: {state: closed, orientation: horizontal}
-    passable: false
+    passable: open
   - sprite: [assets/images/spritesheet.png, 32, 128, 64, 160]
     properties: {state: closed, orientation: vertical}
-    passable: false
+    passable: open
   - sprite: [assets/images/spritesheet.png, 64, 128, 96, 160]
     properties: {state: opened, orientation: horizontal}
     passable: true

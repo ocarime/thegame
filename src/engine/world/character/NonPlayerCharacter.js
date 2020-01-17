@@ -66,8 +66,6 @@ export default class NonPlayerCharacter extends Character
           );
         } while(!this.moveTo(roamPosition));
 
-        console.log(`${this} roaming to ${roamPosition}`);
-
         // Calculate a new interval
         this._roamingTimer = (Math.random() * this.roamingInterval + this.roamingCooldown) * 1000;
       }
