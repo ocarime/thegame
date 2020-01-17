@@ -5,27 +5,19 @@ import Entity from '../../engine/world/Entity.js';
 export default class Door extends Entity
 {
   // Constructor
-  constructor(world, name, position, options)
+  constructor(world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
 
-    // Orientation of the door
-    this.orientation = options.orientation || 'horizontal';
-
-    // State of the door
-    this.state = options.state || 'closed';
+    // Properties of the entity
+    this.orientation = properties.orientation || 'horizontal';
+    this.state = properties.state || 'closed';
   }
 
   // Get if the door is passable
   get passable()
   {
     return this.state === 'opened';
-  }
-
-  // Draw the door
-  draw(ctx)
-  {
-    this.world.tileset.get('door', {state: this.state, orientation: this.orientation}).draw(ctx, this.position);
   }
 
   // Interaction event handler

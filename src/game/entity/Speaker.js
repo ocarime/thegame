@@ -8,27 +8,21 @@ import MusicSystem from '../audio/MusicSystem.js';
 export default class Speaker extends Entity
 {
   // Constructor
-  constructor(world, name, position, options)
+  constructor(world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
 
     // Create a reference to the music system
-    this.musicSystem = options.game.getObjectInChildren(MusicSystem);
+    this.musicSystem = properties.game.getObjectInChildren(MusicSystem);
 
     // Create an audio source
-    this.audioClip = typeof options.audioClip !== 'undefined' ? options.context.assets[options.audioClip] : undefined;
-    this.audioSource = options.game.audioContext.createSource(world, `${name}_AudioSource`, position, {
+    this.audioClip = typeof properties.audioClip !== 'undefined' ? properties.worldContext.assets[properties.audioClip] : undefined;
+    this.audioSource = properties.game.audioContext.createSource(world, `${name}_AudioSource`, position, {
       clip: this.audioClip,
-      loop: options.loop,
-      minDistance: options.minDistance,
-      maxDistance: options.maxDistance
+      loop: properties.loop,
+      minDistance: properties.minDistance,
+      maxDistance: properties.maxDistance
     }).appendTo(this);
     this.musicSystem.sources.push(this.audioSource);
-  }
-
-  // Draw the door
-  draw(ctx)
-  {
-    this.world.tileset.get('speaker').draw(ctx, this.position);
   }
 }

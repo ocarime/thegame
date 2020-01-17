@@ -11,8 +11,8 @@ export default class Tile
 
     // Definition variables
     this.name = name;
+    this.properties = options.properties || {};
     this.src = options.src || null;
-    this.conditions = options.conditions || {};
     this.passable = typeof options.passable !== 'undefined' ? options.passable : true;
 
     // Create the image

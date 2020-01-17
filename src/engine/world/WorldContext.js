@@ -63,11 +63,13 @@ export default class WorldContext
     if (typeof type === 'undefined')
       return undefined;
 
-    // Add world context to the object
-    Object.assign(object, {game: this.game, context: this});
+    // Create the object properties including type information and world context
+    let properties = {};
+    Object.assign(properties, object.properties);
+    Object.assign(properties, {type: type, game: this.game, worldContext: this});
 
     // Construct the entity
-    return new type.constructor(world, object.name, new Vector(...object.position), object);
+    return new type.constructor(world, object.name, new Vector(...object.position), properties);
   }
 
   // Load a world from a YAML string
@@ -81,23 +83,10 @@ export default class WorldContext
     if (typeof tileset === 'undefined')
       return undefined;
 
-    // Get tile aliases
-    let tiles = new Map();
-    if (typeof yaml.tileset.aliases !== 'undefined')
-    {
-      for (let tileName in yaml.tileset.aliases)
-      {
-        if (!yaml.tileset.aliases.hasOwnProperty(tileName))
-          continue;
-
-        let tileAliases = yaml.tileset.aliases[tileName];
-        for (let tileAlias of tileAliases)
-          tiles.set(tileAlias, tileName);
-      }
-    }
-
     // Read the map
-    let map = yaml.tilemap.split(/(?:\r?\n)+/).map(row => row.split(/\s+/).map(tile => tileset.get(tiles.get(tile))));
+    let map = yaml.tilemap
+      .split(/(?:\r?\n)+/)
+      .map(row => row.split(/\s+/).map(tile => tileset.getByShortcut(tile)));
 
     // Create a new world
     let world = new World(map[0].length, map.length, tileset);

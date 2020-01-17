@@ -12,10 +12,13 @@ export default class Tileset
 
     // A list of all tiles
     this.tiles = [];
+
+    // A list of all shortcuts
+    this.shortcuts = new Map();
   }
 
   // Get a defined tile
-  get(name, conditions = {})
+  get(name, properties = {})
   {
     if (typeof name === 'undefined')
       return undefined;
@@ -28,14 +31,40 @@ export default class Tileset
         continue;
 
       // Check if the conditions are met
-      if (!Object.keys(conditions).every(property => tile.conditions.hasOwnProperty(property) && tile.conditions[property] === conditions[property]))
+      if (typeof properties !== 'undefined' && !Object.keys(tile.properties).every(property => tile.properties[property] === properties[property]))
         continue;
 
       return tile;
     }
 
     // Nothing found
+    console.warn(`No tile was found for "${name}" with properties ${JSON.stringify(properties)}`)
     return undefined;
+  }
+
+  // Get a defined tile by definition string/array
+  getByArray(array, extraProperties = {})
+  {
+    if (typeof array === 'string')
+    {
+      let [name, properties] = [array, extraProperties];
+      return this.get(name, properties);
+    }
+    else if (typeof array === 'object' && Array.isArray(array))
+    {
+      let [name, properties] = array;
+      Object.assign(properties, extraProperties);
+      return this.get(name, properties);
+    }
+
+    // Invalid definition format
+    throw new Error(`Invalid tile definition format: "${array}"`);
+  }
+
+  // Get a defined tile by shortcut
+  getByShortcut(name)
+  {
+    return this.shortcuts.get(name);
   }
 
   // Set a defined tile
@@ -61,15 +90,20 @@ export default class Tileset
     if (typeof yaml.tiles !== 'undefined')
     {
       // Iterate over the tile names
-      for (let tileName in yaml.tiles)
+      for (let [tileName, tileDefinitions] of Object.entries(yaml.tiles))
       {
-        if (!yaml.tiles.hasOwnProperty(tileName))
-          continue;
-
         // Iterate over the tile definitions
-        for (let tileDefinition of yaml.tiles[tileName])
+        for (let tileDefinition of tileDefinitions)
           tileset.set(tileName, tileDefinition);
       }
+    }
+
+    // Add the shortcuts
+    if (typeof yaml.shortcuts !== 'undefined')
+    {
+      // Iterate over the shortcut names
+      for (let [shortcut, array] of Object.entries(yaml.shortcuts))
+        tileset.shortcuts.set(shortcut, tileset.getByArray(array));
     }
 
     // Return the tileset

@@ -5,17 +5,12 @@ import Entity from '../../engine/world/Entity.js';
 export default class Painting extends Entity
 {
   // Constructor
-  constructor(world, name, position, options)
+  constructor(world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
 
-    this.url = options.url;
-  }
-
-  // Draw the door
-  draw(ctx)
-  {
-    this.world.tileset.get('painting').draw(ctx, this.position);
+    // Properties of the entity
+    this.url = properties.url;
   }
 
   // Interaction event handler

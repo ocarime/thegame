@@ -1,88 +1,91 @@
+# Size of the tiles
 size: 32
 
+# Definition of tiles
 tiles:
   # Floors
-  floor-light:
+  floor:
   - src: assets/images/floor-light.png
-  floor-dark:
+    properties: {type: room}
   - src: assets/images/floor-dark.png
+    properties: {type: cave}
 
   # Walls
-  wall-horizonal:
+  wall:
   - src: assets/images/wall-horizontal.png
+    properties: {type: room, orientation: horizontal}
     passable: false
-  wall-vertical:
   - src: assets/images/wall-vertical.png
+    properties: {type: room, orientation: vertical}
     passable: false
-  wall-down-right:
   - src: assets/images/wall-down-right.png
+    properties: {type: room, orientation: down-right}
     passable: false
-  wall-down-left:
   - src: assets/images/wall-down-left.png
+    properties: {type: room, orientation: down-left}
     passable: false
-  wall-up-right:
   - src: assets/images/wall-up-right.png
+    properties: {type: room, orientation: up-right}
     passable: false
-  wall-up-left:
   - src: assets/images/wall-up-left.png
+    properties: {type: room, orientation: up-left}
     passable: false
-  wall-vertical-right:
   - src: assets/images/wall-vertical-right.png
+    properties: {type: room, orientation: vertical-right}
     passable: false
-  wall-vertical-left:
   - src: assets/images/wall-vertical-left.png
+    properties: {type: room, orientation: vertical-left}
     passable: false
-  wall-down-horizontal:
   - src: assets/images/wall-down-horizontal.png
+    properties: {type: room, orientation: down-horizontal}
     passable: false
-  wall-up-horizontal:
   - src: assets/images/wall-up-horizontal.png
+    properties: {type: room, orientation: up-horizontal}
     passable: false
-  wall-vertical-horizontal:
   - src: assets/images/wall-vertical-horizontal.png
+    properties: {type: room, orientation: vertical-horizontal}
+    passable: false
+  - src: assets/images/cave-horizontal.png
+    properties: {type: cave, orientation: horizontal}
+    passable: false
+  - src: assets/images/cave-vertical.png
+    properties: {type: cave, orientation: vertical}
+    passable: false
+  - src: assets/images/cave-down-right.png
+    properties: {type: cave, orientation: down-right}
+    passable: false
+  - src: assets/images/cave-down-left.png
+    properties: {type: cave, orientation: down-left}
+    passable: false
+  - src: assets/images/cave-up-right.png
+    properties: {type: cave, orientation: up-right}
+    passable: false
+  - src: assets/images/cave-up-left.png
+    properties: {type: cave, orientation: up-left}
     passable: false
 
+  # Pillar
   pillar:
   - src: assets/images/pillar.png
-    passable: false
-
-  # Cave walls
-  cave-horizontal:
-  - src: assets/images/cave-horizontal.png
-    passable: false
-  cave-vertical:
-  - src: assets/images/cave-vertical.png
-    passable: false
-  cave-down-right:
-  - src: assets/images/cave-down-right.png
-    passable: false
-  cave-down-left:
-  - src: assets/images/cave-down-left.png
-    passable: false
-  cave-up-right:
-  - src: assets/images/cave-up-right.png
-    passable: false
-  cave-up-left:
-  - src: assets/images/cave-up-left.png
     passable: false
 
   # Door
   door:
   - src: assets/images/door-closed-horizontal.png
-    conditions: {state: closed, orientation: horizontal}
+    properties: {state: closed, orientation: horizontal}
     passable: false
   - src: assets/images/door-closed-vertical.png
-    conditions: {state: closed, orientation: vertical}
+    properties: {state: closed, orientation: vertical}
     passable: false
   - src: assets/images/door-opened-horizontal.png
-    conditions: {state: opened, orientation: horizontal}
+    properties: {state: opened, orientation: horizontal}
   - src: assets/images/door-opened-vertical.png
-    conditions: {state: opened, orientation: vertical}
+    properties: {state: opened, orientation: vertical}
   - src: assets/images/door-locked-horizontal.png
-    conditions: {state: locked, orientation: horizontal}
+    properties: {state: locked, orientation: horizontal}
     passable: false
   - src: assets/images/door-locked-vertical.png
-    conditions: {state: locked, orientation: vertical}
+    properties: {state: locked, orientation: vertical}
     passable: false
 
   piano:
@@ -105,3 +108,38 @@ tiles:
   - src: assets/images/npc-stijn.png
   npc-thomas:
   - src: assets/images/npc-thomas.png
+
+# Definition of shortcuts used in tilemaps
+shortcuts:
+  # Floors
+  '░': [floor, {type: room}]
+  '▒': [floor, {type: cave}]
+
+  # Room walls
+  '═': [wall, {type: room, orientation: horizontal}]
+  '║': [wall, {type: room, orientation: vertical}]
+  '╔': [wall, {type: room, orientation: down-right}]
+  '╗': [wall, {type: room, orientation: down-left}]
+  '╚': [wall, {type: room, orientation: up-right}]
+  '╝': [wall, {type: room, orientation: up-left}]
+  '╠': [wall, {type: room, orientation: vertical-right}]
+  '╣': [wall, {type: room, orientation: vertical-left}]
+  '╦': [wall, {type: room, orientation: down-horizontal}]
+  '╩': [wall, {type: room, orientation: up-horizontal}]
+  '╬': [wall, {type: room, orientation: vertical-horizontal}]
+
+  # Cave walls
+  '─': [wall, {type: cave, orientation: horizontal}]
+  '│': [wall, {type: cave, orientation: vertical}]
+  '┌': [wall, {type: cave, orientation: down-right}]
+  '┐': [wall, {type: cave, orientation: down-left}]
+  '└': [wall, {type: cave, orientation: up-right}]
+  '┘': [wall, {type: cave, orientation: up-left}]
+  '├': [wall, {type: cave, orientation: vertical-right}]
+  '┤': [wall, {type: cave, orientation: vertical-left}]
+  '┬': [wall, {type: cave, orientation: down-horizontal}]
+  '┴': [wall, {type: cave, orientation: up-horizontal}]
+  '┼': [wall, {type: cave, orientation: vertical-horizontal}]
+
+  # Pillars
+  '@': pillar

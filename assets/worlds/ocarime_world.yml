@@ -37,208 +37,221 @@ tilemap: |-
 
 tileset:
   name: ocarime_tileset
-  aliases:
-    floor-light: ['░']
-    floor-dark: ['▒']
-    bricks: ['1']
-    iron: ['2']
-    cave-horizontal: ['─']
-    cave-vertical: ['│']
-    cave-down-right: ['┌']
-    cave-down-left: ['┐']
-    cave-up-right: ['└']
-    cave-up-left: ['┘']
-    wall-horizonal: ['═']
-    wall-vertical: ['║']
-    wall-down-right: ['╔']
-    wall-down-left: ['╗']
-    wall-up-right: ['╚']
-    wall-up-left: ['╝']
-    wall-vertical-right: ['╠']
-    wall-vertical-left: ['╣']
-    wall-down-horizontal: ['╦']
-    wall-up-horizontal: ['╩']
-    wall-vertical-horizontal: ['╬']
-    pillar: ['@']
 
+# Definition of assets
 assets:
   - type: AudioClip
     name: music_common
-    url: assets/audio/music-common.ogg
+    properties:
+      url: assets/audio/music-common.ogg
 
   - type: AudioClip
     name: music_amber
-    url: assets/audio/music-amber.ogg
+    properties:
+      url: assets/audio/music-amber.ogg
 
   - type: AudioClip
     name: music_bastiaan
-    url: assets/audio/music-bastiaan.ogg
+    properties:
+      url: assets/audio/music-bastiaan.ogg
 
   - type: AudioClip
     name: music_danae
-    url: assets/audio/music-danae.ogg
+    properties:
+      url: assets/audio/music-danae.ogg
 
   - type: AudioClip
     name: music_greg
-    url: assets/audio/music-greg.ogg
+    properties:
+      url: assets/audio/music-greg.ogg
 
   - type: AudioClip
     name: music_stijn
-    url: assets/audio/music-stijn.ogg
+    properties:
+      url: assets/audio/music-stijn.ogg
 
   - type: AudioClip
     name: music_thomas
-    url: assets/audio/music-thomas.ogg
+    properties:
+      url: assets/audio/music-thomas.ogg
 
+# Definition of entities
 entities:
   #- type: PlayerCharacter
   #  name: Player
   #  position: [18, 17]
 
+  # Doors to the different rooms
   - type: Door
     name: Door to Stijn's room
     position: [4, 18]
-    orientation: horizontal
-    state: closed
+    properties:
+      orientation: horizontal
+      state: locked
 
   - type: Door
     name: Door to Danae's room
     position: [13, 6]
-    orientation: vertical
-    state: closed
+    properties:
+      orientation: vertical
+      state: closed
 
   - type: Door
     name: Door to Bastiaan's room
     position: [18, 4]
-    orientation: vertical
-    state: closed
+    properties:
+      orientation: vertical
+      state: closed
 
   - type: Door
     name: Door to Thomas's room
     position: [32, 16]
-    orientation: horizontal
-    state: closed
+    properties:
+      orientation: horizontal
+      state: closed
 
   - type: Door
     name: Door to Gregs's room
     position: [23, 28]
-    orientation: vertical
-    state: closed
+    properties:
+      orientation: vertical
+      state: closed
 
   - type: Door
     name: Door to Amber's room
     position: [18, 30]
-    orientation: vertical
-    state: closed
+    properties:
+      orientation: vertical
+      state: closed
 
+  # Common room
   - type: Speaker
     name: Common Room Speaker
     position: [18, 17]
-    audioClip: music_common
-    loop: true
-    minDistance: 3
-    maxDistance: 10
+    properties:
+      audioClip: music_common
+      loop: true
+      minDistance: 3
+      maxDistance: 10
 
+  # Stijn's room
   - type: NonPlayerCharacter
     name: Stijn
     position: [3, 16]
-    color: '#8000AA'
-    sprite: 'npc-stijn'
-    roamingArea: [1, 13, 6, 17]
-    roamingCooldown: 5
-    roamingInterval: 20
+    properties:
+      color: '#8000AA'
+      sprite: 'npc-stijn'
+      roamingArea: [1, 13, 6, 17]
+      roamingCooldown: 5
+      roamingInterval: 20
 
   - type: Speaker
     name: Stijn's Speaker
     position: [5, 16]
-    audioClip: music_stijn
-    loop: true
-    minDistance: 2
-    maxDistance: 6
+    properties:
+      audioClip: music_stijn
+      loop: true
+      minDistance: 2
+      maxDistance: 6
 
+  # Danae's room
   - type: NonPlayerCharacter
     name: Danae
     position: [10, 6]
-    color: '#AA0050'
-    sprite: 'npc-danae'
-    roamingArea: [8, 4, 13, 9]
-    roamingCooldown: 5
-    roamingInterval: 20
+    properties:
+      color: '#AA0050'
+      sprite: 'npc-danae'
+      roamingArea: [8, 4, 13, 9]
+      roamingCooldown: 5
+      roamingInterval: 20
 
   - type: Speaker
     name: Danae's Speaker
     position: [11, 7]
-    audioClip: music_danae
-    loop: true
-    minDistance: 2
-    maxDistance: 6
+    properties:
+      audioClip: music_danae
+      loop: true
+      minDistance: 2
+      maxDistance: 6
 
+  # Bastiaan's room
   - type: NonPlayerCharacter
     name: Bastiaan
     position: [21, 3]
-    color: '#3CB371'
-    sprite: 'npc-bastiaan'
-    roamingArea: [18, 1, 23, 6]
-    roamingCooldown: 5
-    roamingInterval: 20
+    properties:
+      color: '#3CB371'
+      sprite: 'npc-bastiaan'
+      roamingArea: [18, 1, 23, 6]
+      roamingCooldown: 5
+      roamingInterval: 20
 
   - type: Speaker
     name: Bastiaan's Speaker
     position: [20, 4]
-    audioClip: music_bastiaan
-    loop: true
-    minDistance: 2
-    maxDistance: 6
+    properties:
+      audioClip: music_bastiaan
+      loop: true
+      minDistance: 2
+      maxDistance: 6
 
+  # Thomas's room
   - type: NonPlayerCharacter
     name: Thomas
     position: [33, 18]
-    color: '#3333FF'
-    sprite: 'npc-thomas'
-    roamingArea: [30, 17, 35, 21]
-    roamingCooldown: 5
-    roamingInterval: 20
+    properties:
+      color: '#3333FF'
+      sprite: 'npc-thomas'
+      roamingArea: [30, 17, 35, 21]
+      roamingCooldown: 5
+      roamingInterval: 20
 
   - type: Speaker
     name: Thomas's Speaker
     position: [31, 18]
-    audioClip: music_thomas
-    loop: true
-    minDistance: 2
-    maxDistance: 6
+    properties:
+      audioClip: music_thomas
+      loop: true
+      minDistance: 2
+      maxDistance: 6
 
+  # Greg's room
   - type: NonPlayerCharacter
     name: Greg
     position: [26, 28]
-    color: '#FFEE33'
-    sprite: 'npc-greg'
-    roamingArea: [23, 25, 28, 30]
-    roamingCooldown: 5
-    roamingInterval: 210
+    properties:
+      color: '#FFEE33'
+      sprite: 'npc-greg'
+      roamingArea: [23, 25, 28, 30]
+      roamingCooldown: 5
+      roamingInterval: 210
 
   - type: Speaker
     name: Greg's Speaker
     position: [25, 27]
-    audioClip: music_greg
-    loop: true
-    minDistance: 2
-    maxDistance: 6
+    properties:
+      audioClip: music_greg
+      loop: true
+      minDistance: 2
+      maxDistance: 6
 
+  # Amber's room
   - type: NonPlayerCharacter
     name: Amber
     position: [15, 31]
-    color: '#40E0D0'
-    sprite: 'npc-amber'
-    roamingArea: [13, 28, 18, 33]
-    roamingCooldown: 5
-    roamingInterval: 20
+    properties:
+      color: '#40E0D0'
+      sprite: 'npc-amber'
+      roamingArea: [13, 28, 18, 33]
+      roamingCooldown: 5
+      roamingInterval: 20
 
   - type: Speaker
     name: Amber's Speaker
     position: [16, 30]
-    audioClip: music_amber
-    loop: true
-    minDistance: 2
-    maxDistance: 6
+    properties:
+      audioClip: music_amber
+      loop: true
+      minDistance: 2
+      maxDistance: 6
 
 playerSpawn: [18, 17]
