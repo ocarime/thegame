@@ -55,21 +55,30 @@ export default class WorldContext
   createEntity(object, world)
   {
     // Assert if all required properties are present
-    if (typeof object.type === 'undefined' || typeof object.name === 'undefined' || typeof object.position === 'undefined')
+    if (typeof object.type === 'undefined' || typeof object.position === 'undefined')
+    {
       return undefined;
+    }
 
     // Determine the entity type
     let type = this._entities.get(object.type);
     if (typeof type === 'undefined')
+    {
+      console.warn(`Cannot create an antity for type "${object.type}"`);
       return undefined;
+    }
+
+    // Determine the entity name and position
+    let name = object.name || `${object.type}-${Math.uuid()}`;
+    let position = new Vector(...object.position);
 
     // Create the object properties including type information and world context
     let properties = {};
     Object.assign(properties, object.properties);
-    Object.assign(properties, {type: type, game: this.game, worldContext: this});
+    Object.assign(properties, {entityType: type, game: this.game, worldContext: this});
 
     // Construct the entity
-    return new type.constructor(world, object.name, new Vector(...object.position), properties);
+    return new type.constructor(world, name, position, properties);
   }
 
   // Load a world from a YAML string

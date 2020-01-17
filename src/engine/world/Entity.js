@@ -19,7 +19,7 @@ export default class Entity extends GameObject
     this.position = position;
 
     // Properties of the entity
-    this.tileDefinition = typeof properties.type !== 'undefined' && typeof properties.type.tileDefinition !== 'undefined' ? properties.type.tileDefinition : undefined;
+    this.tileDefinition = typeof properties.entityType !== 'undefined' && typeof properties.entityType.tileDefinition !== 'undefined' ? properties.entityType.tileDefinition : undefined;
   }
 
   // Release the entity

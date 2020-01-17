@@ -91,7 +91,7 @@ tiles:
   - sprite: assets/images/pillar.png
     passable: false
 
-  # Door
+  # Doors
   door:
   - sprite: [assets/images/spritesheet.png, 0, 128, 32, 160]
     properties: {state: closed, orientation: horizontal}
@@ -112,6 +112,50 @@ tiles:
     properties: {state: locked, orientation: vertical}
     passable: false
 
+  # Windows
+  window:
+  - sprite: [assets/images/spritesheet.png, 196, 128, 228, 160]
+    passable: false
+
+  # Furniture
+  furniture:
+  - sprite: [assets/images/spritesheet.png, 288, 64, 384, 160]
+    size: [3, 3]
+    anchor: [1, 1]
+    properties: {type: red-carpet}
+  - sprite: [assets/images/spritesheet.png, 288, 160, 384, 256]
+    size: [3, 3]
+    anchor: [1, 1]
+    properties: {type: blue-carpet}
+  - sprite: [assets/images/spritesheet.png, 0, 160, 32, 192]
+    properties: {type: wooden-chair-left}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 32, 160, 64, 192]
+    properties: {type: wooden-table}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 64, 160, 128, 192]
+    properties: {type: wooden-chair-right}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 128, 160, 160, 192]
+    properties: {type: iron-chair-left}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 160, 160, 192, 192]
+    properties: {type: iron-table}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 192, 160, 224, 192]
+    properties: {type: iron-chair-right}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 224, 160, 256, 192]
+    properties: {type: closet-empty}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 224, 160, 256, 192]
+    properties: {type: closet-books-1}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 256, 160, 288, 192]
+    properties: {type: closet-books-2}
+    passable: false
+
+  # Entities
   piano:
   - sprite: assets/images/entity-piano.png
   painting:

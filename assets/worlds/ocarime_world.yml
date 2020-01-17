@@ -81,7 +81,7 @@ entities:
   #  name: Player
   #  position: [18, 17]
 
-  # Doors to the different rooms
+  # Common room
   - type: Door
     name: Door to Stijn's room
     position: [4, 18]
@@ -89,42 +89,6 @@ entities:
       orientation: horizontal
       state: locked
 
-  - type: Door
-    name: Door to Danae's room
-    position: [13, 6]
-    properties:
-      orientation: vertical
-      state: closed
-
-  - type: Door
-    name: Door to Bastiaan's room
-    position: [18, 4]
-    properties:
-      orientation: vertical
-      state: closed
-
-  - type: Door
-    name: Door to Thomas's room
-    position: [32, 16]
-    properties:
-      orientation: horizontal
-      state: closed
-
-  - type: Door
-    name: Door to Gregs's room
-    position: [23, 28]
-    properties:
-      orientation: vertical
-      state: closed
-
-  - type: Door
-    name: Door to Amber's room
-    position: [18, 30]
-    properties:
-      orientation: vertical
-      state: closed
-
-  # Common room
   - type: Speaker
     name: Common Room Speaker
     position: [18, 17]
@@ -135,16 +99,6 @@ entities:
       maxDistance: 10
 
   # Stijn's room
-  - type: NonPlayerCharacter
-    name: Stijn
-    position: [3, 16]
-    properties:
-      color: '#8000AA'
-      sprite: 'npc-stijn'
-      roamingArea: [1, 13, 6, 17]
-      roamingCooldown: 5
-      roamingInterval: 20
-
   - type: Speaker
     name: Stijn's Speaker
     position: [5, 16]
@@ -155,15 +109,16 @@ entities:
       maxDistance: 6
 
   # Danae's room
-  - type: NonPlayerCharacter
-    name: Danae
-    position: [10, 6]
+  - type: Door
+    name: Door to Danae's room
+    position: [13, 6]
     properties:
-      color: '#AA0050'
-      sprite: 'npc-danae'
-      roamingArea: [8, 4, 13, 9]
-      roamingCooldown: 5
-      roamingInterval: 20
+      orientation: vertical
+      state: closed
+
+  - type: Furniture
+    position: [10, 8]
+    properties: {type: blue-carpet}
 
   - type: Speaker
     name: Danae's Speaker
@@ -175,15 +130,12 @@ entities:
       maxDistance: 6
 
   # Bastiaan's room
-  - type: NonPlayerCharacter
-    name: Bastiaan
-    position: [21, 3]
+  - type: Door
+    name: Door to Bastiaan's room
+    position: [18, 4]
     properties:
-      color: '#3CB371'
-      sprite: 'npc-bastiaan'
-      roamingArea: [18, 1, 23, 6]
-      roamingCooldown: 5
-      roamingInterval: 20
+      orientation: vertical
+      state: closed
 
   - type: Speaker
     name: Bastiaan's Speaker
@@ -195,15 +147,12 @@ entities:
       maxDistance: 6
 
   # Thomas's room
-  - type: NonPlayerCharacter
-    name: Thomas
-    position: [33, 18]
+  - type: Door
+    name: Door to Thomas's room
+    position: [32, 16]
     properties:
-      color: '#3333FF'
-      sprite: 'npc-thomas'
-      roamingArea: [30, 17, 35, 21]
-      roamingCooldown: 5
-      roamingInterval: 20
+      orientation: horizontal
+      state: closed
 
   - type: Speaker
     name: Thomas's Speaker
@@ -215,15 +164,12 @@ entities:
       maxDistance: 6
 
   # Greg's room
-  - type: NonPlayerCharacter
-    name: Greg
-    position: [26, 28]
+  - type: Door
+    name: Door to Gregs's room
+    position: [23, 28]
     properties:
-      color: '#FFEE33'
-      sprite: 'npc-greg'
-      roamingArea: [23, 25, 28, 30]
-      roamingCooldown: 5
-      roamingInterval: 210
+      orientation: vertical
+      state: closed
 
   - type: Speaker
     name: Greg's Speaker
@@ -235,15 +181,12 @@ entities:
       maxDistance: 6
 
   # Amber's room
-  - type: NonPlayerCharacter
-    name: Amber
-    position: [15, 31]
+  - type: Door
+    name: Door to Amber's room
+    position: [18, 30]
     properties:
-      color: '#40E0D0'
-      sprite: 'npc-amber'
-      roamingArea: [13, 28, 18, 33]
-      roamingCooldown: 5
-      roamingInterval: 20
+      orientation: vertical
+      state: closed
 
   - type: Speaker
     name: Amber's Speaker
@@ -253,5 +196,60 @@ entities:
       loop: true
       minDistance: 2
       maxDistance: 6
+
+  # NPC's
+  - type: NonPlayerCharacter
+    name: Stijn
+    position: [3, 16]
+    properties:
+      color: '#8000AA'
+      roamingArea: [1, 13, 6, 17]
+      roamingCooldown: 5
+      roamingInterval: 20
+
+  - type: NonPlayerCharacter
+    name: Danae
+    position: [10, 6]
+    properties:
+      color: '#AA0050'
+      roamingArea: [8, 4, 13, 9]
+      roamingCooldown: 5
+      roamingInterval: 20
+
+  - type: NonPlayerCharacter
+    name: Bastiaan
+    position: [21, 3]
+    properties:
+      color: '#3CB371'
+      roamingArea: [18, 1, 23, 6]
+      roamingCooldown: 5
+      roamingInterval: 20
+
+  - type: NonPlayerCharacter
+    name: Thomas
+    position: [33, 18]
+    properties:
+      color: '#3333FF'
+      roamingArea: [30, 17, 35, 21]
+      roamingCooldown: 5
+      roamingInterval: 20
+
+  - type: NonPlayerCharacter
+    name: Greg
+    position: [26, 28]
+    properties:
+      color: '#FFEE33'
+      roamingArea: [23, 25, 28, 30]
+      roamingCooldown: 5
+      roamingInterval: 210
+
+  - type: NonPlayerCharacter
+    name: Amber
+    position: [15, 31]
+    properties:
+      color: '#40E0D0'
+      roamingArea: [13, 28, 18, 33]
+      roamingCooldown: 5
+      roamingInterval: 20
 
 playerSpawn: [18, 17]

@@ -41,7 +41,7 @@ export default class TileSet
     }
 
     // Nothing found
-    console.warn(`No tile was found for "${name}" with properties ${JSON.stringify(properties)}`)
+    console.warn(`No tile was found for "${name}" with properties ${properties}`)
     return undefined;
   }
 

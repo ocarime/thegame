@@ -1,6 +1,7 @@
 import AssetLoader from './engine/util/AssetLoader.js';
 import Camera from './engine/Camera.js';
 import Door from './game/entity/Door.js';
+import Furniture from './game/entity/Furniture.js';
 import Game from './engine/Game.js';
 import MusicSystem from './game/audio/MusicSystem.js';
 import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
@@ -50,6 +51,7 @@ game.preload = async function() {
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
     .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, tileDefinition: 'npc'})
     .registerEntityType('Door', {constructor: Door, tileDefinition: 'door'})
+    .registerEntityType('Furniture', {constructor: Furniture, tileDefinition: 'furniture'})
     .registerEntityType('Painting', {constructor: Painting, tileDefinition: 'painting'})
     .registerEntityType('Speaker', {constructor: Speaker, tileDefinition: 'speaker', passable: false})
     .create(assets.ocarime_world)
