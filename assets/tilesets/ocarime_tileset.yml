@@ -114,7 +114,7 @@ tiles:
 
   # Windows
   window:
-  - sprite: [assets/images/spritesheet.png, 196, 128, 228, 160]
+  - sprite: [assets/images/spritesheet.png, 192, 128, 224, 160]
     passable: false
 
   # Furniture
