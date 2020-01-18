@@ -17,7 +17,7 @@ export default class Camera extends GameObject
   // Return the position offset to center the screen at the position
   get offset()
   {
-    return new Vector(this.game.width / 2, this.game.height / 2);
+    return new Vector(this.game.width / 2, this.game.height / 2).trunc();
   }
 
   // Transform a vector from camera space to world space
