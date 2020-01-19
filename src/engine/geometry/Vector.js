@@ -1,3 +1,4 @@
+import MathUtil from '../Util/MathUtil.js';
 import Region from './Region.js';
 
 
@@ -81,6 +82,18 @@ export default class Vector
   static manhattanDistance(vector1, vector2)
   {
     return Math.abs(vector2.x - vector1.x) + Math.abs(vector2.y - vector1.y);
+  }
+
+  // Calculate the diagonal distance between two vectors
+  static diagonalDistance(vector1, vector2)
+  {
+    return Math.max(Math.abs(vector2.x - vector1.x), Math.abs(vector2.y - vector1.y))
+  }
+
+  // Linear interpolate two vectors
+  static lerp(vector1, vector2, t)
+  {
+    return new Vector(MathUtil.lerp(vector1.x, vector2.x, t), MathUtil.lerp(vector1.y, vector2.y, t));
   }
 }
 

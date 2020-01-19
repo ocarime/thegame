@@ -6,9 +6,9 @@ import Vector from '../geometry/Vector.js';
 export default class AudioSource extends Entity
 {
   // Constructor
-  constructor(context, world, name, position, options)
+  constructor(context, world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
 
     // Reference to the audio context
     this.context = context;
@@ -35,15 +35,15 @@ export default class AudioSource extends Entity
     this.outputNode = this.gainNode;
 
     // State variables
-    this.clip = options.clip;
+    this.clip = properties.clip;
     this.currentTime = 0;
-    this.volume = options.volume || 1;
-    this.pitch = options.pitch || 1;
-    this.loop = typeof options.loop !== 'undefined' ? options.loop : false;
+    this.volume = properties.volume || 1;
+    this.pitch = properties.pitch || 1;
+    this.loop = typeof properties.loop !== 'undefined' ? properties.loop : false;
 
     // Rolloff variables
-    this.minDistance = options.minDistance || 0;
-    this.maxDistance = options.maxDistance || Infinity;
+    this.minDistance = properties.minDistance || 0;
+    this.maxDistance = properties.maxDistance || Infinity;
     this.rolloffFunction = function(distance) {
       if (distance < this.minDistance || this.maxDistance === Infinity)
         return 1;
@@ -55,6 +55,7 @@ export default class AudioSource extends Entity
 
     // Current rolloff variables
     this.currentDistance = Math.Infinity;
+    this.currentTilesPassed = [];
     this.currentRolloff = 0;
 
     // Debug variables
@@ -64,43 +65,56 @@ export default class AudioSource extends Entity
   // Update the audio source logic
   update(deltaTime)
   {
-    // Calculate the rolloff to the audio listener
-    this.currentDistance = Vector.distance(this.position, this.context.listener.position);
-    this.currentRolloff = this.rolloffFunction(this.currentDistance);
+    // Only update if the rolloff is changed to save calculation time
+    if (typeof this.lastRolloff === 'undefined' || this.currentRolloff !== this.lastRolloff)
+    {
+      // Adjust the gain and filter of this audio source
+      this.gain.value = this.currentRolloff;
+      this.lowpassFrequency.value = Math.pow(20000, this.currentRolloff) + 2000;
+    }
 
-    // Adjust the gain and filter of this audio source
-    this.gain.value = this.currentRolloff;
-    this.lowpassFrequency.value = Math.pow(20000, this.currentRolloff) + 2000;
+    // Set the last rolloff
+    this.lastRolloff = this.currentRolloff;
   }
 
   // Draw the debug mode
   debug(ctx)
   {
-    let thisRealPosition = this.world.transformVector(this.position.translate(new Vector(0.5, 0.5)));
-    let listenerRealPosition = this.world.transformVector(this.context.listener.position.translate(new Vector(0.5, 0.5)));
+    let worldPosition = this.world.transformVector(this.position.translate(new Vector(0.5, 0.5)));
+
+    // Draw all passed tiles
+    for (let i = 1; i < this.currentTilesPassed.length - 1; i ++)
+    {
+      let tile = this.currentTilesPassed[i];
+      let tileWorldPosition = this.world.transformVector(tile.position.translate(new Vector(0.5, 0.5)));
+
+      // Draw a rectangle at the tile
+      ctx.fillStyle = `rgba(0, 255, 255, ${this.currentRolloff > 0.0 ? 0.25 + 0.75 * this.currentRolloff : 0.0})`;
+      ctx.fillRect(tileWorldPosition.x - 4, tileWorldPosition.y - 4, 8, 8);
+
+      // Draw the tile mute factor as text
+      let text = `${Math.round(tile.muteFactor * 100) / 100}`;
+
+      ctx.font = 'italic 10px monospace';
+      ctx.textAlign = 'center';
+
+      let width = ctx.measureText(text).width;
+      let anchor = tileWorldPosition.translate(new Vector(0, -7));
+      ctx.fillText(text, anchor.x, anchor.y);
+    }
 
     // Draw a dot at the source
-    ctx.fillStyle = 'aqua';
-    ctx.fillRect(thisRealPosition.x - 5, thisRealPosition.y - 5, 10, 10);
+    ctx.fillStyle = 'rgb(0, 255, 255)';
+    ctx.fillRect(worldPosition.x - 5, worldPosition.y - 5, 10, 10);
 
-    // Draw a line from the source to the listener
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = `rgba(0, 255, 255, ${this.currentRolloff > 0.0 ? 0.25 + 0.75 * this.currentRolloff : 0.0})`;
-
-    ctx.beginPath();
-    ctx.moveTo(thisRealPosition.x, thisRealPosition.y);
-    ctx.lineTo(listenerRealPosition.x, listenerRealPosition.y);
-    ctx.stroke();
-
-    // Draw the rolloff
+    // Draw the rolloff value as text
     let text = `${Math.round(this.currentRolloff * 100)}%`;
-    ctx.font = 'bold 10px monospace';
+
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'center';
 
     let width = ctx.measureText(text).width;
-    let anchor = thisRealPosition.translate(new Vector(0, -8));
-
-    // Draw the text;
-    ctx.textAlign = 'center';
+    let anchor = worldPosition.translate(new Vector(0, -8));
     ctx.fillText(text, anchor.x, anchor.y);
   }
 

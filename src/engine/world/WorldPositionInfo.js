@@ -33,6 +33,34 @@ export default class WorldPositionInfo
     return true;
   }
 
+  // Return the mute factor of this position
+  get muteFactor()
+  {
+    // Check if there is a tile
+    if (typeof this.tile === 'undefined')
+      return 0.0;
+
+    let muteFactor = 1.0;
+
+    // Cechk if the tile has a mute factor
+    if (typeof this.tile.muteFactor === 'number')
+      muteFactor *= this.tile.muteFactor;
+
+    // Check if there is an entity
+    if (typeof this.entity !== 'undefined')
+    {
+      // Check if the entity has its own muteFactor variable
+      if (typeof this.entity.muteFactor === 'number')
+        muteFactor *= this.entity.muteFactor;
+
+      // Check if the entity has an associated tile
+      if (typeof this.entity.tile !== 'undefined' && typeof this.entity.muteFactor === 'number')
+        muteFactor *= this.entity.tile.muteFactor;
+    }
+
+    return muteFactor;
+  }
+
   // Return the cost it takes to travel onto this position
   get cost()
   {

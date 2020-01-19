@@ -6,9 +6,9 @@ import Vector from '../geometry/Vector.js';
 export default class AudioListener extends Entity
 {
   // Constructor
-  constructor(context, world, name, position, options)
+  constructor(context, world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
 
     // Reference to the audio context
     this.context = context;
@@ -26,13 +26,37 @@ export default class AudioListener extends Entity
     this.debugInfo = {color: 'aqua'};
   }
 
+  // Update the audio listener logic
+  update(deltaTime)
+  {
+    // Only update if the position has changed to save calculation time
+    if (typeof this.lastPosition === 'undefined' || this.position.x !== this.lastPosition.x || this.position.y !== this.lastPosition.y)
+    {
+      // Iterate over the audio sources
+      for (let source of this.context.sources)
+      {
+        // Calculate the rolloff to the audio listener
+        source.currentDistance = Vector.distance(source.position, this.position);
+        source.currentRolloff = source.rolloffFunction(source.currentDistance);
+
+        // Calculate the mute factor based on the tiles that are passed
+        source.currentTilesPassed = this.world.line(source.position, this.position);
+        for (let tile of source.currentTilesPassed)
+          source.currentRolloff *= tile.muteFactor;
+      }
+    }
+
+    // Set the last position
+    this.lastPosition = new Vector(this.position.x, this.position.y);
+  }
+
   // Draw the debug mode
   debug(ctx)
   {
-    let thisRealPosition = this.world.transformVector(this.position.translate(new Vector(0.5, 0.5)));
+    let worldPosition = this.world.transformVector(this.position.translate(new Vector(0.5, 0.5)));
 
-    // Draw a dot at the litener
+    // Draw a rectangle at the listener
     ctx.fillStyle = 'aqua';
-    ctx.fillRect(thisRealPosition.x - 5, thisRealPosition.y - 5, 10, 10);
+    ctx.fillRect(worldPosition.x - 5, worldPosition.y - 5, 10, 10);
   }
 }

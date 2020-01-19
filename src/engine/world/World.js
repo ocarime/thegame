@@ -125,7 +125,56 @@ export default class World extends GameObject
     return new WorldPositionInfo(this, position);
   }
 
+  // Get a direct path between two positions
+  // Code adapted from https://www.redblobgames.com/grids/line-drawing.html
+  line(start, end)
+  {
+    let path = [];
+
+    // Common case where start == end
+    if (start.x === end.x && start.y === end.y)
+      path.push(start);
+
+    // Common case where start.x == end.x
+    else if (start.x === end.x)
+    {
+      if (start.y < end.y) {
+        for (let y = start.y; y <= end.y; y ++)
+          path.push(new Vector(start.x, y));
+      } else {
+        for (let y = start.y; y >= end.y; y --)
+          path.push(new Vector(start.x, y));
+      }
+    }
+
+    // Common case where start.y == end.y
+    else if (start.y === end.y)
+    {
+      if (start.x < end.x) {
+        for (let x = start.x; x <= end.x; x ++)
+          path.push(new Vector(x, start.y));
+      } else {
+        for (let x = start.x; x >= end.x; x --)
+          path.push(new Vector(x, start.y));
+      }
+    }
+
+    // Other cases
+    else
+    {
+      let n = Vector.diagonalDistance(start, end);
+      for (let i = 0; i <= n; i ++)
+      {
+        var t = i === 0 ? 0 : i / n;
+        path.push(Vector.lerp(start, end, t).round());
+      }
+    }
+
+    return path.map(position => this.positionInfo(position));
+  }
+
   // Get a path between two positions using the A* algorithm
+  // Code adopted from https://github.com/bgrins/javascript-astar
   path(start, end)
   {
     // Check if the end is reachable
