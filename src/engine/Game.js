@@ -2,7 +2,7 @@ import Camera from './Camera.js';
 import Context from './audio/Context.js';
 import GameObject from './GameObject.js';
 import PointerEvent from './event/PointerEvent.js';
-import Vector from './util/Vector.js';
+import Vector from './geometry/Vector.js';
 import World from './world/World.js';
 
 

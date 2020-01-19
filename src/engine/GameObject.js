@@ -1,5 +1,5 @@
 import Camera from './Camera.js';
-import Vector from './util/Vector.js';
+import Vector from './geometry/Vector.js';
 
 
 // Base class for all game objects

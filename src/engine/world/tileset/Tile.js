@@ -1,5 +1,5 @@
-import Region from '../../util/Region.js';
-import Vector from '../../util/Vector.js';
+import Region from '../../geometry/Region.js';
+import Vector from '../../geometry/Vector.js';
 
 
 // Class that defines a tile

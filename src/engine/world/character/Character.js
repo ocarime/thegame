@@ -2,8 +2,8 @@ import Action from './action/Action.js';
 import Entity from '../Entity.js';
 import InteractAction from './action/InteractAction.js';
 import MoveAction from './action/MoveAction.js';
-import Region from '../../util/Region.js';
-import Vector from '../../util/Vector.js';
+import Region from '../../geometry/Region.js';
+import Vector from '../../geometry/Vector.js';
 
 
 // Class that represents an in-game character

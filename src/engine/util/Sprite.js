@@ -1,5 +1,5 @@
-import RegionInt from './RegionInt.js';
-import Vector from './Vector.js';
+import RegionInt from '../geometry/RegionInt.js';
+import Vector from '../geometry/Vector.js';
 
 
 // Class that defines a sprite

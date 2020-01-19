@@ -1,4 +1,4 @@
-import Vector from '../util/Vector.js';
+import Vector from '../geometry/Vector.js';
 import World from './World.js';
 
 

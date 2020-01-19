@@ -1,7 +1,7 @@
 import Character from './Character.js';
-import Region from '../../util/Region.js';
-import RegionInt from '../../util/RegionInt.js';
-import Vector from '../../util/Vector.js';
+import Region from '../../geometry/Region.js';
+import RegionInt from '../../geometry/RegionInt.js';
+import Vector from '../../geometry/Vector.js';
 
 
 // Class that defines the player character

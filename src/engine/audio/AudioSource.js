@@ -1,5 +1,5 @@
 import Entity from '../world/Entity.js';
-import Vector from '../util/Vector.js';
+import Vector from '../geometry/Vector.js';
 
 
 // Class that represents an audio source

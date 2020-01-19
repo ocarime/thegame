@@ -1,5 +1,5 @@
 import Entity from '../../engine/world/Entity.js';
-import Vector from '../../engine/util/Vector.js';
+import Vector from '../../engine/geometry/Vector.js';
 
 
 // Class that defines a piano entity

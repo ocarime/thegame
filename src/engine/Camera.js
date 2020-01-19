@@ -1,5 +1,5 @@
 import GameObject from './GameObject.js'
-import Vector from './util/Vector.js'
+import Vector from './geometry/Vector.js'
 
 
 // Class that defines the camera

@@ -1,7 +1,7 @@
-import RegionInt from '../../util/RegionInt.js';
+import RegionInt from '../../geometry/RegionInt.js';
 import Sprite from '../../util/Sprite.js';
 import Tile from './Tile.js';
-import Vector from '../../util/Vector.js';
+import Vector from '../../geometry/Vector.js';
 
 
 // Class that defines a tileset

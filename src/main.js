@@ -10,7 +10,7 @@ import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Speaker from './game/entity/Speaker.js';
 import TileSet from './engine/world/tileset/TileSet.js';
-import Vector from './engine/util/Vector.js';
+import Vector from './engine/geometry/Vector.js';
 import Window from './game/entity/Window.js';
 import World from './engine/world/World.js';
 import WorldContext from './engine/world/WorldContext.js';

@@ -2,8 +2,8 @@ import BinaryHeap from '../util/BinaryHeap.js';
 import Entity from './Entity.js';
 import GameObject from '../GameObject.js';
 import PlayerCharacter from './character/PlayerCharacter.js';
-import RegionInt from '../util/RegionInt.js';
-import Vector from '../util/Vector.js';
+import RegionInt from '../geometry/RegionInt.js';
+import Vector from '../geometry/Vector.js';
 import WorldPositionInfo from './WorldPositionInfo.js';
 
 
