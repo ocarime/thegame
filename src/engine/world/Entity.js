@@ -18,8 +18,18 @@ export default class Entity extends GameObject
     // Position of the entity
     this.position = position;
 
-    // Properties of the entity
-    this.tileDefinition = typeof properties.entityType !== 'undefined' && typeof properties.entityType.tileDefinition !== 'undefined' ? properties.entityType.tileDefinition : undefined;
+    // Entity specific properties
+    if (typeof properties.entityType !== 'undefined')
+    {
+      // Set defained or default properties
+      if (typeof properties.entityType.properties !== 'undefined')
+        for (let [property, defaultValue] of Object.entries(properties.entityType.properties))
+          this[property] = typeof properties[property] != 'undefined' ? properties[property] : defaultValue;
+
+      // Set the tile definition
+      if (typeof properties.entityType.tileDefinition !== 'undefined')
+        this.tileDefinition = properties.entityType.tileDefinition;
+    }
   }
 
   // Release the entity
