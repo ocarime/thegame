@@ -10,6 +10,8 @@ export default class Camera extends GameObject
   {
     super();
 
+    this.transformable = false;
+
     // The game instance
     this.game = game;
 
@@ -27,7 +29,7 @@ export default class Camera extends GameObject
   transformVector(vector)
   {
     // Apply transformations of the parents
-    if (typeof this.parent !== 'undefined' || parent instanceof Camera)
+    if (typeof this.parent !== 'undefined')
       vector = this.parent.transformVector(vector);
 
     return vector;
