@@ -1,4 +1,4 @@
-import MathUtil from '../Util/MathUtil.js';
+import MathUtil from '../util/MathUtil.js';
 import Region from './Region.js';
 
 
