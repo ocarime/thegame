@@ -1,4 +1,3 @@
-import Camera from './Camera.js';
 import Vector from './geometry/Vector.js';
 
 
@@ -131,7 +130,7 @@ export default class GameObject
       .scale(this.scale);
 
     // Apply transformations of the parents
-    if (typeof this.parent !== 'undefined' || parent instanceof Camera)
+    if (typeof this.parent !== 'undefined')
       vector = this.parent.transformVector(vector);
 
     return vector;
@@ -169,7 +168,7 @@ export default class GameObject
   inverseTransformRegion(region)
   {
     // Apply inverse transformations of the parents
-    if (typeof this.parent !== 'undefined' || parent instanceof Camera)
+    if (typeof this.parent !== 'undefined')
       region = this.parent.inverseTransformRegion(region);
 
     // Apply inverse transformations of this game object
