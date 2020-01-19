@@ -1,4 +1,5 @@
 import Entity from '../world/Entity.js';
+import Vector from '../geometry/Vector.js';
 
 
 // Class that represents an audio listener
@@ -23,5 +24,15 @@ export default class AudioListener extends Entity
 
     // Debug variables
     this.debugInfo = {color: 'aqua'};
+  }
+
+  // Draw the debug mode
+  debug(ctx)
+  {
+    let thisRealPosition = this.world.transformVector(this.position.translate(new Vector(0.5, 0.5)));
+
+    // Draw a dot at the litener
+    ctx.fillStyle = 'aqua';
+    ctx.fillRect(thisRealPosition.x - 5, thisRealPosition.y - 5, 10, 10);
   }
 }

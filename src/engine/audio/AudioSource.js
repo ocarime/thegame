@@ -53,6 +53,10 @@ export default class AudioSource extends Entity
         return 1 - (distance - this.minDistance) / (this.maxDistance - this.minDistance);
     };
 
+    // Current rolloff variables
+    this.currentDistance = Math.Infinity;
+    this.currentRolloff = 0;
+
     // Debug variables
     this.debugInfo = {color: 'aqua'};
   }
@@ -60,13 +64,44 @@ export default class AudioSource extends Entity
   // Update the audio source logic
   update(deltaTime)
   {
-    // Calculate the distance to the audio listener
-    let distance = Vector.distance(this.position, this.context.listener.position);
-    let rolloff = this.rolloffFunction(distance);
+    // Calculate the rolloff to the audio listener
+    this.currentDistance = Vector.distance(this.position, this.context.listener.position);
+    this.currentRolloff = this.rolloffFunction(this.currentDistance);
 
     // Adjust the gain and filter of this audio source
-    this.gain.value = rolloff;
-    this.lowpassFrequency.value = Math.pow(20000, rolloff) + 2000;
+    this.gain.value = this.currentRolloff;
+    this.lowpassFrequency.value = Math.pow(20000, this.currentRolloff) + 2000;
+  }
+
+  // Draw the debug mode
+  debug(ctx)
+  {
+    let thisRealPosition = this.world.transformVector(this.position.translate(new Vector(0.5, 0.5)));
+    let listenerRealPosition = this.world.transformVector(this.context.listener.position.translate(new Vector(0.5, 0.5)));
+
+    // Draw a dot at the source
+    ctx.fillStyle = 'aqua';
+    ctx.fillRect(thisRealPosition.x - 5, thisRealPosition.y - 5, 10, 10);
+
+    // Draw a line from the source to the listener
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = `rgba(0, 255, 255, ${this.currentRolloff})`;
+
+    ctx.beginPath();
+    ctx.moveTo(thisRealPosition.x, thisRealPosition.y);
+    ctx.lineTo(listenerRealPosition.x, listenerRealPosition.y);
+    ctx.stroke();
+
+    // Draw the rolloff
+    let text = `${Math.round(this.currentRolloff * 100)}%`;
+    ctx.font = 'bold 10px monospace';
+
+    let width = ctx.measureText(text).width;
+    let anchor = thisRealPosition.translate(new Vector(0, -8));
+
+    // Draw the text;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, anchor.x, anchor.y);
   }
 
   // Play this audio source
