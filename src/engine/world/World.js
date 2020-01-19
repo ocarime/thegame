@@ -23,6 +23,9 @@ export default class World extends GameObject
 
     // Tile array
     this.tiles = Array.fill(undefined, this.region.area);
+
+    // Debug variables
+    this.debugInfo = {color: 'lime'};
   }
 
   // Get the dimensions of the map

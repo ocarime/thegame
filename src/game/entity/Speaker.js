@@ -24,5 +24,8 @@ export default class Speaker extends Entity
       maxDistance: properties.maxDistance
     }).appendTo(this);
     this.musicSystem.sources.push(this.audioSource);
+
+    // Debug variables
+    this.debugInfo = {color: 'white', level: 1};
   }
 }

@@ -12,6 +12,9 @@ export default class Camera extends GameObject
 
     // The game instance
     this.game = game;
+
+    // Debug variables
+    this.debugInfo = {color: 'lime'};
   }
 
   // Return the position offset to center the screen at the position

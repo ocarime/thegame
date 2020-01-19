@@ -32,7 +32,8 @@ export default class Game extends GameObject
     this.audioContext = new Context(this);
 
     // Enable debugger drawing
-    this.showDebug = false;
+    this.showDebug = 0;
+    this.showDebugOffsetY = 0;
 
     // Timing variables
     this._lastRender = Date.now();
@@ -57,11 +58,21 @@ export default class Game extends GameObject
       this.canvas.height = window.innerHeight;
     }.bind(this));
 
+    // Add event handler for wndow scrolled
+    window.addEventListener('wheel', function(e) {
+      // Set the scroll offset
+      if (this.showDebug > 0)
+        this.showDebugOffsetY = Math.max(0, this.showDebugOffsetY + e.deltaY);
+    }.bind(this));
+
     // Add event handlers for key pressed
     document.addEventListener('keydown', function(e) {
       // Toggle the debugger
       if (e.code === 'F9')
-        this.showDebug = !this.showDebug;
+      {
+        this.showDebug = (this.showDebug + 1) % 3;
+        this.showDebugOffsetY = 0;
+      }
 
       // Create the keyboard event
       let event = e;
@@ -128,6 +139,9 @@ export default class Game extends GameObject
           gameObject.onPointerReleased(event);
       }.bind(this));
     }.bind(this));
+
+    // Debug variables
+    this.debugInfo = {color: 'lime'};
   }
 
   // Return the dimensions of the canvas
@@ -191,14 +205,33 @@ export default class Game extends GameObject
 
     ctx.font = '10px monospace';
     ctx.textAlign = 'left';
-    ctx.fillStyle = 'lime';
 
     this._each(function(gameObject) {
+      ctx.fillStyle = 'white';
+
+      // Use the debug info
+      if (typeof gameObject.debugInfo !== 'undefined')
+      {
+        // Set the debug level
+        let level = 1;
+        for (let parentObject of gameObject.hierarchy)
+          if (typeof parentObject.debugInfo != 'undefined' && typeof parentObject.debugInfo.level !== 'undefined')
+            level = Math.max(level, parentObject.debugInfo.level);
+
+        if (level > this.showDebug)
+          return;
+
+        // Set the debug color
+        if (typeof gameObject.debugInfo.color !== 'undefined')
+          ctx.fillStyle = gameObject.debugInfo.color;
+      }
+
+      // Draw the game object text
       let tx = 16 + 12 * (gameObject.hierarchy.length - 1);
-      let ty = 16 + 14 * line;
+      let ty = 16 + 14 * line - this.showDebugOffsetY;
       ctx.fillText(`${gameObject}`, tx, ty);
       line ++;
-    });
+    }.bind(this));
   }
 
   // Convert to string

@@ -30,6 +30,9 @@ export default class Entity extends GameObject
       if (typeof properties.entityType.tileDefinition !== 'undefined')
         this.tileDefinition = properties.entityType.tileDefinition;
     }
+
+    // Debug variables
+    this.debugInfo = {color: 'silver', level: 2};
   }
 
   // Release the entity

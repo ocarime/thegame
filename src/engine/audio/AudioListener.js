@@ -20,5 +20,8 @@ export default class AudioListener extends Entity
 
     // Output node to link to the output node of a source
     this.inputNode = this.gainNode;
+
+    // Debug variables
+    this.debugInfo = {color: 'aqua'};
   }
 }

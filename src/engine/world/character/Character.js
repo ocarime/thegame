@@ -10,14 +10,17 @@ import Vector from '../../geometry/Vector.js';
 export default class Character extends Entity
 {
   // Constructor
-  constructor(world, name, position, options)
+  constructor(world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
 
     // Definition variables
-    this.color = options.color || 'green';
-    this.sprite = options.sprite || undefined;
-    this.velocity = options.velocity || 10;
+    this.color = properties.color || 'green';
+    this.sprite = properties.sprite || undefined;
+    this.velocity = properties.velocity || 10;
+
+    // Debug variables
+    this.debugInfo = {level: 1};
   }
 
   // Get all character actions

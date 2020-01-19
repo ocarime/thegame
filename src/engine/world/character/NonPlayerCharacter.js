@@ -8,14 +8,14 @@ import Vector from '../../geometry/Vector.js';
 export default class NonPlayerCharacter extends Character
 {
   // Constructor
-  constructor(world, name, position, options)
+  constructor(world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
 
     // Variables for random walking of the NPC
-    this.roamingArea = typeof options.roamingArea !== 'undefined' ? new RegionInt(...options.roamingArea) : this.position.toRegion();
-    this.roamingCooldown = options.roamingCooldown || 0;
-    this.roamingInterval = options.roamingInterval || 0;
+    this.roamingArea = typeof properties.roamingArea !== 'undefined' ? new RegionInt(...properties.roamingArea) : this.position.toRegion();
+    this.roamingCooldown = properties.roamingCooldown || 0;
+    this.roamingInterval = properties.roamingInterval || 0;
 
     this._roamingTimer = (Math.random() * this.roamingInterval) * 1000;;
   }

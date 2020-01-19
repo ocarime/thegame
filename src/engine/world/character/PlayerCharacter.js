@@ -5,8 +5,8 @@ import Character from './Character.js';
 export default class PlayerCharacter extends Character
 {
   // Constructor
-  constructor(world, name, position, options)
+  constructor(world, name, position, properties)
   {
-    super(world, name, position, options);
+    super(world, name, position, properties);
   }
 }

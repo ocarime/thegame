@@ -52,6 +52,9 @@ export default class AudioSource extends Entity
       else
         return 1 - (distance - this.minDistance) / (this.maxDistance - this.minDistance);
     };
+
+    // Debug variables
+    this.debugInfo = {color: 'aqua'};
   }
 
   // Update the audio source logic
