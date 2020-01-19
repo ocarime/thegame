@@ -4,15 +4,14 @@ import Door from './game/entity/Door.js';
 import Entity from './engine/world/Entity.js';
 import Game from './engine/Game.js';
 import MusicSystem from './game/audio/MusicSystem.js';
-import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Speaker from './game/entity/Speaker.js';
+import TalkingNonPlayerCharacter from './game/character/TalkingNonPlayerCharacter.js';
 import TileSet from './engine/world/tileset/TileSet.js';
 import Vector from './engine/geometry/Vector.js';
 import World from './engine/world/World.js';
 import WorldContext from './engine/world/WorldContext.js';
-
 
 // Create the game
 let game = new Game('#canvas', '#loadingScreen');
@@ -48,7 +47,7 @@ game.preload = async function() {
   this.world = new WorldContext(this)
     .registerAssets(assets)
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
-    .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, tileDefinition: 'npc'})
+    .registerEntityType('NonPlayerCharacter', {constructor: TalkingNonPlayerCharacter, properties: {avatar: undefined, lines: []}, tileDefinition: 'npc'})
     .registerEntityType('Door', {constructor: Door, properties: {state: 'closed', orientation: 'horizontal'}, tileDefinition: 'door'})
     .registerEntityType('Window', {constructor: Entity, tileDefinition: 'window'})
     .registerEntityType('Furniture', {constructor: Entity, properties: {type: undefined}, tileDefinition: 'furniture'})

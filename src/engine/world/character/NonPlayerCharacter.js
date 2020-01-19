@@ -1,4 +1,5 @@
 import Character from './Character.js';
+import Modal from '../../../ui/Modal.js';
 import Region from '../../geometry/Region.js';
 import RegionInt from '../../geometry/RegionInt.js';
 import Vector from '../../geometry/Vector.js';
@@ -87,7 +88,11 @@ export default class NonPlayerCharacter extends Character
   // Interaction event handler
   onInteract(character, action = 'interact')
   {
-    console.log(character);
+    let modal = new Modal({
+      title: "Delete {{ image.name }}",
+      body: "Are you sure you want to delete {{ image.name }}? Links and references to the image are lost forever (a long time)!"
+    }).show();
+    
     return true;
   }
 }

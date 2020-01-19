@@ -389,11 +389,13 @@ entities:
     name: Danae
     position: [10, 6]
     properties:
-
       color: '#AA0050'
       roamingArea: [8, 4, 13, 9]
       roamingCooldown: 5
       roamingInterval: 20
+      avatar: assets/images/npc-danae.png
+      lines:
+      - Hi, I'm Danae! I am specialized in the integration of music and technology. I'm fascinated by musical storytelling in a fantastical and whimsical setting, which I apply in autonomous compositions, games and interactive media. Moreover I have a broad knowledge of software and coding skills to implement music and audio in any interactive project.
 
   - type: NonPlayerCharacter
     name: Bastiaan

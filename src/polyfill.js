@@ -1,9 +1,3 @@
-// Method to check if an object has the method methodName
-Object.prototype.can = function(methodName)
-{
-  return (typeof this[methodName]) === "function";
-};
-
 // Static method to fill an array with predefined values
 Array.fill = function(item, n)
 {

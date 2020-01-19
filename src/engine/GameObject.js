@@ -192,7 +192,7 @@ export default class GameObject
   _eachContext(ctx, fn)
   {
     // Check if this game object can begin a context
-    if (this.can('beginContext'))
+    if (typeof this.beginContext === 'function')
       this.beginContext(ctx);
 
     // Execute the function on this game object
@@ -203,7 +203,7 @@ export default class GameObject
       gameObject._eachContext(ctx, fn);
 
     // Check if this game object can end a context
-    if (this.can('endContext'))
+    if (typeof this.endContext === 'function')
       this.endContext(ctx);
   }
 
