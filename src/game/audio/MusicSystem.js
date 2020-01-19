@@ -6,9 +6,13 @@ import GameObject from '../../engine/GameObject.js';
 export default class MusicSystem extends GameObject
 {
   // Constructor
-  constructor()
+  constructor(context)
   {
     super();
+
+    // Reference to the audio context
+    this.context = context;
+    this.webAudioContext = this.context.webAudioContext;
 
     // State of the system
     this.state = 'suspended';
@@ -30,7 +34,7 @@ export default class MusicSystem extends GameObject
     if (this.state === 'suspended')
     {
       this.getObjectInHierarchy(Game).audioContext.listener.gain.value = 0.0;
-      this.getObjectInHierarchy(Game).audioContext.listener.gain.linearRampToValueAtTime(1.0, 3.0);
+      this.getObjectInHierarchy(Game).audioContext.listener.gain.linearRampToValueAtTime(1.0, this.webAudioContext.currentTime + 3.0);
 
       for (let source of this.sources)
         source.play();

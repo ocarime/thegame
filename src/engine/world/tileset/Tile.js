@@ -14,6 +14,7 @@ export default class Tile
     this.name = name;
     this.properties = options.properties || {};
     this.passable = typeof options.passable !== 'undefined' ? options.passable : true;
+    this.muteFactor = options.muteFactor || 1.0;
     this.cost = options.cost || 1;
 
     // Drawing variables

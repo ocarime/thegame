@@ -29,25 +29,18 @@ export default class AudioListener extends Entity
   // Update the audio listener logic
   update(deltaTime)
   {
-    // Only update if the position has changed to save calculation time
-    if (typeof this.lastPosition === 'undefined' || this.position.x !== this.lastPosition.x || this.position.y !== this.lastPosition.y)
+    // Iterate over the audio sources
+    for (let source of this.context.sources)
     {
-      // Iterate over the audio sources
-      for (let source of this.context.sources)
-      {
-        // Calculate the rolloff to the audio listener
-        source.currentDistance = Vector.distance(source.position, this.position);
-        source.currentRolloff = source.rolloffFunction(source.currentDistance);
+      // Calculate the rolloff to the audio listener
+      source.currentDistance = Vector.distance(source.position, this.position);
+      source.currentRolloff = source.rolloffFunction(source.currentDistance);
 
-        // Calculate the mute factor based on the tiles that are passed
-        source.currentTilesPassed = this.world.line(source.position, this.position);
-        for (let tile of source.currentTilesPassed)
-          source.currentRolloff *= tile.muteFactor;
-      }
+      // Calculate the mute factor based on the tiles that are passed
+      source.currentTilesPassed = this.world.line(source.position, this.position);
+      for (let tile of source.currentTilesPassed)
+        source.currentRolloff *= tile.muteFactor;
     }
-
-    // Set the last position
-    this.lastPosition = new Vector(this.position.x, this.position.y);
   }
 
   // Draw the debug mode

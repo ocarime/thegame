@@ -54,7 +54,7 @@ export default class WorldPositionInfo
         muteFactor *= this.entity.muteFactor;
 
       // Check if the entity has an associated tile
-      if (typeof this.entity.tile !== 'undefined' && typeof this.entity.muteFactor === 'number')
+      if (typeof this.entity.tile !== 'undefined' && typeof this.entity.tile.muteFactor === 'number')
         muteFactor *= this.entity.tile.muteFactor;
     }
 

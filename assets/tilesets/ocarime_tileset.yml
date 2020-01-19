@@ -21,70 +21,92 @@ tiles:
   - sprite: [assets/images/spritesheet.png, 32, 0, 64, 32]
     properties: {type: room, orientation: horizontal}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 0, 32, 32, 64]
     properties: {type: room, orientation: vertical}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 0, 0, 32, 32]
     properties: {type: room, orientation: down-right}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 64, 0, 96, 32]
     properties: {type: room, orientation: down-left}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 0, 64, 32, 96]
     properties: {type: room, orientation: up-right}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 64, 64, 96, 96]
     properties: {type: room, orientation: up-left}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 64, 32, 96, 64]
     properties: {type: room, orientation: vertical-right}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 128, 32, 160, 64]
     properties: {type: room, orientation: vertical-left}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 96, 0, 128, 32]
     properties: {type: room, orientation: down-horizontal}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 96, 64, 128, 96]
     properties: {type: room, orientation: up-horizontal}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 96, 32, 128, 64]
     properties: {type: room, orientation: vertical-horizontal}
     passable: false
+    muteFactor: 0.25
 
   - sprite: [assets/images/spritesheet.png, 192, 0, 224, 32]
     properties: {type: cave, orientation: horizontal}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 160, 32, 192, 64]
     properties: {type: cave, orientation: vertical}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 160, 0, 192, 32]
     properties: {type: cave, orientation: down-right}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 224, 0, 256, 32]
     properties: {type: cave, orientation: down-left}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 160, 64, 192, 96]
     properties: {type: cave, orientation: up-right}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 224, 64, 256, 96]
     properties: {type: cave, orientation: up-left}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 224, 32, 256, 64]
     properties: {type: cave, orientation: vertical-right}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 288, 32, 320, 64]
     properties: {type: cave, orientation: vertical-left}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 256, 0, 288, 32]
     properties: {type: cave, orientation: down-horizontal}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 256, 64, 288, 96]
     properties: {type: cave, orientation: up-horizontal}
     passable: false
+    muteFactor: 0.25
   - sprite: [assets/images/spritesheet.png, 256, 32, 288, 64]
     properties: {type: cave, orientation: vertical-horizontal}
     passable: false
+    muteFactor: 0.25
 
   # Pillar
   pillar:
@@ -96,21 +118,27 @@ tiles:
   - sprite: [assets/images/spritesheet.png, 0, 128, 32, 160]
     properties: {state: closed, orientation: horizontal}
     passable: open
+    muteFactor: 0.5
   - sprite: [assets/images/spritesheet.png, 32, 128, 64, 160]
     properties: {state: closed, orientation: vertical}
     passable: open
+    muteFactor: 0.5
   - sprite: [assets/images/spritesheet.png, 64, 128, 96, 160]
     properties: {state: opened, orientation: horizontal}
     passable: true
+    muteFactor: 1.0
   - sprite: [assets/images/spritesheet.png, 96, 128, 128, 160]
     properties: {state: opened, orientation: vertical}
     passable: true
+    muteFactor: 1.0
   - sprite: [assets/images/spritesheet.png, 128, 128, 160, 160]
     properties: {state: locked, orientation: horizontal}
     passable: false
+    muteFactor: 0.5
   - sprite: [assets/images/spritesheet.png, 160, 128, 196, 160]
     properties: {state: locked, orientation: vertical}
     passable: false
+    muteFactor: 0.5
 
   # Windows
   window:

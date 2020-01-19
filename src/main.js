@@ -39,7 +39,7 @@ game.preload = async function() {
   await assets.load();
 
   // Add a music system to the game
-  this.musicSystem = new MusicSystem().appendTo(this);
+  this.musicSystem = new MusicSystem(this.audioContext).appendTo(this);
 
   // Add a camera to the game
   this.camera = new Camera(this).appendTo(this);
