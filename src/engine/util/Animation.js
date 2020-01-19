@@ -1,4 +1,5 @@
 import GameObject from '../GameObject.js';
+import MathUtil from '../util/MathUtil.js';
 
 
 // Class that defines an animation
@@ -57,7 +58,7 @@ export default class Animation extends GameObject
       {
         // Interpolate the properties
         let progress = (this.currentTime - this.lastKeyframe[0]) / (this.currentKeyframe[0] - this.lastKeyframe[0]);
-        let interpolated = Animation.lerpObject(this.lastKeyframe[1], this.currentKeyframe[1], progress);
+        let interpolated = MathUtil.lerpObject(this.lastKeyframe[1], this.currentKeyframe[1], progress);
         Object.assign(this.object, interpolated);
       }
     }
@@ -67,36 +68,5 @@ export default class Animation extends GameObject
   toString()
   {
     return `${super.toString()} [${this.currentTime}]`
-  }
-
-  // Linearly interpolate a number
-  static lerp(from, to, t)
-  {
-    return (1 - t) * from + t * to;
-  }
-
-  // Linearly interpolate numeric properties of an object
-  static lerpObject(from, to, t)
-  {
-    // Create an interpolated object
-    let interpolated = {};
-
-    // Iterate over the properties
-    for (let property in from)
-    {
-      // Check if the property is valid
-      if (!from.hasOwnProperty(property) || !to.hasOwnProperty(property))
-        continue;
-
-      // Check if the property is a number
-      if (typeof from[property] !== 'number' || typeof to[property] !== 'number')
-        continue;
-
-      // Interpolate the property
-      interpolated[property] = Animation.lerp(from[property], to[property], t);
-    }
-
-    // Return the object
-    return interpolated;
   }
 }
