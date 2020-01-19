@@ -14,6 +14,9 @@ export default class Action extends GameObject
 
     // The status of the action
     this.status = 'waiting';
+
+    // Debug variables
+    this.debugInfo = {level: 2};
   }
 
   // Execute the action

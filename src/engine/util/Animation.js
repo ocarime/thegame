@@ -23,6 +23,9 @@ export default class Animation extends GameObject
 
     // Update the animation
     this.update(0);
+
+    // Debug variables
+    this.debugInfo = {color: 'silver', level: 2};
   }
 
   // Get if the animation is finished, i.e. no keyframe is selected
