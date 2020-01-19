@@ -22,45 +22,33 @@ export default class Sprite
   // Create a sprite from a definition string/array
   static async create(array)
   {
+    let imageSource, imageRegion;
+
+    // Parse the definition string/array
     if (typeof array === 'string')
-    {
-      let imageSource = array;
-
-      // Create the image
-      let image = Sprite.images.get(imageSource);
-      if (typeof image === 'undefined')
-      {
-        image = await Sprite.createImage(imageSource);
-        Sprite.images.set(imageSource, image);
-      }
-
-      // Create the image region
-      let imageRegion = new RegionInt(0, 0, image.naturalWidth, image.naturalHeight)
-
-      // Create the sprite
-      return new Sprite(image, imageRegion);
-    }
+      imageSource = array
     else if (typeof array === 'object' && Array.isArray(array))
+      [imageSource, ...imageRegion] = array;
+    else
+      throw new Error(`Invalid sprite definition format: "${array}"`);
+
+    // Create the image
+    imageSource = `${imageSource}?${Sprite.timestamp}`;
+    let image = Sprite.images.get(imageSource);
+    if (typeof image === 'undefined')
     {
-      let [imageSource, ...imageRegionArray] = array;
-
-      // Create the image
-      let image = Sprite.images.get(imageSource);
-      if (typeof image === 'undefined')
-      {
-        image = await Sprite.createImage(imageSource);
-        Sprite.images.set(imageSource, image);
-      }
-
-      // Create the image region
-      let imageRegion = new RegionInt(...imageRegionArray);
-
-      // Create the sprite
-      return new Sprite(image, imageRegion);
+      image = await Sprite.createImage(imageSource);
+      Sprite.images.set(imageSource, image);
     }
 
-    // Invalid definition format
-    throw new Error(`Invalid sprite definition format: "${array}"`);
+    // Create the default image region
+    if (typeof imageRegion === 'undefined')
+      imageRegion = new RegionInt(0, 0, image.naturalWidth, image.naturalHeight)
+    else if (typeof imageRegion === 'object' && Array.isArray(imageRegion))
+      imageRegion = new RegionInt(...imageRegion);
+
+    // Create the sprite
+    return new Sprite(image, imageRegion);
   }
 
   // Create a synchronously loaded image
@@ -78,3 +66,6 @@ export default class Sprite
 
 // Create a map for storing images
 Sprite.images = new Map();
+
+// Create a timestamp for non-caching images
+Sprite.timestamp = Date.now();
