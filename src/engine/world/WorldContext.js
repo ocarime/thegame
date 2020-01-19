@@ -1,3 +1,4 @@
+import UUID from '../util/UUID.js';
 import Vector from '../geometry/Vector.js';
 import World from './World.js';
 
@@ -70,7 +71,7 @@ export default class WorldContext
     }
 
     // Determine the entity name and position
-    let name = object.name || `${object.type}-${Math.uuid()}`;
+    let name = object.name || `${object.type}-${UUID.generate()}`;
     let position = new Vector(...object.position);
 
     // Create the object properties including type information and world context
