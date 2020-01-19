@@ -99,15 +99,41 @@ entities:
       orientation: horizontal
       state: closed
 
+  - type: Window
+    position: [5, 18]
+  - type: Window
+    position: [2, 12]
+  - type: Window
+    position: [5, 12]
+  - type: Furniture
+    position: [4, 15]
+    properties: {type: red-carpet}
+  - type: Furniture
+    position: [2, 17]
+    properties: {type: wooden-chair-right}
+  - type: Furniture
+    position: [1, 17]
+    properties: {type: wooden-table}
+  - type: Furniture
+    position: [6, 13]
+    properties: {type: closet-books-2}
+
+  - type: Painting
+    position: [3, 13]
+  - type: Painting
+    position: [6, 15]
+  - type: Painting
+    position: [6, 16]
+
   - type: Speaker
     name: Stijn's Speaker
-    position: [5, 16]
+    position: [1, 15]
     properties:
-      orientation: left
+      orientation: right
       audioClip: music_stijn
       loop: true
-      minDistance: 2
-      maxDistance: 6
+      minDistance: 4
+      maxDistance: 10
 
   # Danae's room
   - type: Door
@@ -139,7 +165,11 @@ entities:
     properties: {type: closet-books-2}
 
   - type: Painting
-    position: [8, 6]
+    position: [8, 4]
+  - type: Painting
+    position: [12, 7]
+  - type: Painting
+    position: [12, 9]
 
   - type: Speaker
     name: Danae's Speaker
@@ -148,8 +178,8 @@ entities:
       orientation: right
       audioClip: music_danae
       loop: true
-      minDistance: 3
-      maxDistance: 8
+      minDistance: 4
+      maxDistance: 10
 
   # Bastiaan's room
   - type: Door
@@ -159,15 +189,49 @@ entities:
       orientation: vertical
       state: closed
 
+  - type: Window
+    position: [20, 0]
+  - type: Window
+    position: [22, 0]
+  - type: Window
+    position: [20, 7]
+  - type: Window
+    position: [22, 7]
+  - type: Furniture
+    position: [21, 5]
+    properties: {type: blue-carpet}
+  - type: Furniture
+    position: [19, 6]
+    properties: {type: wooden-chair-left}
+  - type: Furniture
+    position: [21, 6]
+    properties: {type: wooden-chair-right}
+  - type: Furniture
+    position: [20, 6]
+    properties: {type: wooden-table}
+  - type: Furniture
+    position: [20, 1]
+    properties: {type: closet-books-1}
+  - type: Furniture
+    position: [21, 1]
+    properties: {type: closet-empty}
+
+  - type: Painting
+    position: [23, 3]
+  - type: Painting
+    position: [23, 4]
+  - type: Painting
+    position: [23, 6]
+
   - type: Speaker
     name: Bastiaan's Speaker
-    position: [20, 4]
+    position: [23, 1]
     properties:
       orientation: left
       audioClip: music_bastiaan
       loop: true
-      minDistance: 3
-      maxDistance: 8
+      minDistance: 4
+      maxDistance: 10
 
   # Thomas's room
   - type: Door
@@ -177,15 +241,41 @@ entities:
       orientation: horizontal
       state: closed
 
+  - type: Window
+    position: [31, 16]
+  - type: Window
+    position: [31, 22]
+  - type: Window
+    position: [34, 22]
+  - type: Furniture
+    position: [32, 19]
+    properties: {type: red-carpet}
+  - type: Furniture
+    position: [34, 17]
+    properties: {type: wooden-chair-left}
+  - type: Furniture
+    position: [35, 17]
+    properties: {type: wooden-table}
+  - type: Furniture
+    position: [30, 18]
+    properties: {type: closet-books-1}
+
+  - type: Painting
+    position: [30, 19]
+  - type: Painting
+    position: [31, 21]
+  - type: Painting
+    position: [34, 21]
+
   - type: Speaker
     name: Thomas's Speaker
-    position: [31, 18]
+    position: [35, 19]
     properties:
       orientation: left
       audioClip: music_thomas
       loop: true
-      minDistance: 3
-      maxDistance: 8
+      minDistance: 4
+      maxDistance: 10
 
   # Greg's room
   - type: Door
@@ -195,15 +285,43 @@ entities:
       orientation: vertical
       state: closed
 
+  - type: Window
+    position: [27, 24]
+  - type: Window
+    position: [25, 24]
+  - type: Window
+    position: [27, 31]
+  - type: Window
+    position: [25, 31]
+  - type: Furniture
+    position: [26, 27]
+    properties: {type: red-carpet}
+  - type: Furniture
+    position: [24, 30]
+    properties: {type: iron-chair-left}
+  - type: Furniture
+    position: [25, 30]
+    properties: {type: iron-table}
+  - type: Furniture
+    position: [28, 29]
+    properties: {type: closet-books-1}
+
+  - type: Painting
+    position: [28, 30]
+  - type: Painting
+    position: [24, 25]
+  - type: Painting
+    position: [24, 27]
+
   - type: Speaker
     name: Greg's Speaker
-    position: [25, 27]
+    position: [28, 26]
     properties:
       orientation: left
       audioClip: music_greg
       loop: true
-      minDistance: 3
-      maxDistance: 8
+      minDistance: 4
+      maxDistance: 10
 
   # Amber's room
   - type: Door
@@ -213,15 +331,49 @@ entities:
       orientation: vertical
       state: closed
 
+  - type: Window
+    position: [16, 27]
+  - type: Window
+    position: [14, 27]
+  - type: Window
+    position: [16, 34]
+  - type: Window
+    position: [14, 34]
+  - type: Furniture
+    position: [15, 29]
+    properties: {type: blue-carpet}
+  - type: Furniture
+    position: [15, 28]
+    properties: {type: iron-chair-left}
+  - type: Furniture
+    position: [17, 28]
+    properties: {type: iron-chair-right}
+  - type: Furniture
+    position: [16, 28]
+    properties: {type: iron-table}
+  - type: Furniture
+    position: [15, 33]
+    properties: {type: closet-books-2}
+  - type: Furniture
+    position: [16, 33]
+    properties: {type: closet-empty}
+
+  - type: Painting
+    position: [13, 29]
+  - type: Painting
+    position: [13, 30]
+  - type: Painting
+    position: [13, 31]
+
   - type: Speaker
     name: Amber's Speaker
-    position: [16, 30]
+    position: [13, 33]
     properties:
-      orientation: left
+      orientation: right
       audioClip: music_amber
       loop: true
-      minDistance: 3
-      maxDistance: 8
+      minDistance: 4
+      maxDistance: 10
 
   # NPC's
   - type: NonPlayerCharacter
