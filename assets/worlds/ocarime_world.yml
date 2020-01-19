@@ -138,6 +138,9 @@ entities:
     position: [8, 5]
     properties: {type: closet-books-2}
 
+  - type: Painting
+    position: [8, 6]
+
   - type: Speaker
     name: Danae's Speaker
     position: [8, 8]

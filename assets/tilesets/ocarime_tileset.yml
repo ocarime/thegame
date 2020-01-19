@@ -156,16 +156,15 @@ tiles:
     passable: false
 
   # Entities
-  piano:
-  - sprite: assets/images/entity-piano.png
-  painting:
-  - sprite: assets/images/entity-painting.png
   speaker:
   - sprite: [assets/images/spritesheet.png, 0, 192, 32, 224]
     properties: {orientation: right}
     passable: false
   - sprite: [assets/images/spritesheet.png, 32, 192, 64, 224]
     properties: {orientation: left}
+    passable: false
+  painting:
+  - sprite: [assets/images/spritesheet.png, 64, 192, 96, 224]
     passable: false
 
   # Characters
