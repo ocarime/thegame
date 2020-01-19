@@ -57,6 +57,7 @@ export default class WorldContext
     // Assert if all required properties are present
     if (typeof object.type === 'undefined' || typeof object.position === 'undefined')
     {
+      console.warn(`Cannot create an antity without "type" and "position" keys`);
       return undefined;
     }
 

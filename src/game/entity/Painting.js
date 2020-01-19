@@ -5,15 +5,6 @@ import Vector from '../../engine/geometry/Vector.js';
 // Class that defines a piano entity
 export default class Painting extends Entity
 {
-  // Constructor
-  constructor(world, name, position, properties)
-  {
-    super(world, name, position, properties);
-
-    // Properties of the entity
-    this.url = properties.url;
-  }
-
   // Return if a character can currently interact with this entity
   canInteract(character, action = 'interact')
   {

@@ -5,16 +5,6 @@ import Vector from '../../engine/geometry/Vector.js';
 // Class that defines a door entity
 export default class Door extends Entity
 {
-  // Constructor
-  constructor(world, name, position, properties)
-  {
-    super(world, name, position, properties);
-
-    // Properties of the entity
-    this.orientation = properties.orientation || 'horizontal';
-    this.state = properties.state || 'closed';
-  }
-
   // Return if a character can currently interact with this entity
   canInteract(character, action = 'interact')
   {

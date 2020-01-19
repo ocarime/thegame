@@ -1,17 +1,15 @@
 import AssetLoader from './engine/util/AssetLoader.js';
 import Camera from './engine/Camera.js';
 import Door from './game/entity/Door.js';
-import Furniture from './game/entity/Furniture.js';
+import Entity from './engine/world/Entity.js';
 import Game from './engine/Game.js';
 import MusicSystem from './game/audio/MusicSystem.js';
 import NonPlayerCharacter from './engine/world/character/NonPlayerCharacter.js';
-import Piano from './game/entity/Piano.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Speaker from './game/entity/Speaker.js';
 import TileSet from './engine/world/tileset/TileSet.js';
 import Vector from './engine/geometry/Vector.js';
-import Window from './game/entity/Window.js';
 import World from './engine/world/World.js';
 import WorldContext from './engine/world/WorldContext.js';
 
@@ -51,11 +49,11 @@ game.preload = async function() {
     .registerAssets(assets)
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
     .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, tileDefinition: 'npc'})
-    .registerEntityType('Door', {constructor: Door, tileDefinition: 'door'})
-    .registerEntityType('Window', {constructor: Window, tileDefinition: 'window'})
-    .registerEntityType('Furniture', {constructor: Furniture, tileDefinition: 'furniture'})
-    .registerEntityType('Painting', {constructor: Painting, tileDefinition: 'painting'})
-    .registerEntityType('Speaker', {constructor: Speaker, tileDefinition: 'speaker'})
+    .registerEntityType('Door', {constructor: Door, properties: {state: 'closed', orientation: 'horizontal'}, tileDefinition: 'door'})
+    .registerEntityType('Window', {constructor: Entity, tileDefinition: 'window'})
+    .registerEntityType('Furniture', {constructor: Entity, properties: {type: undefined}, tileDefinition: 'furniture'})
+    .registerEntityType('Painting', {constructor: Painting, properties: {url: undefined}, tileDefinition: 'painting'})
+    .registerEntityType('Speaker', {constructor: Speaker, properties: {orientation: 'right'}, tileDefinition: 'speaker'})
     .create(assets.ocarime_world)
     .appendTo(this.camera);
 
