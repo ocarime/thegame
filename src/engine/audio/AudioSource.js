@@ -85,7 +85,7 @@ export default class AudioSource extends Entity
 
     // Draw a line from the source to the listener
     ctx.lineWidth = 2;
-    ctx.strokeStyle = `rgba(0, 255, 255, ${this.currentRolloff})`;
+    ctx.strokeStyle = `rgba(0, 255, 255, ${this.currentRolloff > 0.0 ? 0.25 + 0.75 * this.currentRolloff : 0.0})`;
 
     ctx.beginPath();
     ctx.moveTo(thisRealPosition.x, thisRealPosition.y);
