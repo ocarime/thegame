@@ -31,6 +31,9 @@ export default class Character extends Entity
   // Move the character to a position
   moveTo(position)
   {
+    if (this.actions.length > 0)
+      return false;
+
     // Get a path to the position
     let path = this.world.path(this.position, position);
     if (typeof path === 'undefined')
