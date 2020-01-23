@@ -7,8 +7,10 @@ import MusicSystem from './game/audio/MusicSystem.js';
 import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Speaker from './game/entity/Speaker.js';
+import Sprite from './engine/util/Sprite.js';
 import TalkingNonPlayerCharacter from './game/character/TalkingNonPlayerCharacter.js';
 import TileSet from './engine/world/tileset/TileSet.js';
+import UIMuteToggle from './engine/gui/UIMuteToggle.js';
 import Vector from './engine/geometry/Vector.js';
 import World from './engine/world/World.js';
 import WorldContext from './engine/world/WorldContext.js';
@@ -42,11 +44,13 @@ game.preload = async function() {
 
   // Add a camera to the game
   this.camera = new Camera(this).appendTo(this);
+  this.camera.scale = new Vector(2, 2);
 
   // Add a world to the game
   this.world = new WorldContext(this)
     .registerAssets(assets)
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
+    .registerEntityType('PlayerCharacter', {constructor: PlayerCharacter, properties: {velocity: 10}, tileDefinition: 'player'})
     .registerEntityType('NonPlayerCharacter', {constructor: TalkingNonPlayerCharacter, properties: {avatar: undefined, lines: []}, tileDefinition: 'npc'})
     .registerEntityType('Door', {constructor: Door, properties: {state: 'closed', orientation: 'horizontal'}, tileDefinition: 'door'})
     .registerEntityType('Window', {constructor: Entity, tileDefinition: 'window'})
@@ -56,14 +60,16 @@ game.preload = async function() {
     .create(assets.ocarime_world)
     .appendTo(this.camera);
 
-  if (typeof this.world.playerSpawn !== 'undefined')
-  {
-    this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn, {velocity: 10}).appendTo(this.world);
-    this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.player.position).appendTo(this.player);
-  }
+  // Add an audio listener to the player
+  if (typeof this.world.player !== 'undefined')
+    this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.world.player.position).appendTo(this.world.player);
+
+  // Add a mute toggle to the game
+  this.muteToggle = new UIMuteToggle(new Vector(16, 16), new Vector(32, 32), {state: true, hotkey: 'm', offSprite: await Sprite.create('assets/images/volume-mute-solid.png'), onSprite: await Sprite.create('assets/images/volume-down-solid.png')}, this.audioContext).appendTo(this);
 };
 
 // Game update
 game.update = function() {
-  this.camera.position = this.world.transformVector(this.player.position);
+  if (typeof this.world.player !== 'undefined')
+    this.camera.position = this.world.transformVector(this.world.player.position);
 };

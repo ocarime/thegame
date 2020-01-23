@@ -16,7 +16,6 @@ export default class Character extends Entity
 
     // Definition variables
     this.color = properties.color || 'green';
-    this.sprite = properties.sprite || undefined;
     this.velocity = properties.velocity || 10;
 
     // Debug variables
@@ -32,6 +31,9 @@ export default class Character extends Entity
   // Move the character to a position
   moveTo(position)
   {
+    if (this.actions.length > 0)
+      return false;
+
     // Get a path to the position
     let path = this.world.path(this.position, position);
     if (typeof path === 'undefined')

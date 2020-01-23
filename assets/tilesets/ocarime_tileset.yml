@@ -196,6 +196,8 @@ tiles:
     passable: false
 
   # Characters
+  player:
+  - sprite: assets/images/player.png
   npc:
   - sprite: assets/images/npc-amber.png
     properties: {name: Amber}
