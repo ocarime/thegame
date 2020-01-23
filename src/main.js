@@ -50,6 +50,7 @@ game.preload = async function() {
   this.world = new WorldContext(this)
     .registerAssets(assets)
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
+    .registerEntityType('PlayerCharacter', {constructor: PlayerCharacter, properties: {velocity: 10}, tileDefinition: 'player'})
     .registerEntityType('NonPlayerCharacter', {constructor: NonPlayerCharacter, tileDefinition: 'npc'})
     .registerEntityType('Door', {constructor: Door, properties: {state: 'closed', orientation: 'horizontal'}, tileDefinition: 'door'})
     .registerEntityType('Window', {constructor: Entity, tileDefinition: 'window'})
@@ -59,11 +60,9 @@ game.preload = async function() {
     .create(assets.ocarime_world)
     .appendTo(this.camera);
 
-  if (typeof this.world.playerSpawn !== 'undefined')
-  {
-    this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn, {velocity: 10}).appendTo(this.world);
-    this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.player.position).appendTo(this.player);
-  }
+  // Add an audio listener to the player
+  if (typeof this.world.player !== 'undefined')
+    this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.world.player.position).appendTo(this.world.player);
 
   // Add a mute toggle to the game
   this.muteToggle = new UIMuteToggle(new Vector(16, 16), new Vector(32, 32), {state: true, hotkey: 'm', offSprite: await Sprite.create('assets/images/volume-mute-solid.png'), onSprite: await Sprite.create('assets/images/volume-down-solid.png')}, this.audioContext).appendTo(this);
@@ -71,5 +70,6 @@ game.preload = async function() {
 
 // Game update
 game.update = function() {
-  this.camera.position = this.world.transformVector(this.player.position);
+  if (typeof this.world.player !== 'undefined')
+    this.camera.position = this.world.transformVector(this.world.player.position);
 };

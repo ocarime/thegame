@@ -77,10 +77,6 @@ assets:
 
 # Definition of entities
 entities:
-  #- type: PlayerCharacter
-  #  name: Player
-  #  position: [18, 17]
-
   # Common room
   - type: Speaker
     name: Common Room Speaker
@@ -431,4 +427,7 @@ entities:
       roamingCooldown: 5
       roamingInterval: 20
 
-playerSpawn: [18, 16]
+  # Player character
+  - type: PlayerCharacter
+    name: Player
+    position: [18, 16]

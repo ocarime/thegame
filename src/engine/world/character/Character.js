@@ -16,7 +16,6 @@ export default class Character extends Entity
 
     // Definition variables
     this.color = properties.color || 'green';
-    this.sprite = properties.sprite || undefined;
     this.velocity = properties.velocity || 10;
 
     // Debug variables
