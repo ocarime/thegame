@@ -45,6 +45,7 @@ game.preload = async function() {
 
   // Add a camera to the game
   this.camera = new Camera(this).appendTo(this);
+  this.camera.scale = new Vector(2, 2);
 
   // Add a world to the game
   this.world = new WorldContext(this)
