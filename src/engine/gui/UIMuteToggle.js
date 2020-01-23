@@ -36,7 +36,10 @@ export default class UIMuteToggle extends UIObject
     this.state = !this.state;
 
     // Toggle the volume of the audio
-    this.audioContext.listener.gain.value = this.state ? 1.0 : 0.0;
+    if (this.state)
+      this.audioContext.listener.gainNode.connect(this.audioContext.webAudioContext.destination);
+    else
+      this.audioContext.listener.gainNode.disconnect();
   }
 
   // Convert to string
