@@ -13,6 +13,21 @@ export default class UIMuteToggle extends UIObject
 
     // Variable that holds the toggle state
     this.state = properties.state || false;
+
+    // Draw variables
+    this.offSprite = properties.offSprite;
+    this.onSprite = properties.onSprite;
+  }
+
+  // Draw the UI object
+  draw(ctx)
+  {
+    if (!this.state && typeof this.offSprite !== 'undefined')
+      this.offSprite.draw(ctx, this.region);
+    else if (this.state && typeof this.onSprite !== 'undefined')
+      this.onSprite.draw(ctx, this.region);
+    else
+      super.draw(ctx);
   }
 
   // Click event handler
