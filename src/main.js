@@ -9,6 +9,7 @@ import Painting from './game/entity/Painting.js';
 import PlayerCharacter from './engine/world/character/PlayerCharacter.js';
 import Speaker from './game/entity/Speaker.js';
 import TileSet from './engine/world/tileset/TileSet.js';
+import UIMuteToggle from './engine/gui/UIMuteToggle.js';
 import Vector from './engine/geometry/Vector.js';
 import World from './engine/world/World.js';
 import WorldContext from './engine/world/WorldContext.js';
@@ -62,6 +63,9 @@ game.preload = async function() {
     this.player = new PlayerCharacter(this.world, 'Player', this.world.playerSpawn, {velocity: 10}).appendTo(this.world);
     this.audioListener = this.audioContext.createListener(this.world, 'AudioListener', this.player.position).appendTo(this.player);
   }
+
+  // Add a mute toggle to the game
+  this.muteToggle = new UIMuteToggle(new Vector(16, 16), new Vector(32, 32), {state: true, hotkey: 'm'}, this.audioContext).appendTo(this);
 };
 
 // Game update
