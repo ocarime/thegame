@@ -1,6 +1,5 @@
 import Modal from '../../ui/Modal.js';
 import NonPlayerCharacter from '../../engine/world/character/NonPlayerCharacter.js';
-import Sprite from '../../engine/util/Sprite.js';
 
 
 // Class that defines a talking NPC
@@ -15,26 +14,40 @@ export default class TalkingNonPlayerCharacter extends NonPlayerCharacter
   // Interaction event handler
   onInteract(character, action = 'interact')
   {
-    // Create the avatar image
-    Sprite.create(this.avatar).then(function(avatar) {
-      // Create the image
-      let avatarImage = $(avatar.image)
-        .addClass('mr-3');
+    if (action === 'interact')
+    {
+      let div = $('<div>');
+
+      let mediaDiv = $('<div>')
+        .addClass('media')
+        .appendTo(div);
+
+      let imageDiv = $('<img>')
+        .addClass('mr-3')
+        .attr('src', this.image)
+        .appendTo(mediaDiv);
+
+      let mediaBodyDiv = $('<div>')
+        .addClass('media-body')
+        .appendTo(mediaDiv);
+
+      for (let line of this.lines)
+      {
+        $('<p>')
+          .html(line)
+          .appendTo(mediaBodyDiv);
+      }
 
       // Create a modal and show it
       let modal = new Modal({
         title: this.name,
-        body: `
-          <div class="media">
-            ${avatar.image.outerHTML}
-            <div class="media-body">
-              ${this.lines}
-            </div>
-          </div>
-        `
+        body: div.html()
       }).show();
-    }.bind(this));
 
-    return true;
+      return true;
+    }
+
+    // No valid action
+    return false;
   }
 }

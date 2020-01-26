@@ -51,11 +51,11 @@ game.preload = async function() {
     .registerAssets(assets)
     .registerTileset('ocarime_tileset', assets.ocarime_tileset)
     .registerEntityType('PlayerCharacter', {constructor: PlayerCharacter, properties: {velocity: 10}, tileDefinition: 'player'})
-    .registerEntityType('NonPlayerCharacter', {constructor: TalkingNonPlayerCharacter, properties: {avatar: undefined, lines: []}, tileDefinition: 'npc'})
+    .registerEntityType('NonPlayerCharacter', {constructor: TalkingNonPlayerCharacter, properties: {image: undefined, lines: []}, tileDefinition: 'npc'})
     .registerEntityType('Door', {constructor: Door, properties: {state: 'closed', orientation: 'horizontal'}, tileDefinition: 'door'})
     .registerEntityType('Window', {constructor: Entity, tileDefinition: 'window'})
     .registerEntityType('Furniture', {constructor: Entity, properties: {type: undefined}, tileDefinition: 'furniture'})
-    .registerEntityType('Painting', {constructor: Painting, properties: {url: undefined}, tileDefinition: 'painting'})
+    .registerEntityType('Painting', {constructor: Painting, properties: {image: undefined, title: undefined, description: undefined, url: undefined, urlDescription: undefined}, tileDefinition: 'painting'})
     .registerEntityType('Speaker', {constructor: Speaker, properties: {orientation: 'right'}, tileDefinition: 'speaker'})
     .create(assets.ocarime_world)
     .appendTo(this.camera);
