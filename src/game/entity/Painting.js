@@ -1,4 +1,5 @@
 import Entity from '../../engine/world/Entity.js';
+import Modal from '../../ui/Modal.js';
 import Vector from '../../engine/geometry/Vector.js';
 
 
@@ -17,8 +18,48 @@ export default class Painting extends Entity
   {
     if (action === 'interact')
     {
-      // Open a popup with the url
-      window.open(this.url, '_blank');
+      let div = $('<div>');
+
+      let mediaDiv = $('<div>')
+        .addClass('media')
+        .appendTo(div);
+
+      let mediaBodyDiv = $('<div>')
+        .addClass('media-body')
+        .appendTo(mediaDiv);
+
+        for (let line of this.description)
+        {
+          $('<p>')
+            .html(line)
+            .appendTo(mediaBodyDiv);
+        }
+
+      if (typeof this.image !== 'undefined')
+      {
+        $('<img>')
+          .addClass('w-25 mr-3')
+          .attr('src', this.image)
+          .prependTo(mediaDiv);
+      }
+
+      if (typeof this.url !== 'undefined')
+      {
+        $('<a>')
+          .addClass('btn btn-dark')
+          .attr('href', this.url)
+          .attr('target', '_blank')
+          .html(this.urlDescription || 'Visit website')
+          .appendTo(mediaBodyDiv);
+      }
+
+      // Create a modal and show it
+      let modal = new Modal({
+        title: this.title,
+        body: div.html()
+      }).show();
+
+      return true;
     }
 
     // No valid action

@@ -62,7 +62,7 @@ export default class Entity extends GameObject
   // Convert to string
   toString()
   {
-    let displayName = (this.can('toDisplayName') ? this.toDisplayName() : this.name);
+    let displayName = (typeof this.toDisplayName === 'function' ? this.toDisplayName() : this.name);
     return `${super.toString()}: ${displayName}`;
   }
 }

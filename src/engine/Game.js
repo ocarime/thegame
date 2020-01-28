@@ -45,7 +45,7 @@ export default class Game extends GameObject
       this.canvas.height = window.innerHeight;
 
       // Execute the preload function
-      Promise.all(this.can('preload') ? [this.preload()] : []).then(function() {
+      Promise.all(typeof this.preload === 'function' ? [this.preload()] : []).then(function() {
         // Start the game loop
         window.requestAnimationFrame(this._loop.bind(this));
       }.bind(this));
@@ -80,7 +80,7 @@ export default class Game extends GameObject
       // Handle the key pressed event
       this._each(function(gameObject) {
         // Check if this game object can handle key pressed events
-        if (gameObject.can('onKeyPressed'))
+        if (typeof gameObject.onKeyPressed === 'function')
           gameObject.onKeyPressed(e);
       }.bind(this));
     }.bind(this));
@@ -93,26 +93,26 @@ export default class Game extends GameObject
       // Handle the key pressed event
       this._each(function(gameObject) {
         // Check if this game object can handle key pressed events
-        if (gameObject.can('onKeyReleased'))
+        if (typeof gameObject.onKeyReleased === 'function')
           gameObject.onKeyReleased(event);
       }.bind(this));
     }.bind(this));
 
     // Add event handlers for pointer hovered
-    document.addEventListener('pointermove', function(e) {
+    this.canvas.addEventListener('pointermove', function(e) {
       // Create the pointer event
       let event = new PointerEvent('hover', new Vector(e.x, e.y));
 
       // Handle the pointer hovered event
       this._each(function(gameObject) {
         // Check if this game object can handle pointer hovered events
-        if (gameObject.can('onPointerHovered'))
+        if (typeof gameObject.onPointerHovered === 'function')
           gameObject.onPointerHovered(event);
       }.bind(this));
     }.bind(this));
 
     // Add event handlers for pointer pressed
-    document.addEventListener('pointerdown', function(e) {
+    this.canvas.addEventListener('pointerdown', function(e) {
       if (this.audioContext.webAudioContext.state === 'suspended')
         this.audioContext.webAudioContext.resume();
 
@@ -122,20 +122,20 @@ export default class Game extends GameObject
       // Handle the pointer pressed event
       this._each(function(gameObject) {
         // Check if this game object can handle pointer pressed events
-        if (gameObject.can('onPointerPressed'))
+        if (typeof gameObject.onPointerPressed === 'function')
           gameObject.onPointerPressed(event);
       }.bind(this));
     }.bind(this));
 
     // Add event handler for pointer released
-    document.addEventListener('pointerup', function(e) {
+    this.canvas.addEventListener('pointerup', function(e) {
       // Create the pointer event
       let event = new PointerEvent('release', new Vector(e.x, e.y));
 
       // Handle the pointer released event
       this._each(function(gameObject) {
         // Check if this game object can handle pointer released events
-        if (gameObject.can('onPointerReleased'))
+        if (typeof gameObject.onPointerReleased === 'function')
           gameObject.onPointerReleased(event);
       }.bind(this));
     }.bind(this));
@@ -163,7 +163,7 @@ export default class Game extends GameObject
     // Update all game objects
     this._each(function(gameObject) {
       // Check if this game object can update
-      if (gameObject.can('update'))
+      if (typeof gameObject.update === 'function')
         gameObject.update(deltaTime);
 
       // Check if the game object can be finished
@@ -178,7 +178,7 @@ export default class Game extends GameObject
     // Draw all game objects
     this._eachContext(this.ctx, function(gameObject) {
       // Check if this game object can draw
-      if (gameObject.can('draw'))
+      if (typeof gameObject.draw === 'function')
         gameObject.draw(this.ctx);
     }.bind(this));
 
@@ -187,7 +187,7 @@ export default class Game extends GameObject
     {
       this._eachContext(this.ctx, function(gameObject) {
         // Check if this game object can draw a debug mode
-        if (gameObject.can('debug'))
+        if (typeof gameObject.debug === 'function')
           gameObject.debug(this.ctx);
       }.bind(this));
     }
