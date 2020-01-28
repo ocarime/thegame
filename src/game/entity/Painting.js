@@ -28,9 +28,12 @@ export default class Painting extends Entity
         .addClass('media-body')
         .appendTo(mediaDiv);
 
-      $('<p>')
-        .html(this.description)
-        .appendTo(mediaBodyDiv);
+        for (let line of this.description)
+        {
+          $('<p>')
+            .html(line)
+            .appendTo(mediaBodyDiv);
+        }
 
       if (typeof this.image !== 'undefined')
       {

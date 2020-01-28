@@ -115,11 +115,32 @@ entities:
     properties: {type: closet-books-2}
 
   - type: Painting
+    name: Evasion
     position: [3, 13]
+    properties:
+      image: assets/images/p-evasion.png
+      title: Evasion
+      description:
+      - Music, sound design and implementation for a competitive 1v1 game in which the players need to chase each other around a parkour to control as many checkpoints as possible.
+      url: http://sdkoning.com/PF/Evasion.html
   - type: Painting
     position: [6, 15]
+    name: Who Am I?
+    properties:
+      image: assets/images/p-whoami.png
+      title: Who Am I?
+      description:
+      - Music for an applied game, created at a international game jam at Postech University in Pohang, South-Korea.
+      url: http://sdkoning.com/PF/WhoAmI%3F.html
   - type: Painting
     position: [6, 16]
+    name: Foresthunt
+    properties:
+      image: assets/images/p-foresthunt.png
+      title: Foresthunt
+      description:
+      - Music, sound design and implementation for an applied game made for education about it being okay to be confused about aspects such as sexuality.
+      url: http://sdkoning.com/PF/ForesthuntDysphoriaDog.html
 
   - type: Speaker
     name: Stijn's Speaker
@@ -161,12 +182,36 @@ entities:
     properties: {type: closet-books-2}
 
   - type: Painting
+    name: Ocarime The Game
     position: [8, 4]
+    properties:
+      image: assets/images/p-ocarimethegame.png
+      title: Ocarime: The Game
+      description:
+      - "Ocarime: The Game is an interactive game in which the members of the team introduce theirselves and their portfolio. In fact you're playing this game right now! It is a great example of the collective capabilities of the team members, i.e. we could create such a game with interactive audio for you as well!"
   - type: Painting
+    name: Pien en de Vissensteen
     position: [12, 7]
+    properties:
+      image: assets/images/p-pienendevissensteen.png
+      title: Pien en de Vissensteen
+      description:
+      - <i>Pien en de Vissensteen is a narrative adventure game that takes place in a little sea town, that is startled by the appearance of an ancient relic.</i>
+      - For the prototype of this game Oarime created a system design based on the location of the player and the advancement in the quest. I was responsible for the implementation of this system in Unity and other team members created the awesome compositions.
+      url: https://www.youtube.com/watch?v=9Q2ztM47PN8
+      urlDescription: Watch a preview
   - type: Painting
     position: [12, 9]
-
+    name: Invisible Wings
+    properties:
+      image: assets/images/p-invisiblewings.png
+      title: Invisible Wings
+      description:
+      - <i>Invisible Wings (working title) is a narrative adventure game that takes the player on a journey in a dystopian fantasy setting. Follow Dawn, a young woman of faerie descent, as she tries to find answers to her own identity in a modern world where faeries and humans were supposed to live in harmony. Although she blames her magical ancestors for all her problems, she meets a faerie herself, who grows more than a friend to her and complicates her quest even further.</i>
+      - <i>Explore the vibrant and diverse city of Ceylynn in an interactive audiovisual novel, characterized by recognizable characters, a rich world full of lore and a catchy adaptive soundtrack.</i>
+      - In this interactive project, which I initialted myself, I'm responsible for the audio design and implementation and I'm leading the creative process. The wonderful artworks are made by <a href="https://www.deviantart.com/maricu-mana" target="_blank">Maricu Mana</a>.
+      url: https://www.youtube.com/watch?v=o4ZTL9XHad8
+      urlDescription: Watch a preview
   - type: Speaker
     name: Danae's Speaker
     position: [8, 8]
@@ -213,11 +258,36 @@ entities:
     properties: {type: closet-empty}
 
   - type: Painting
+    name: Milo
     position: [23, 3]
+    properties:
+      image: assets/images/p-milo.png
+      title: M.I.L.O
+      description:
+      - A mysterious Satellite with even more mysterious creatures living on it. Find out what happened to the satellite and its habitants.
+      - I worked on the music and sound design for this game
+      url: https://www.youtube.com/watch?v=LOLug9sxpxw
+      urlDescription: Watch a preview
   - type: Painting
+    name: ERICA Cover Challenge
     position: [23, 4]
+    properties:
+      image: assets/images/p-ericacoverchallenge.png
+      title: ERICA Cover Challenge
+      description:
+      - A piece I made with a melody from Austin Wintory. I used my voice as a starting point to create a new kind of Brass sound.
+      url: https://soundcloud.com/user-561823398/austin-wintory-cover-challange
+      urlDescription: Listen to the song
   - type: Painting
+    name: Seasons
     position: [23, 6]
+    properties:
+      image: assets/images/p-seasons.png
+      title: Seasons
+      description:
+      - A meditation game that lets you grow a small plant to a big tree.
+      url: https://soundcloud.com/user-561823398/seasons-ost-meditation-game
+      urlDescription: Listen to the soundtrack
 
   - type: Speaker
     name: Bastiaan's Speaker
@@ -257,11 +327,30 @@ entities:
     properties: {type: closet-books-1}
 
   - type: Painting
+    name: Noodweer
     position: [30, 19]
+    properties:
+      image: assets/images/p-noodweer.png
+      title: Noodweer
+      description:
+      - A Virtual Reality experience where you’re placed in the shoes of a police officer trying to handle a tough situation with a man holding a knife.
   - type: Painting
+    name: Now There Be Goblins
     position: [31, 21]
+    properties:
+      image: assets/images/p-nowtherebegoblins.png
+      title: Now There Be Goblins
+      description:
+      - A Virtual Reality game where it’s your goal to stop goblins from demolishing a statue by beating the living shit out of them with a big ass hammer.
+      url: http://thomasmusicdesign.com/nowtherebegoblins/
   - type: Painting
+    name: Wol In One
     position: [34, 21]
+    properties:
+      image: assets/images/p-wolinone.png
+      title: Wol In One
+      description:
+      - A Virtual Reality game where you’re a grandma shooting balls of wool at sheep with a slingshot trying to get them into a hole in a pinball-like environment…and it’s awesome!
 
   - type: Speaker
     name: Thomas's Speaker
@@ -303,12 +392,32 @@ entities:
     properties: {type: closet-books-1}
 
   - type: Painting
+    name: Dr Panda
     position: [28, 30]
+    properties:
+      image: assets/images/p-drpanda.png
+      title: Dr Panda
+      description:
+      - Sound assets made internship at my internship at Game Audio Squad.
+      url: https://drpanda.com/
   - type: Painting
+    name: Misplaced
     position: [24, 25]
+    properties:
+      image: assets/images/p-misplaced.png
+      title: Misplaced
+      description:
+      - Misplaced is a game made in 2 days as part of the Global Game Jam 2019. Misplaced is about Greg the Stuffed Dragon, exploring what home means to it. Find memories and navigate to strange places in order to get back home.
+      - In two days I've made a lot of sound design assets, and integrated it with FMOD (middleware) for an advanced interactive experience. This includes footsteps, flying and an adaptive music system.
   - type: Painting
+    name: Reggie
     position: [24, 27]
-
+    properties:
+      image: assets/images/p-reggie.png
+      title: Reggie
+      description:
+      - Music Mix and Dialogue Mixing / Cleaning for the game Reggie, his cousin, two scientists and most likely the end of the world by Degoma.
+      url: https://reggiegame.com
   - type: Speaker
     name: Greg's Speaker
     position: [28, 26]
@@ -355,11 +464,40 @@ entities:
     properties: {type: closet-empty}
 
   - type: Painting
+    name: Hand Farm
     position: [13, 29]
+    properties:
+      image: assets/images/p-handfarm.png
+      title: Hand Farm
+      description:
+      - The winning game of the international applied game jam 2018 at Postech University, South-Korea.
+      - In this game jam we worked in a group, Questia, to make an interactive game where you can make hand puppets and unlock different animals.
+      - The underlying goal is to train the concentration of a patient with a cognitive impairment and also strengthen the relationship between said patient and their caregiver.
+      - I've made the game audio and sound design for this project.
+      url: https://cheyoung-park.itch.io/hand-farm
+      urlDescription: Play the game
   - type: Painting
+    name: The Blue Banner Theme
     position: [13, 30]
+    properties:
+      image: assets/images/p-thebluebannertheme.png
+      title: The Blue Banner Theme
+      description:
+      - A personal project where I composed a theme song for a roleplay group (Blue Banner) in World of Warcraft. The goal was to create a scenery for a storyline of the group where they would first find tranquility of a chant before they march to battle.
+      url: https://soundcloud.com/amberveerman/the-blue-banner-theme
+      urlDescription: Listen to the song
   - type: Painting
+    name: Pollu
     position: [13, 31]
+    properties:
+      image: assets/images/p-pollu.png
+      title: Pollu
+      description:
+      - An applied Dutch game from the applied game jam 2019 at HKU, The Netherlands.
+      - In this game you play a captain on a spaceship with a group of people, looking for a planet to live at in order to survive. You have to manage your oxygen and food while dealing with encounters throughout the game.
+      - I've worked on the music of this game.
+      url: https://sixstainable.itch.io/pollu
+      urlDescription: Play the game
 
   - type: Speaker
     name: Amber's Speaker
@@ -380,6 +518,12 @@ entities:
       roamingArea: [1, 13, 6, 17]
       roamingCooldown: 5
       roamingInterval: 20
+      image: assets/images/npc-stijn.png
+      lines:
+      - Hi!
+      - As audio designer I mostly work on game music , sound design and audio implementation and film music and sound design. What I find most important when working together with other media is making the result feel whole, which is why I try to be as adaptable as possible.
+      - As audio programmer, I work on projects such as audio-plugins , standalone applications and other programs and algorithms. I also create systems for and implement game audio . For audio I mainly use C++ and for game audio implementation I mainly use C# , but I am also experienced with other languages.
+
 
   - type: NonPlayerCharacter
     name: Danae
@@ -389,9 +533,10 @@ entities:
       roamingArea: [8, 4, 13, 9]
       roamingCooldown: 5
       roamingInterval: 20
-      avatar: assets/images/npc-danae.png
+      image: assets/images/npc-danae.png
       lines:
-      - Hi, I'm Danae! I am specialized in the integration of music and technology. I'm fascinated by musical storytelling in a fantastical and whimsical setting, which I apply in autonomous compositions, games and interactive media. Moreover I have a broad knowledge of software and coding skills to implement music and audio in any interactive project.
+      - Hi, I'm Danae! I am specialized in the integration of music and technology.
+      - I'm fascinated by musical storytelling in a fantastical and whimsical setting, which I apply in autonomous compositions, games and interactive media. Moreover I have a broad knowledge of software and coding skills to implement music and audio in any interactive project.
 
   - type: NonPlayerCharacter
     name: Bastiaan
@@ -401,6 +546,14 @@ entities:
       roamingArea: [18, 1, 23, 6]
       roamingCooldown: 5
       roamingInterval: 20
+      image: assets/images/npc-bastiaan.png
+      lines:
+      - Hi! I am Bastiaan van Bentum and I am a part of Ocarime.
+      - I was just starting to work at a new instrument sound for a new game soundtrack that is in the making. I love to use my voice as a starting point for all sorts of different interesting sounds. I sing or hum a melody and than I process this with intricate combinations of effects to make it sound like a brass or string instrument. The fact that the human voice is such a flexible instrument on itself makes the outcome always surprising and different.
+      - I work mostly as a composer for games. Games give me a lot of joy because they can give me the feeling my music and sound design are a part of a living breathin world for someone to get lost in.
+      - Have a listen to one voice brass and string effect music pieces and other music I am proud of! You can find the music in my room.
+      - Have a nice day!
+      - Bastiaan
 
   - type: NonPlayerCharacter
     name: Thomas
@@ -410,6 +563,12 @@ entities:
       roamingArea: [30, 17, 35, 21]
       roamingCooldown: 5
       roamingInterval: 20
+      image: assets/images/npc-thomas.png
+      lines:
+      - Waddup, I’m Thomas van Rossum and I’m a Composer / Sound Designer for games, and part of the Ocarime team!
+      - This year I’ve been, and will be, exploring the potential of Virtual Reality game audio. I’ve been researching ways where both music and sound effects respond correctly to its environment through Binaural and Ambisonic audio. I love the extra dimensions that VR has to offer for music and sound design, and the creative possibilities that come with it!
+      - Keep being awesome,
+      - Thomas
 
   - type: NonPlayerCharacter
     name: Greg
@@ -419,6 +578,13 @@ entities:
       roamingArea: [23, 25, 28, 30]
       roamingCooldown: 5
       roamingInterval: 210
+      image: assets/images/npc-greg.png
+      lines:
+      - Hey you! I was expecting you!
+      - Welcome to my room! I am Greg Candel, one of the sound designers of the Ocarime network. Can you hear the waves striking and the boat creaking? If you listen closely, there are many more elements there.
+      - Oh how I love shaping worlds. To me, creating sounds is like dancing. Both move in a place through space and time with color, expression and emotion.
+      - Don’t expect me to only make pretty things though. Smashing, slashing, impacts.. You could say I like my realism!
+      - I like all of it. As long as I can shape a world.. Do you want to explore them with me? Look around you. They’re all there!
 
   - type: NonPlayerCharacter
     name: Amber
@@ -428,6 +594,18 @@ entities:
       roamingArea: [13, 28, 18, 33]
       roamingCooldown: 5
       roamingInterval: 20
+      image: assets/images/npc-amber.png
+      lines:
+      - A traveler!
+      - Greetings and welcome to my room.
+      - My name is Amber Veerman and I am one of the members of Ocarime. Through years of training and practise I've reached the high rank of Media Composer, but I can tell that you didn't come here by accident.
+      - As you might or might not know.. The enemy is upon us, traveler.
+      - Sadly I can't sell you any potions for the upcoming battle. My potions are too strong for-..
+      - Right, wrong meme.
+      - But! I can offer you something better. See me as your fifer, bugler or drummer at the battlefield or the bard that sings great tales about your heroic stories at a tavern.
+      - Your composer for your game or screenplay.
+      - If I piqued your interest, traveler, then please look into a few of my victories. Grand artists have portrayed a few of them as paintings that I keep in my room. Let me know if you have any questions or if you are in need of my service.
+      - Good luck and stay safe.
 
   # Player character
   - type: PlayerCharacter

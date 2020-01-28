@@ -15,6 +15,8 @@ tiles:
     properties: {type: cave, shade: medium}
   - sprite: [assets/images/spritesheet.png, 192, 96, 224, 128]
     properties: {type: cave, shade: dark}
+  - sprite: [assets/images/spritesheet.png, 224, 96, 256, 128]
+    properties: {type: pillar}
 
   # Walls
   wall:
@@ -108,11 +110,6 @@ tiles:
     passable: false
     muteFactor: 0.25
 
-  # Pillar
-  pillar:
-  - sprite: assets/images/pillar.png
-    passable: false
-
   # Doors
   door:
   - sprite: [assets/images/spritesheet.png, 0, 128, 32, 160]
@@ -183,7 +180,7 @@ tiles:
     properties: {type: closet-books-2}
     passable: false
 
-  # Entities
+  # Speakers
   speaker:
   - sprite: [assets/images/spritesheet.png, 0, 192, 32, 224]
     properties: {orientation: right}
@@ -191,8 +188,64 @@ tiles:
   - sprite: [assets/images/spritesheet.png, 32, 192, 64, 224]
     properties: {orientation: left}
     passable: false
+
+  # Paintings
   painting:
-  - sprite: [assets/images/spritesheet.png, 64, 192, 96, 224]
+  - sprite: [assets/images/spritesheet.png, 0, 224, 32, 256]
+    properties: {name: Evasion}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 32, 224, 63, 256]
+    properties: {name: Foresthunt}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 63, 224, 96, 256]
+    properties: {name: Who Am I?}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 96, 224, 128, 256]
+    properties: {name: Invisible Wings}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 128, 224, 160, 256]
+    properties: {name: Ocarime The Game}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 160, 224, 192, 256]
+    properties: {name: Pien en de Vissensteen}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 192, 224, 224, 256]
+    properties: {name: Milo}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 224, 224, 256, 256]
+    properties: {name: ERICA Cover Challenge}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 256, 224, 288, 256]
+    properties: {name: Seasons}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 0, 256, 32, 288]
+    properties: {name: Noodweer}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 32, 256, 63, 288]
+    properties: {name: Now There Be Goblins}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 63, 256, 96, 288]
+    properties: {name: Wol In One}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 96, 256, 128, 288]
+    properties: {name: Dr Panda}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 128, 256, 160, 288]
+    properties: {name: Misplaced}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 160, 256, 192, 288]
+    properties: {name: Reggie}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 192, 256, 224, 288]
+    properties: {name: Hand Farm}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 224, 256, 256, 288]
+    properties: {name: The Blue Banner Theme}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 256, 256, 288, 288]
+    properties: {name: Pollu}
+    passable: false
+  - sprite: [assets/images/spritesheet.png, 192, 224, 224, 256]
     passable: false
 
   # Characters
@@ -220,6 +273,7 @@ shortcuts:
   '3': [floor, {type: room, shade: dark}]
   '8': [floor, {type: cave, shade: medium}]
   '9': [floor, {type: cave, shade: dark}]
+  '@': [floor, {type: pillar}]
 
   # Room walls
   '═': [wall, {type: room, orientation: horizontal}]
@@ -246,6 +300,3 @@ shortcuts:
   '┬': [wall, {type: cave, orientation: down-horizontal}]
   '┴': [wall, {type: cave, orientation: up-horizontal}]
   '┼': [wall, {type: cave, orientation: vertical-horizontal}]
-
-  # Pillars
-  '@': pillar
