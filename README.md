@@ -10,9 +10,13 @@ While initially written for the purpose of this interactive website, the engine 
 
 ## Engine system design
 
+The following image displays this hierarchy:
+
+![Game hierarchy](docs/game-hierarchy.png)
+
 The following image depicts a flow chart for an animation frame:
 
-![Game loop](docs/game-loop-diagram.png)
+![Game loop diagram](docs/game-loop-diagram.png)
 
 ## Audio system design
 
@@ -29,6 +33,10 @@ The audio system is created as part of the game engine to easily integrate with 
 The main components of the audio system are audio sources, which represent sources in the world, and an audio listener, that can "hear" the sources.  Like other entities, audio sources and listeners are placed at a position in the game world. How a listener percieves a source is determined by two factors:
 * The distance between the source and the listener: if a source is further away from the listener, is is less loud and can be muffled.
 * The materials through which the sound must travel from a source to reach the listener, which is reflected by the tiles on the world map.
+
+Every animation frame all audio sources calculate their rolloff value according to those factors and update their audio parameters accordingly, as depicted in the following flow chart:
+
+![Audio system diagram](docs/audio-system-diagram.png)
 
 #### Example
 
@@ -78,7 +86,7 @@ this.lowpassFrequency.value = Math.pow(20000, this.currentRolloff) + 2000;
 
 #### Audio listener component
 
-The [AudioListener](blob/master/src/engine/audio/AudioListener.js) class represents the listener that can "hear" the audio sources that are present in the world. An AudioListener contains the following variables and functions:
+The [AudioListener](blob/master/src/engine/audio/AudioListener.js) class represents the listener that can "hear" the audio sources that are present in the world. It is attached to the character sprite that is controlled by the player. An AudioListener contains the following variables and functions:
 * A vector that represents the **position** of the audio listener in the world.
 * A reference to the **Web Audio context** and a reference to the **input AudioNode** to link to the AudioSources.
 
