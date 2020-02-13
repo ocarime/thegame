@@ -1,6 +1,6 @@
 # Ocarime: The Game
 
-*Ocarime: The Game* is an interactive portfolio presentation for [Ocarime](https://ocarime.com), a team of composers, sound designers and audio programmers. The game is remiscent of a top down role playing game, such as the older *Final Fantasy* series, where the player meets the members of the team as NPCs. THe player can listen to their music and view their portfolio by interacting with the environment and objects. The game itself acts as a portfolio item for the team as well and shows what its members are capable of creating.
+[*Ocarime: The Game*](https://beta.ocarime.com) is an interactive portfolio presentation for [Ocarime](https://ocarime.com), a team of composers, sound designers and audio programmers. The game is remiscent of a top down role playing game, such as the older *Final Fantasy* series, where the player meets the members of the team as NPCs. THe player can listen to their music and view their portfolio by interacting with the environment and objects. The game itself acts as a portfolio item for the team as well and shows what its members are capable of creating.
 
 ## Game engine
 
@@ -10,9 +10,27 @@ While initially written for the purpose of this interactive website, the engine 
 
 ## Engine system design
 
-The following image displays this hierarchy:
+The following chapter gives a quick overview of the game engine to understand how the audio system is integrated in it.
+
+### Game object hierachy
+
+At its core the game engine consists of a tree structure of GameObjects. A **GameObject** acts as the base class for everything that is present in the game and provides an implementation for this hiearchy. Moreover the GameObject class has functionality for drawing and updating itself in the game loop.
+
+The game object hierarchy used in *Ocarime: The Game* consists of the following components:
+* The top of the hiearchy is always the **Game** class, which contains the game loop (that is run every animation frame by invoking `requestAnimationFrame`) as well as fnctionality for loading assets and handling events.
+* Directly underneath the Game class is the **Camera** class. This class transforms the drawing region based on the position of the player character and draws all child GameObjects based on this transformation.
+* Every game contains a **World** object that contains the actual game world. The world is made up of **Tiles** which form a tile map with e.g. floors and walls, and **Entities** that are objects that ar epresent in the world, such as characters, furniture, doors and speakers. Since every Tile and Entity is a GameObject they can contain extra functionality, such as animations or audio sources.
+
+The following image gives a visual overview of the game object hierarchy as it is used in *Ocarime: The Game*:
 
 ![Game hierarchy](docs/game-hierarchy.png)
+
+### Game loop
+
+The game loop is initiated every animation frame and does the following three things:
+* Recursively update all GameObjects in the hierarchy using their `update` functions. The update function takes into account the time it took from the last frame until now, so that e.g. physics can be easily simulated.
+* Recursively draw all GameObjects in the hierarchy using their `draw` functions. Extra functionality in this iteration is that parent GameObjects can contain `beginContext` and `endContext` functions, where the drawing context can be changed for that object and **all** its children. This functionality is for example used to draw all child GameObjects of a camera at the correct positions.
+* Request the next animation frame, thus restarting the game loop.
 
 The following image depicts a flow chart for an animation frame:
 
