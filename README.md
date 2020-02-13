@@ -10,7 +10,9 @@ While initially written for the purpose of this interactive website, the engine 
 
 ## Engine system design
 
-t.b.e.
+The following image depicts a flow chart for an animation frame:
+
+![Game loop](docs/game-loop-diagram.png)
 
 ## Audio system design
 
@@ -27,6 +29,8 @@ The audio system is created as part of the game engine to easily integrate with 
 The main components of the audio system are audio sources, which represent sources in the world, and an audio listener, that can "hear" the sources.  Like other entities, audio sources and listeners are placed at a position in the game world. How a listener percieves a source is determined by two factors:
 * The distance between the source and the listener: if a source is further away from the listener, is is less loud and can be muffled.
 * The materials through which the sound must travel from a source to reach the listener, which is reflected by the tiles on the world map.
+
+#### Example
 
 The logic of audio sources and listeners is illustrated in the following example:
 
@@ -46,7 +50,7 @@ In this example the listener is in range of two sources, which both need to trav
 
 ### Components of the audio system
 
-The following image depicts the initial class diagram, which is implemented quite unchanged apart from some Web Audio API specific code:
+The following image depicts the class diagram, which is implemented quite unchanged apart from some Web Audio API specific code:
 
 ![Initial class diagram](docs/class-diagram.png)
 
