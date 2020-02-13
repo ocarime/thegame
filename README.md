@@ -74,14 +74,17 @@ The [AudioSource](blob/master/src/engine/audio/AudioSource.js) class represents 
 In its update function, that is called every animation frame, the audio source updates its gain and lowpass filter frequency based on the current rolloff value that is calculated by the audio listener, but only if that value actually changed. This is implemented as follows:
 
 ```js
-// Adjust the gain and filter of this audio source
+AudioSource.prototype.update = function(deltaTime)
+{
+  // Adjust the gain and filter of this audio source
 
-// this.gain refers to the 'gain' AudioParameter of a GainNode.
-this.gain.value = this.currentRolloff;
+  // this.gain refers to the 'gain' AudioParameter of a GainNode.
+  this.gain.value = this.currentRolloff;
 
-// this.lowpassFrequency refers to the 'frequency' AudioParameter of a
-// BiquadFilterNode.
-this.lowpassFrequency.value = Math.pow(20000, this.currentRolloff) + 2000;
+  // this.lowpassFrequency refers to the 'frequency' AudioParameter of a
+  // BiquadFilterNode.
+  this.lowpassFrequency.value = Math.pow(20000, this.currentRolloff) + 2000;
+}
 ```
 
 #### Audio listener component
@@ -93,26 +96,29 @@ The [AudioListener](blob/master/src/engine/audio/AudioListener.js) class represe
 In its update function the audio listener updates the current rolloff values for each audio source based on the distance between the source and itself. This is implemented as follows:
 
 ```js
-// Iterate over the audio sources
-for (let source of this.context.sources)
+AudioListener.prototype.update = function(deltaTime)
 {
-  // Calculate the rolloff to the audio listener
+  // Iterate over the audio sources
+  for (let source of this.context.sources)
+  {
+    // Calculate the rolloff to the audio listener
 
-  // Vector.distance returns the Euclidean distance between two points.
-  source.currentDistance = Vector.distance(source.position, this.position);
+    // Vector.distance returns the Euclidean distance between two points.
+    source.currentDistance = Vector.distance(source.position, this.position);
 
-  // source.rolloffFunction is a function that defines the degree of rolloff,
-  // currently this is implemented as a linear interpolation between
-  // source.minRolloff and source.maxRolloff.
-  source.currentRolloff = source.rolloffFunction(source.currentDistance);
+    // source.rolloffFunction is a function that defines the degree of rolloff,
+    // currently this is implemented as a linear interpolation between
+    // source.minRolloff and source.maxRolloff.
+    source.currentRolloff = source.rolloffFunction(source.currentDistance);
 
-  // Calculate the mute factor based on the tiles that are passed
+    // Calculate the mute factor based on the tiles that are passed
 
-  // this.world.line returns an array of tiles that lay in a straight line
-  // between the two provided positions.
-  source.currentTilesPassed = this.world.line(source.position, this.position);
-  for (let tile of source.currentTilesPassed)
-    source.currentRolloff *= tile.muteFactor;
+    // this.world.line returns an array of tiles that lay in a straight line
+    // between the two provided positions.
+    source.currentTilesPassed = this.world.line(source.position, this.position);
+    for (let tile of source.currentTilesPassed)
+      source.currentRolloff *= tile.muteFactor;
+  }
 }
 ```
 
