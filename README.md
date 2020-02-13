@@ -44,7 +44,7 @@ The goal of the audio system in the game is to implement a non-linear music syst
 * Playing audio sources with realistic filters based on the position of the listener. Also obstacles like walls and doors which disturb the way of the sound will be taken into account in the system.
 * Streamlining the six compositions by playing them at the same time and looping them, so the soundtracks fade over in each other nicely.
 
-The audio system is created as part of the game engine to easily integrate with the world. The implementation of the audio system can be found in the [engine/audio](tree/master/src/engine/audio) module in the source code.
+The audio system is created as part of the game engine to easily integrate with the world. The implementation of the audio system can be found in the [engine/audio](https://github.com/ocarime/thegame/tree/master/src/engine/audio) module in the source code.
 
 ### Audio sources and listeners
 
@@ -82,7 +82,7 @@ The following image depicts the class diagram, which is implemented quite unchan
 
 #### Audio source component
 
-The [AudioSource](blob/master/src/engine/audio/AudioSource.js) class represents a source that exists in the world at a given position. An AudioSource contains the following variables and functions:
+The [AudioSource](https://github.com/ocarime/thegame/blob/master/src/engine/audio/AudioSource.js) class represents a source that exists in the world at a given position. An AudioSource contains the following variables and functions:
 * A vector that represents the **position** of the audio source in the world.
 * A **rolloff function**  that calculates the volume of the source based on the distance to the listener.
 * Two floats to set the **minimal** and **maximal rolloff distance**, i.e. the range where the rolloff function determines the volume of the source. If the distance to the listener lis less than the minimal rolloff distance, the volume is at its highest; if the distance is greater than the maximal rolloff distance, the volume is 0.
@@ -107,7 +107,7 @@ AudioSource.prototype.update = function(deltaTime)
 
 #### Audio listener component
 
-The [AudioListener](blob/master/src/engine/audio/AudioListener.js) class represents the listener that can "hear" the audio sources that are present in the world. It is attached to the character sprite that is controlled by the player. An AudioListener contains the following variables and functions:
+The [AudioListener](https://github.com/ocarime/thegame/blob/master/src/engine/audio/AudioListener.js) class represents the listener that can "hear" the audio sources that are present in the world. It is attached to the character sprite that is controlled by the player. An AudioListener contains the following variables and functions:
 * A vector that represents the **position** of the audio listener in the world.
 * A reference to the **Web Audio context** and a reference to the **input AudioNode** to link to the AudioSources.
 
@@ -142,15 +142,15 @@ AudioListener.prototype.update = function(deltaTime)
 
 #### Audio clip component
 
-The [AudioClip](blob/master/src/engine/audio/AudioClip.js) class is a static object (i.e. not apprearing in the world) that references an audio buffer. It is used in the asset loading system of the engine to easily create audio buffers that are in turn used in audio sources to actually play back the buffers.
+The [AudioClip](https://github.com/ocarime/thegame/blob/master/src/engine/audio/AudioClip.js) class is a static object (i.e. not apprearing in the world) that references an audio buffer. It is used in the asset loading system of the engine to easily create audio buffers that are in turn used in audio sources to actually play back the buffers.
 
 #### Audio context component
 
-The [Context](blob/master/src/engine/audio/Context.js) class handles the underlying connection to the AudioContext of the Web Audio API. It also contains functions to easily create new clips, sources and listeners and connect the underlying AudioNodes.
+The [Context](https://github.com/ocarime/thegame/blob/master/src/engine/audio/Context.js) class handles the underlying connection to the AudioContext of the Web Audio API. It also contains functions to easily create new clips, sources and listeners and connect the underlying AudioNodes.
 
 ### Music system
 
-The music system is implemented in the [MusicSystem](blob/master/src/game/audio/MusicSystem.js) component. This component registers the audio sources that are used for playing the six soundtracks (seven if the common soundtrack is counted as well), which defaults to an audio source linked to a speaker entity.
+The music system is implemented in the [MusicSystem](https://github.com/ocarime/thegame/blob/master/src/game/audio/MusicSystem.js) component. This component registers the audio sources that are used for playing the six soundtracks (seven if the common soundtrack is counted as well), which defaults to an audio source linked to a speaker entity.
 
 When the Web Audio context is started, the music system plays back the registered audio sources at the same time, so that transitions bettween them are synchronized.
 
