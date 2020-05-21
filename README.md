@@ -1,25 +1,26 @@
 # Ocarime: The Game
 
-[*Ocarime: The Game*](https://beta.ocarime.com) is an interactive portfolio presentation for [Ocarime](https://ocarime.com), a team of composers, sound designers and audio programmers. The game is remiscent of a top down role playing game, such as the older *Final Fantasy* series, where the player meets the members of the team as NPCs. THe player can listen to their music and view their portfolio by interacting with the environment and objects. The game itself acts as a portfolio item for the team as well and shows what its members are capable of creating.
+*Ocarime: The Game* is an interactive portfolio presentation for [Ocarime](https://ocarime.com), a team of composers, sound designers and audio programmers. The game is remiscent of a top down role playing game, such as the older *Final Fantasy* series, where the player meets the members of the team as NPCs. The player can listen to their music and view their portfolio by interacting with the environment and objects. The game itself acts as a portfolio item for the team as well, and shows what its members are capable of creating.
 
 ## Game engine
 
-The game engine is written from scratch in HTML5 and JavaScript, based on priciples also used by the [Unity](https://unity.com/) game engine. The engine uses the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for visual content and the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) for audio content. Moreover the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is used for asset loading.
+The game engine is written from scratch in HTML5 and JavaScript, based on priciples also used by the [Unity](https://unity.com/) and [Godot](https://godotengine.org/) game engines. The engine uses the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) for visual content and the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) for audio content. Moreover the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is used for asset loading.
 
-While initially written for the purpose of this interactive website, the engine is written in a modular way, so that it can easily be decouples from the actual game. In that way it can be re-used in other top down tile-based games.
+While initially written for the purpose of this interactive website, the engine is written in a modular way, so that it can easily be decoupled from the actual game. In that way it can be re-used in other top down tile-based games.
 
 ## Engine system design
 
-The following chapter gives a quick overview of the game engine to understand how the audio system is integrated in it.
+The following chapter gives a quick overview of the game engine to understand how the audio system is tied into that.
 
 ### Game object hierachy
 
-At its core the game engine consists of a tree structure of GameObjects. A **GameObject** acts as the base class for everything that is present in the game and provides an implementation for this hiearchy. Moreover the GameObject class has functionality for drawing and updating itself in the game loop.
+At its core the game engine consists of a tree structure of GameObjects. A **GameObject** acts as the base class for everything that is present in the game, and provides an implementation for this hierarchy. Moreover the GameObject class has functionality for drawing and updating itself in the game loop.
 
 The game object hierarchy used in *Ocarime: The Game* consists of the following components:
-* The top of the hiearchy is always the **Game** class, which contains the game loop (that is run every animation frame by invoking `requestAnimationFrame`) as well as fnctionality for loading assets and handling events.
+
+* The top of the hierarchy is always the **Game** class, which contains the game loop (that is run every animation frame by invoking `requestAnimationFrame`) as well as functionality for loading assets and handling events.
 * Directly underneath the Game class is the **Camera** class. This class transforms the drawing region based on the position of the player character and draws all child GameObjects based on this transformation.
-* Every game contains a **World** object that contains the actual game world. The world is made up of **Tiles** which form a tile map with e.g. floors and walls, and **Entities** that are objects that ar epresent in the world, such as characters, furniture, doors and speakers. Since every Tile and Entity is a GameObject they can contain extra functionality, such as animations or audio sources.
+* Every game contains a **World** object that contains the actual game world. The world is made up of **Tiles**, which form a tile map with for example floors and walls, and **Entities**, which are objects that are present in the world, such as characters, furniture, doors and speakers. Since every Tile and Entity is a GameObject, they can contain extra functionality, such as animations or audio sources.
 
 The following image gives a visual overview of the game object hierarchy as it is used in *Ocarime: The Game*:
 
@@ -28,7 +29,8 @@ The following image gives a visual overview of the game object hierarchy as it i
 ### Game loop
 
 The game loop is initiated every animation frame and does the following three things:
-* Recursively update all GameObjects in the hierarchy using their `update` functions. The update function takes into account the time it took from the last frame until now, so that e.g. physics can be easily simulated.
+
+* Recursively update all GameObjects in the hierarchy using their `update` functions. The update function takes into account the time it took from the last frame until now, so that physics can be easily simulated.
 * Recursively draw all GameObjects in the hierarchy using their `draw` functions. Extra functionality in this iteration is that parent GameObjects can contain `beginContext` and `endContext` functions, where the drawing context can be changed for that object and **all** its children. This functionality is for example used to draw all child GameObjects of a camera at the correct positions.
 * Request the next animation frame, thus restarting the game loop.
 
@@ -38,17 +40,18 @@ The following image depicts a flow chart for an animation frame:
 
 ## Audio system design
 
-The goal of the audio system in the game is to implement a non-linear music system containing six compositions that represent the six team members of Ocarime. More specific, the audio system should minimall be capable of doing the following:
+The goal of the audio system in the game is to implement a non-linear music system containing six compositions that represent the six team members of Ocarime. More specific, the audio system should minimally be capable of doing the following:
 
 * Creating components that represent audio sources and listeners based on the Web Audio API, that can be placed in the game world.
-* Playing audio sources with realistic filters based on the position of the listener. Also obstacles like walls and doors which disturb the way of the sound will be taken into account in the system.
+* Playing audio sources with realistic filters based on the position of the listener. Also obstacles like walls and doors, which disturb the way of the sound, will be taken into account in the system.
 * Streamlining the six compositions by playing them at the same time and looping them, so the soundtracks fade over in each other nicely.
 
 The audio system is created as part of the game engine to easily integrate with the world. The implementation of the audio system can be found in the [engine/audio](https://github.com/ocarime/thegame/tree/master/src/engine/audio) module in the source code.
 
 ### Audio sources and listeners
 
-The main components of the audio system are audio sources, which represent sources in the world, and an audio listener, that can "hear" the sources.  Like other entities, audio sources and listeners are placed at a position in the game world. How a listener percieves a source is determined by two factors:
+The main components of the audio system are audio sources, which represent sources in the world, and an audio listener, that can "hear" the sources. Like other entities, audio sources and listeners are placed at a position in the game world. How a listener percieves a source is determined by two factors:
+
 * The distance between the source and the listener: if a source is further away from the listener, is is less loud and can be muffled.
 * The materials through which the sound must travel from a source to reach the listener, which is reflected by the tiles on the world map.
 
@@ -76,13 +79,14 @@ In this example the listener is in range of two sources, which both need to trav
 
 ### Components of the audio system
 
-The following image depicts the class diagram, which is implemented quite unchanged apart from some Web Audio API specific code:
+The following image depicts the class diagram, which is implemented quite unchanged from the original design, apart from some Web Audio API specific code:
 
 ![Initial class diagram](docs/class-diagram.png)
 
 #### Audio source component
 
 The [AudioSource](https://github.com/ocarime/thegame/blob/master/src/engine/audio/AudioSource.js) class represents a source that exists in the world at a given position. An AudioSource contains the following variables and functions:
+
 * A vector that represents the **position** of the audio source in the world.
 * A **rolloff function**  that calculates the volume of the source based on the distance to the listener.
 * Two floats to set the **minimal** and **maximal rolloff distance**, i.e. the range where the rolloff function determines the volume of the source. If the distance to the listener lis less than the minimal rolloff distance, the volume is at its highest; if the distance is greater than the maximal rolloff distance, the volume is 0.
@@ -108,6 +112,7 @@ AudioSource.prototype.update = function(deltaTime)
 #### Audio listener component
 
 The [AudioListener](https://github.com/ocarime/thegame/blob/master/src/engine/audio/AudioListener.js) class represents the listener that can "hear" the audio sources that are present in the world. It is attached to the character sprite that is controlled by the player. An AudioListener contains the following variables and functions:
+
 * A vector that represents the **position** of the audio listener in the world.
 * A reference to the **Web Audio context** and a reference to the **input AudioNode** to link to the AudioSources.
 
@@ -154,8 +159,7 @@ The music system is implemented in the [MusicSystem](https://github.com/ocarime/
 
 When the Web Audio context is started, the music system plays back the registered audio sources at the same time, so that transitions bettween them are synchronized.
 
-
-### Improvements
+### Future improvements
 
 The current design and implementation of the audio system tries to give the player a fairly realistic experience in terms of audio. Therefore it is logical that the components are modeled after real world analogies. The system however can be further improved:
 
